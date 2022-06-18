@@ -48,6 +48,42 @@ async def cmds(ctx: Context):
         embed = discord.Embed(title="Command List", description=content)
         await ctx.send(embed=embed)
 
+# Maker Commands ===========================================
+
+#TODO catch errors
+#TODO test if others cannot call this
+# DMs callers ID (all users can call this command) ---------
+# DMs bot logs, discord logs, or server logs (only 
+# owner can use this command)
+@bot.command()
+async def dm(ctx: Context, arg=None):
+    if arg:
+        dm = await ctx.author.create_dm()
+        fileName = None
+        if arg == "id":
+            await dm.send(str(ctx.author.id))
+        elif arg == "botlogs":
+            fileName = r'./logs/bot.txt'
+        elif arg == "discordlogs":
+            fileName = r'./logs/discord.txt'
+        elif arg == "serverlogs":
+            fileName = r'./logs/server.txt'
+        if fileName:
+            if ctx.author.id == MAKER:
+                file = file=discord.File(fileName)
+                await dm.send(file=file)
+            else:
+                dm.send("You are not my maker")
+
+@bot.command()
+@commands.is_owner()
+async def die(ctx):
+    await ctx.bot.close()
+
+@die.error
+async def die_error(ctx):
+    await ctx.send("You are not my maker")
+
 # Events ===================================================
 
 # boot message ---------------------------------------------
