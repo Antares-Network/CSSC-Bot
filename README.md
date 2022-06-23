@@ -69,9 +69,9 @@ TOKEN="<paste your token here>"
 **Why you should keep your bot token a secret**:
 a bot token is used to attach a script to your bot. If someone has your bot token, they can control your bot with any script they attach to it. If you want your own remote branch in this project, **please do not commit changes to this file.**
 
-The **MAKER** variable in **tkn.py** is used to associate the bot with an author (your ID). This bot has a command that will DM your ID, check the [Features](#features) section. This file contains the ID of the author, you can change it to your own.
+The **MAKER** variable in **tkn.py** is used to associate the bot with an author - you can replace the ID with your own (but do not commit the change). This bot has a command that will DM your ID, check the [Features](#features) section.
 
-After that is done, generate a URL for your bot. Select **OAuth2** from the left menu, and click **URL Generator**. Choose the **bot** checkbox, and select the **Administrator** checkbox in the box that appears. Copy the URL at the bottom of the page.
+After that is done, generate a URL for your bot. Select **OAuth2** from the left menu, and click **URL Generator**. Choose the **bot** checkbox, and select the **Administrator** checkbox in the section that appears. Copy the URL at the bottom of the page.
 
 ![Step #7](/demo/7.jpg)
 
@@ -80,19 +80,20 @@ Follow this link in a browser, and choose the private server you created to add 
 ```py
 python rolebot.py
 ```
+(replace *python* with the interpreter that has the correct version from the first step)
 
-The bot should become responsive. If there are errors, they can be found in **logs/bot.txt**.
+The bot should become responsive. You can check for errors in **logs/bot.txt**.
 
 
 ## Project Structure
 
 All python files are located in the **modules** folder, the only exception is **rolebot.py** - it is the interface of the bot.
 
-**modules/logger.py** - code for logging errors for this project. There are 2 log files: **logs/bot.txt** and **logs/discord.txt**. bot.txt is used for errors caused by the bot, and discord.txt is used for errors that are sent from your Discord server.
+**modules/logger.py** - code for logging errors for this project. There are 3 log files: **logs/bot.txt**, **logs/discord.txt**, and **logs/server.txt**. bot.txt is used for errors caused by the bot, discord.txt is used for errors that are sent from your Discord server, and server.txt is used for errors logged by the machine the bot is running on.
 
-**modules/persistance.py** - used for creating json files that need to be persisted. Currently, it keeps track of the IDs of the messages that the bot creates. This makes those messages accessable by the bot after it reboots. The message ID json file is stored at **json/msg_ids.json**.
+**modules/persistance.py** - used for creating json files that need to be persisted. Currently, it keeps track of the IDs of the messages that the bot creates. This makes those messages accessable by the bot after it reboots. The message ID JSON file is stored at **json/msg_ids.json**.
 
-**modules/role_poll.py** - module for the role reaction polls. There are two, one for selecting a college year, and another for choosing an occupation at UWM. The role reaction poll options are represented by objects that extend `ReactionPoll`. The existing classes that extend it are `CollegeYearPoll` and `CollegeStaffPoll`. You can add a new reaction poll by creating a key, extending the ReactionPoll class, and editing the `polls` variable, like so:
+**modules/role_poll.py** - module for the role reaction polls. There are two, one for selecting a college year, and another for choosing an occupation at UWM. The role reaction poll options are represented by objects that extend `ReactionPoll`. The existing classes that extend it are `CollegeYearPoll` and `CollegeStaffPoll`. You can add a new reaction poll by creating a key, extending the `ReactionPoll` class, and editing the `polls` variable, like so:
 
 ```python
 
@@ -120,9 +121,9 @@ polls = {
 
 ```
 
-This will assign the roles `#1`, `#2` or `#3` to the user that selects the corresponding reaction. Their colors will be `0xfff`, `0xaaa` and `0x000`. If those roles do not exist on the server, they will be created. The last parameter is needs to be unique among all polls, it is used to assign a role to a user with a command.
+This will assign the roles `#1`, `#2` or `#3` to the user that selects the corresponding reaction. Their colors will be `0xaaa`, `0xccc` and `0xeee`. If those roles do not exist on the server, they will be created (when checking for an existing role, only the name is matched - color is used during role creation by the bot). The last parameter needs to be unique among all polls, it is used to assign a role to a user with a command.
 
-The base `ReactionPoll` class has one function `assign()` that can be overridden. It assigns the role that it represents to the argument **member** from the argument **server** (Guild). This can be overridden, the `CollegeYearPoll` overrides this to make sure that the member only has one college year.
+The base `ReactionPoll` class has one function `assign()` that can be overridden. It assigns the role that it represents to the argument **member** from the argument **server** (Guild). The `CollegeYearPoll` overrides this to make sure that the member only has one college year.
 
 **modules/utils.py** - this file is for utility functions. Currently, it has one, it is used to find the argument `roleName` in the argument `guild` (server). If it is not found, then a role named by the argument `roleName` of the argument `roleColor` color will be created in the argument `guild`. The new or retrieved role is returned.
 
