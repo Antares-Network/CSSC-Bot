@@ -89,7 +89,7 @@ The bot should become responsive. You can check for errors in **logs/bot.txt**.
 
 All python files are located in the **modules** folder, the only exception is **rolebot.py** - it is the interface of the bot.
 
-**modules/logger.py** - code for logging errors for this project. There are 3 log files: **logs/bot.txt**, **logs/discord.txt**, and **logs/server.txt**. bot.txt is used for errors caused by the bot, discord.txt is used for errors that are sent from your Discord server, and server.txt is used for errors logged by the machine the bot is running on.
+**modules/logger.py** - code for logging errors for this project. There are 3 log files: **logs/bot.txt**, **logs/discord.txt**, and **logs/server.txt**. bot.txt is used for errors caused by the bot, discord.txt is used for errors that are sent from your Discord server, and server.txt is used for errors logged by the machine the bot is running on. Nothing in the project links to the last file, it's just a place that I use to dump errors from the physical server.
 
 **modules/persistance.py** - used for creating json files that need to be persisted. Currently, it keeps track of the IDs of the messages that the bot creates. This makes those messages accessable by the bot after it reboots. The message ID JSON file is stored at **json/msg_ids.json**.
 
@@ -138,6 +138,8 @@ The base `ReactionPoll` class has one function `assign()` that can be overridden
 **json** - folder that contains persisted JSON files. **json/msg_ids.json** has the IDs of all of the messages that this bot posts, this makes those messages accessible by the bot after it reboots. **modules/persistance.py** should be used to create the JSON files.
 
 ## Features
+The commands work on Discord servers and in private messages sent to the bot. However, it cannot assign roles inside of DMs. To assign roles, the command for role assignment must be sent in a Discord server where the roles can be created (this is possible to change).
+
 **$cmds** - list the commands that can be used with this bot
 
 **$collegeYearPoll** - post a college year reaction poll. All active polls made by this bot work, you can use this to summon a poll anywhere for newcomers.
