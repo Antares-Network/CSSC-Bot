@@ -10,7 +10,7 @@
 
 ## Prerequisites
 
-**Python 3.8.10 or later is required to run this bot.** To check your python version, open a terminal and run:
+**Python 3.8 or later is required to run this bot.** To check your python version, open a terminal and run:
 ```bash
 $ python --version
 ```
