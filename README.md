@@ -142,11 +142,11 @@ The commands work on Discord servers and in private messages sent to the bot. Ho
 
 **$cmds** - list the commands that can be used with this bot
 
-**$collegeYearPoll** - post a college year reaction poll. All active polls made by this bot work, you can use this to summon a poll anywhere for newcomers.
+**$poll collegeYear** - post a college year reaction poll. All active polls made by this bot work, you can use this to summon a poll anywhere for newcomers.
 
 ![College Year Poll](demo/college-year-poll.png)
 
-**$collegeStaffPoll** - post a college occupation reaction poll.
+**$poll collegeStaff** - post a college occupation reaction poll.
 
 ![College Staff Poll](demo/college-staff-poll.png)
 
@@ -177,5 +177,4 @@ change the `MAKER` ID to your own ID.
 
  - [Discord.py Tutorial](https://discordpy.readthedocs.io/en/stable/ext/commands/commands.html)
  - [Discord.py API](https://discordpy.readthedocs.io/en/stable/api.html)
-
-
+ - 

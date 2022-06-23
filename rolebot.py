@@ -18,15 +18,13 @@ bot = commands.Bot(command_prefix=CMD_PREFIX, owner_id=MAKER, intents=intents)
 
 # Commands =================================================
 
-# post the college year reaction poll ----------------------
+# post a reaction poll
 @bot.command(pass_context=True)
-async def collegeYearPoll(ctx: Context):
-    await rolePoll(ctx, role_poll.COLLEGE_YEAR_POLL_KEY)
-
-# post the college staff reaction poll ---------------------
-@bot.command(pass_context=True)
-async def collegeStaffPoll(ctx: Context):
-    await rolePoll(ctx, role_poll.COLLEGE_STAFF_POLL_KEY)
+async def poll(ctx: Context, arg=None):
+    if arg == "collegeYear":
+        await rolePoll(ctx, role_poll.COLLEGE_YEAR_POLL_KEY)
+    elif arg == "collegeStaff":
+        await rolePoll(ctx, role_poll.COLLEGE_STAFF_POLL_KEY)
 
 # assign a role using a command ----------------------------
 @bot.command(pass_context=True)

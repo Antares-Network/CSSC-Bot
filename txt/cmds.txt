@@ -1,8 +1,8 @@
 **$cmds** - list the commands that can be used with this bot.
 
-**$collegeYearPoll** - post a college year reaction poll. All active polls made by this bot work, you can use this to summon a poll anywhere for newcomers.
+**$poll collegeYear** - post a college year reaction poll. All active polls made by this bot work, you can use this to summon a poll anywhere for newcomers.
 
-**$collegeStaffPoll** - post a college occupation reaction poll.
+**$poll collegeStaff** - post a college occupation reaction poll.
 
 **$assign role** - assign yourself a role, where **role** is: *prefrosh*, *freshman*, *sophomore*, *junior*, *senior*, *gradstudent*, *alumni*, *professor*, *tutor*, *ta*, *sileader*.
 
