@@ -11,9 +11,10 @@ from tkn import MAKER, TOKEN
 
 # 'Constants' ==============================================
 
-CMDS_TEXT = "txt/cmds.txt"
+CMD_TEXT = "txt/cmds.txt"
+CMD_PREFIX = "$"
 intents = discord.Intents.default()
-bot = commands.Bot(command_prefix='!', owner_id=MAKER, intents=intents)
+bot = commands.Bot(command_prefix=CMD_PREFIX, owner_id=MAKER, intents=intents)
 
 # Commands =================================================
 
@@ -41,7 +42,7 @@ async def assign(ctx: Context, arg=None):
 @bot.command(pass_context=True)
 async def cmds(ctx: Context):
     content = ""
-    with open(CMDS_TEXT, "r") as file:
+    with open(CMD_TEXT, "r") as file:
         content = file.read()
 
     if content:
@@ -50,9 +51,7 @@ async def cmds(ctx: Context):
 
 # Maker Commands ===========================================
 
-#TODO catch errors
-#TODO test if others cannot call this
-# DMs callers ID (all users can call this command) ---------
+# DMs caller's ID (all users can call this command) ---------
 # DMs bot logs, discord logs, or server logs (only 
 # owner can use this command)
 @bot.command()
@@ -73,16 +72,17 @@ async def dm(ctx: Context, arg=None):
                 file = file=discord.File(fileName)
                 await dm.send(file=file)
             else:
-                dm.send("You are not my maker")
+                await dm.send("You are not my maker")
 
+# shuts down the bot
 @bot.command()
-@commands.is_owner()
 async def die(ctx):
-    await ctx.bot.close()
-
-@die.error
-async def die_error(ctx):
-    await ctx.send("You are not my maker")
+    dm = await ctx.author.create_dm()
+    if ctx.author.id == MAKER:
+        await dm.send("goodbye")
+        await ctx.bot.close()
+    else:
+        await dm.send("You are not my maker")
 
 # Events ===================================================
 

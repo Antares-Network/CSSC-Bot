@@ -1,4 +1,4 @@
-# Discord bot info
+# CS Smart Club Bot
 
 ## Table of Contents
 
@@ -138,23 +138,23 @@ The base `ReactionPoll` class has one function `assign()` that can be overridden
 **json** - folder that contains persisted JSON files. **json/msg_ids.json** has the IDs of all of the messages that this bot posts, this makes those messages accessible by the bot after it reboots. **modules/persistance.py** should be used to create the JSON files.
 
 ## Features
-**!cmds** - list the commands that can be used with this bot
+**$cmds** - list the commands that can be used with this bot
 
-**!collegeYearPoll** - post a college year reaction poll. All active college year polls made by this bot work, you can use this to summon a poll anywhere for newcomers.
+**$collegeYearPoll** - post a college year reaction poll. All active polls made by this bot work, you can use this to summon a poll anywhere for newcomers.
 
 ![College Year Poll](demo/college-year-poll.png)
 
-**!collegeStaffPoll** - post a college occupation reaction poll.
+**$collegeStaffPoll** - post a college occupation reaction poll.
 
 ![College Staff Poll](demo/college-staff-poll.png)
 
 The bot only resonds to the event when a reaction **is added**. Currently, nothing happens when a reaction is removed.
 
-**!assign <role>** - assign yourself a role, where **<role>** is: *prefrosh*, *freshman*, *sophomore*, *junior*, *senior*, *gradstudent*, *alumni*, *professor*, *tutor*, *ta*, *sileader*
+**$assign role** - assign yourself a role, where **role** is: *prefrosh*, *freshman*, *sophomore*, *junior*, *senior*, *gradstudent*, *alumni*, *professor*, *tutor*, *ta*, *sileader*
 
-**!assign clear** - this will only clear the roles mentioned above, **not** any special roles, like *leet gamer* or *club mod*
+**$assign clear** - this will only clear the roles mentioned above, **not** any special roles, like *leet gamer* or *club mod*
 
-**!dm id** - make the bot DM your ID. This can be assigned to
+**$dm id** - make the bot DM your ID. This can be assigned to
 the `MAKER` variable in **tkn.py**, which will make all of the 
 maker commands accessible only by you. This command is not a 
 maker command.
@@ -163,13 +163,13 @@ maker command.
 These can only be used by an account with an ID that matches `MAKER` in **tkn.py**. You can 
 change the `MAKER` ID to your own ID.
 
-**!dm botlogs** - DMs logs/bot.txt 
+**$dm botlogs** - DMs logs/bot.txt 
 
-**!dm discordlogs** - DMs logs/discord.txt
+**$dm discordlogs** - DMs logs/discord.txt
 
-**!dm serverlogs** - DMs logs/server.txt
+**$dm serverlogs** - DMs logs/server.txt
 
-**!die** - shuts down the bot
+**$die** - shuts down the bot
 
 ## Resources
 
