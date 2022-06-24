@@ -24,11 +24,11 @@ $ python3 --version
 ```
 Out of those three, use the interpreter of a version that is equal or higher than the one mentioned above. If you do not have the correct version, [you can download it here.](https://www.python.org/downloads/release/python-3105/)
 
-**Once that's done, [download Discord.py here](https://discordpy.readthedocs.io/en/stable/intro.html).**
+**Once that's done, [download Discord.py here](https://discordpy.readthedocs.io/en/stable/intro.html).** Make sure you get the most recent **stable** version, which is v.1.7.4. The available versions can be viewed by clicking a dropdown in the lower right corner of the webpage.
 
 Next, clone the project to a folder on your machine:
 ```bash
-git clone https://github.com/llisaeva/Rolebot.git
+git clone https://github.com/llisaeva/CSSC-Bot.git
 ```
 If you don't have git, you can either download the project as a zip file **(Code > Download ZIP)**, or [download git](https://git-scm.com/downloads).
 
@@ -93,7 +93,7 @@ All python files are located in the **modules** folder, the only exception is **
 
 **modules/persistance.py** - used for creating json files that need to be persisted. Currently, it keeps track of the IDs of the messages that the bot creates. This makes those messages accessable by the bot after it reboots. The message ID JSON file is stored at **json/msg_ids.json**.
 
-**modules/role_poll.py** - module for the role reaction polls. There are two, one for selecting a college year, and another for choosing an occupation at UWM. The role reaction poll options are represented by objects that extend `ReactionPoll`. The existing classes that extend it are `CollegeYearPoll` and `CollegeStaffPoll`. You can add a new reaction poll by creating a key, extending the `ReactionPoll` class, and editing the `polls` variable, like so:
+**modules/role_poll.py** - module for the role reaction polls. There are two, one for selecting a college year, and another for choosing an occupation at UWM. The role reaction poll options are represented by objects that extend `ReactionPoll`. `ReactionPoll` is a custom base class, its purpose is to keep all reaction polls in the same format. The existing classes that extend it are `CollegeYearPoll` and `CollegeStaffPoll`. You can add a new reaction poll by creating a key, extending the `ReactionPoll` class, and editing the `polls` variable, like so:
 
 ```python
 
@@ -177,4 +177,3 @@ change the `MAKER` ID to your own ID.
 
  - [Discord.py Tutorial](https://discordpy.readthedocs.io/en/stable/ext/commands/commands.html)
  - [Discord.py API](https://discordpy.readthedocs.io/en/stable/api.html)
- - 
