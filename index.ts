@@ -40,7 +40,7 @@ client.on("ready", () => {
 		featureDir: path.join(__dirname, "features"),
 		dbOptions,
 		typeScript: true,
-		mongoUri: String(process.env.MONGO_URI),
+		mongoUri: String(process.env.MONGODB_URI),
 		disabledDefaultCommands: ["help", "language"],
 		botOwners: ["603629606154666024", "680813135556378634"],
 	}).setDefaultPrefix(String(process.env.BOT_DEFAULT_PREFIX));
