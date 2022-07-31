@@ -14,6 +14,10 @@ const roleDictionary: dict =
 	"senior": "950929067388063785",
 	"graduatestudent": "950929245738262599",
 	"alumni": "836653848218042379",
+	"tutor": "803752828929179740",
+	"sileader": "990015944711610438",
+	"ta": "unknown",
+	"studentemployee": "unknown",
 };
 
 

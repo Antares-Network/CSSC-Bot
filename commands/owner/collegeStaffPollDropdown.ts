@@ -2,7 +2,7 @@ import { MessageEmbed, MessageActionRow, MessageSelectMenu } from "discord.js";
 import { ICommand } from "wokcommands";
 
 export default {
-	name: "collegeYearPollDropdown",
+	name: "collegeStaffPollDropdown",
 	category: "owner",
 	description: "Posts the College Year Poll",
 	slash: true,
@@ -16,7 +16,7 @@ export default {
 		const infoEmbed = new MessageEmbed()
 			.setTitle("Choose a role")
 			.setColor("#0099ff")
-			.setDescription("Select the button with your current college year.")
+			.setDescription("Select the option with your current occupation at UWM.")
 			.setFooter({
 				text: `Delivered in: ${client.ws.ping}ms | CSSC-Bot | ${process.env.VERSION}`,
 				iconURL: "https://playantares.com/resources/CSSC-bot/icon.jpg",
@@ -25,37 +25,29 @@ export default {
 		// Create row one of the buttons for the poll
 		const row = new MessageActionRow().addComponents(
 			new MessageSelectMenu()
-      .setCustomId("collegeYearPoll")
-      .setPlaceholder("Select an option.")
+      .setCustomId("collegeStaffPoll")
+      .setPlaceholder("Select an option")
       .addOptions(
 				{
-					label: "Prefrosh",
-					value: "prefrosh",
-				},
-				{
-					label: "Freshman",
-					value: "freshman",
-				},
-				{
-					label: "Sophomore",
-					value: "sophomore",
-				},
-				{
-					label: "Junior",
-					value: "junior",
-				},
-				{
-					label: "Senior",
-					value: "senior",
-				},
-				{
-					label: "Graduate Student",
-					value: "graduatestudent",
-				},
-				{
-					label: "Alumni",
-					value: "alumni",
-				}
+                    label: "Tutor",
+                    value: "tutor",
+                },
+                {
+                    label: "SI Leader",
+                    value: "sileader",
+                },
+                {
+                    label: "TA",
+                    value: "ta",
+                },
+                {
+                    label: "Professor",
+                    value: "professor",
+                },
+                {
+                    label: "Student Employee",
+                    value: "studentemployee",
+                }
 			)
 		);
 
