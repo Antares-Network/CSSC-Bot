@@ -1,25 +1,39 @@
 type dict = {
-    [key: string]: string
-}
-
-
-// Not the most efficient way of doing this but it's just here for testing.
-// Eventually this will be moved to an .env file to make it easier to set up in a new server
-const roleDictionary: dict = 
-{
-	"prefrosh": "950928528562593833",
-	"freshman": "950928723287371846",
-	"sophomore": "950928801842470933",
-	"junior": "950928919043932250",
-	"senior": "950929067388063785",
-	"graduatestudent": "950929245738262599",
-	"alumni": "836653848218042379",
-	"tutor": "803752828929179740",
-	"sileader": "990015944711610438",
-	"ta": "unknown",
-	"studentemployee": "unknown",
+	[key: string]: string;
 };
 
+function returnRoles(): dict {
+	let roleDictionary = {
+		prefrosh: String(process.env.prefrosh),
+		freshman: String(process.env.freshman),
+		sophomore: String(process.env.sophomore),
+		junior: String(process.env.junior),
+		senior: String(process.env.senior),
+		graduatestudent: String(process.env.graduatestudent),
+		alumni: String(process.env.alumni),
+		tutor: String(process.env.tutor),
+		sileader: String(process.env.sileader),
+		ta: String(process.env.ta),
+		studentemployee: String(process.env.studentemployee),
+	};
+	if (process.env.debugMode === "true") {
+		
+		let roleDictionary = {
+			prefrosh: "1003849993255403601",
+			freshman: "1003367383181824131",
+			sophomore: "1003367410679685262",
+			junior: "1003367473053171743",
+			senior: "1003850030920245409",
+			graduatestudent: "1003850131994583122",
+			alumni: "1003850162935975960",
+			tutor: "1003850195202744560",
+			sileader: "1003850241591742595",
+			ta: "1003850228643934260",
+			studentemployee: "1003850274840002620",
+		};
+		return roleDictionary;
+	}
+	return roleDictionary;
+}
 
-export { roleDictionary };
-
+export { returnRoles };

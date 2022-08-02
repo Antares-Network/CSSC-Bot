@@ -22,12 +22,13 @@ export default {
 				iconURL: "https://playantares.com/resources/CSSC-bot/icon.jpg",
 			});
 
+		
 		// Create row one of the buttons for the poll
 		const row = new MessageActionRow().addComponents(
 			new MessageSelectMenu()
-      .setCustomId("collegeYearPoll")
-      .setPlaceholder("Select an option.")
-      .addOptions(
+      			.setCustomId("collegeYearPoll")
+      			.setPlaceholder("Select an option.")
+      			.addOptions(
 				{
 					label: "Prefrosh",
 					value: "prefrosh",

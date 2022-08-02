@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import chalk from "chalk";
 
 // Import custom packages
-import { roleDictionary } from "./definitions";
+import { returnRoles as roleDictionary } from "./definitions";
 
 // import all environment variables from .env file
 dotenv.config();
@@ -25,6 +25,11 @@ const client = new DiscordJs.Client({
 client.on("ready", () => {
 	if (client.user) {
 		console.log(chalk.green(`Logged in as ${client.user.tag}!`));
+		if (process.env.debugMode === "true") {
+			console.log(chalk.red.bold("Debug mode is enabled!\nTesting Server roles are loaded!"));
+		} else if (process.env.debugMode === "false") {
+			console.log(chalk.red.bold("Debug mode is disabled!\nProduction Server roles are loaded!"));
+		}
 	}
 
 	const dbOptions = {
@@ -76,13 +81,13 @@ client.on("interactionCreate", async (interaction) => {
 
 		// Remove any previous roles in the dictionary from the user
 		const member = interaction.member as GuildMember;
-		for (const role of Object.values(roleDictionary)) {
+		for (const role of Object.values(roleDictionary())) {
 			if (member.roles.cache.has(role)) {
 				await member.roles.remove(role);
 			}
 		}
 		// Assign the new role to the user
-		member.roles.add(roleDictionary[interaction.values[0]]);
+		member.roles.add(roleDictionary()[interaction.values[0]]);
 	}
 });
 
