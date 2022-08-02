@@ -18,11 +18,16 @@ export default {
     if (!interaction.member) return;
     let list = "";
     const member = interaction.member as GuildMember;
-    for (const role of Object.values(roleDictionary())) {
+    for (const role of Object.values(roleDictionary()[0])) {
         if (member.roles.cache.has(role)) {
             list += `${member.guild.roles.cache.get(role)?.name}\n`;
         }
     }
+    for (const role of Object.values(roleDictionary()[1])) {
+      if (member.roles.cache.has(role)) {
+          list += `${member.guild.roles.cache.get(role)?.name}\n`;
+      }
+  }
     
 
     // Reply to the user

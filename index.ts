@@ -13,12 +13,7 @@ dotenv.config();
 
 // Create a new Discord client
 const client = new DiscordJs.Client({
-	intents: [
-		Intents.FLAGS.GUILDS,
-		Intents.FLAGS.GUILD_MESSAGES,
-		Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
-		Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
-	],
+	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS],
 });
 
 // Once the bot has started and emits the ready event, we can start setting up our commands and features.
@@ -78,16 +73,38 @@ client.on("interactionCreate", async (interaction) => {
 			],
 			ephemeral: true,
 		});
-
 		// Remove any previous roles in the dictionary from the user
 		const member = interaction.member as GuildMember;
-		for (const role of Object.values(roleDictionary())) {
+		for (const role of Object.values(roleDictionary()[0])) {
 			if (member.roles.cache.has(role)) {
 				await member.roles.remove(role);
 			}
 		}
 		// Assign the new role to the user
-		member.roles.add(roleDictionary()[interaction.values[0]]);
+		member.roles.add(roleDictionary()[0][interaction.values[0]]);
+	} else if (interaction.customId === "collegeStaffPoll") {
+		interaction.reply({
+			embeds: [
+				new MessageEmbed()
+					.setTitle("College Year Poll")
+					.setColor("#0099ff")
+					.setDescription(`You selected the ${interaction.values[0]} role.`)
+					.setFooter({
+						text: `Delivered in: ${client.ws.ping}ms | CSSC-Bot | ${process.env.VERSION}`,
+						iconURL: "https://playantares.com/resources/CSSC-bot/icon.jpg",
+					}),
+			],
+			ephemeral: true,
+		});
+		// Remove any previous roles in the dictionary from the user
+		const member = interaction.member as GuildMember;
+		for (const role of Object.values(roleDictionary()[1])) {
+			if (member.roles.cache.has(role)) {
+				await member.roles.remove(role);
+			}
+		}
+		// Assign the new role to the user
+		member.roles.add(roleDictionary()[1][interaction.values[0]]);
 	}
 });
 

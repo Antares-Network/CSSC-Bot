@@ -17,11 +17,16 @@ export default {
     // Remove roles from user
     if (!interaction.member) return;
     const member = interaction.member as GuildMember;
-    for (const role of Object.values(roleDictionary())) {
+    for (const role of Object.values(roleDictionary()[0])) {
         if (member.roles.cache.has(role)) {
             await member.roles.remove(role);
         }
     }
+    for (const role of Object.values(roleDictionary()[1])) {
+      if (member.roles.cache.has(role)) {
+          await member.roles.remove(role);
+      }
+  }
 
     // Reply to the user
     interaction.reply({content: "Cleared all roles that I have assigned to you.", ephemeral: true});

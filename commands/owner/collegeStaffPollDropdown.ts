@@ -4,7 +4,7 @@ import { ICommand } from "wokcommands";
 export default {
 	name: "collegeStaffPollDropdown",
 	category: "owner",
-	description: "Posts the College Year Poll",
+	description: "Posts the College Staff Poll",
 	slash: true,
 	testOnly: false,
 	guildOnly: true,
