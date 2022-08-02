@@ -16,7 +16,7 @@ export default {
 		const chan = interaction.channel as TextChannel;
 
 		// Embed values
-		const color = "#ff3505";
+		const color = "#0099ff";
 		const thumbnail = "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";
 		const title = "Github";
 		const description = "Click here to go to the CSSC-bot repo: \n https://github.com/llisaeva/CSSC-Bot";

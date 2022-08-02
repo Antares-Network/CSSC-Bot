@@ -2,7 +2,7 @@ import { MessageEmbed, MessageActionRow, MessageSelectMenu } from "discord.js";
 import { ICommand } from "wokcommands";
 
 export default {
-	name: "collegeYearPollDropdown",
+	name: "yearPoll",
 	category: "owner",
 	description: "Posts the College Year Poll",
 	slash: true,
