@@ -33,7 +33,8 @@ function returnRoles(): dict[] {
 			tutor: "1003850195202744560",
 			sileader: "1003850241591742595",
 			ta: "1003850228643934260",
-			studentemployee: "1003850274840002620"
+			studentemployee: "1003850274840002620",
+			professor: "1003881218686865439"
 		}
 		return [studentRoleDictionary, staffRoleDictionary];
 	};
