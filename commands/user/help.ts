@@ -43,7 +43,7 @@ import {
         .setThumbnail(thumbnail)
         .setDescription(description)
         .addFields(fields)
-        .setFooter(footer, footerIcon);
+        .setFooter({text: footer, iconURL: footerIcon});
         interaction.reply({embeds: [Embed]});
       // Post command usage
     }
