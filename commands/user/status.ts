@@ -2,9 +2,9 @@ import { MessageEmbed, TextChannel } from "discord.js";
 import { ICommand } from "wokcommands";
 
 export default {
-	name: "github",
+	name: "status",
 	category: "user",
-	description: "Sends an embed with a link to the github repo for the bot.",
+	description: "Sends an embed with a link to the status page for the bot.",
 	slash: true,
 	testOnly: false,
 	guildOnly: true,
@@ -14,8 +14,8 @@ export default {
 		// Embed values
 		const color = "#0099ff";
 		const thumbnail = "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";
-		const title = "Github";
-		const description = "Click here to go to the CSSC-bot repo: \n https://github.com/llisaeva/CSSC-Bot";
+		const title = "Status Page";
+		const description = "CLick here to see the bot's status: \nhttps://status.playantares.com";
 		const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
 		const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
 

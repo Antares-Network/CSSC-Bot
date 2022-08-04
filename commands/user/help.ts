@@ -14,11 +14,11 @@ import {
   
     callback: async ({ client, interaction }) => {
 
-        const color = "#0099ff" ;
-		const thumbnail = "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";
-		const title = "Github";
-		const description = "Welcome to CSSC-Bot! My purpose in this server is to make sure you have the correct roles for this server. My purpose mey evolve over time. You can always use this command to see my latest features.";
-        const fields = [
+      const color = "#0099ff" ;
+		  const thumbnail = "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";
+		  const title = "Github";
+		  const description = "Welcome to CSSC-Bot! My purpose in this server is to make sure you have the correct roles for this server. My purpose mey evolve over time. You can always use this command to see my latest features.";
+      const fields = [
             {
               name: "Commands",
               value:
@@ -34,8 +34,8 @@ import {
                     "**College Employee Roles** - Assigns the correct role for your job title.",
             }
           ]
-		const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
-		const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
+		  const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
+		  const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
 
       const Embed = new MessageEmbed()
         .setColor(color)

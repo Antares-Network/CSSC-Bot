@@ -43,9 +43,7 @@ client.on("ready", () => {
 
 	// Set up the connection to the database
 	wok.on("databaseConnected", async () => {
-		console.log(chalk.green("Connected to the database!"));
-
-		//! Here we will check our connection and load information about the bot, servers, and users into memory.
+		console.log(chalk.green("Connected to the database"));
 	});
 });
 

@@ -4,10 +4,12 @@ import { Client } from "discord.js";
 export default async (client: Client) => {
 
 	const statusOptions = [
+		`/help | Ping: ${client.ws.ping}ms`,
 		`V.${process.env.VERSION}`,
 		`status.playantares.com`,
         'Go to #roles!',
         'Hello! I\'m CSSC-Bot',
+
 	];
 	let counter = 0;
 
