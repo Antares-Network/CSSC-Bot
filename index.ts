@@ -5,6 +5,9 @@ import path from "path";
 import chalk from "chalk";
 import dotenv from "dotenv";
 
+// import custom modules
+import { checkForRoles } from "./rolesOps";
+
 // import all environment variables from .env file
 dotenv.config();
 
@@ -21,6 +24,12 @@ client.on("ready", () => {
 		} else if (process.env.debugMode === "false") {
 			console.log(chalk.red.bold("Debug mode is disabled!\nProduction Server roles are loaded!"));
 		}
+		// Check to make sure the roles exist in all servers
+		console.log("Checking if all roles exist in servers.")
+        client.guilds.cache.forEach(async (guild) => {
+            checkForRoles(guild, 0);
+            checkForRoles(guild, 1);
+        });
 	}
 
 	const dbOptions = {

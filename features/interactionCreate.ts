@@ -1,6 +1,6 @@
 import { Client, MessageEmbed, GuildMember } from "discord.js";
 import { returnRoles as roleDictionary } from "../definitions";
-import { removePrevRole }  from "../rolesOps";
+import { removePrevRole } from "../rolesOps";
 
 // Listen interactionCreate events from the client
 export default (client: Client): void  => {

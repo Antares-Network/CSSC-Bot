@@ -1,5 +1,6 @@
 import { MessageEmbed, MessageActionRow, MessageSelectMenu } from "discord.js";
 import { ICommand } from "wokcommands";
+import { checkForRoles } from "../../rolesOps";
 
 export default {
 	name: "staffPoll",
@@ -30,28 +31,32 @@ export default {
       .addOptions(
 				{
                     label: "Tutor",
-                    value: "tutor",
+                    value: "Tutor",
                 },
                 {
                     label: "SI Leader",
-                    value: "sileader",
+                    value: "Sileader",
                 },
                 {
                     label: "TA",
-                    value: "ta",
+                    value: "Ta",
                 },
                 {
                     label: "Professor",
-                    value: "professor",
+                    value: "Professor",
                 },
                 {
                     label: "Student Employee",
-                    value: "studentemployee",
+                    value: "Studentemployee",
                 }
 			)
 		);
 
 		// Send the embed and message component rows
-		msgInt.reply({ embeds: [infoEmbed], components: [row] });
+		if (!checkForRoles(msgInt.guild!, 1)) {
+			msgInt.reply("Please run the `/createRoles` command in this server to create the necessary roles for this poll!");
+		} else {
+			msgInt.reply({ embeds: [infoEmbed], components: [row] });
+		}
 	},
 } as ICommand;
