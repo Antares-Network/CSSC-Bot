@@ -64,3 +64,8 @@ export default (client: Client): void  => {
         }
     });
 }
+
+export const config = {
+	dbName: "INTERACTION_CREATE",
+	displayName: "Interaction Create Event (ICE)",
+};
