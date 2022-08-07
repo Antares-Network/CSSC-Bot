@@ -4,18 +4,18 @@ type dict = {
 
 function returnRoles(): dict[] {
 	let studentRoleDictionary = {
-		Prefrosh: String(process.env.prefrosh),
-		Freshman: String(process.env.freshman),
-		Sophomore: String(process.env.sophomore),
-		Junior: String(process.env.junior),
-		Senior: String(process.env.senior),
+		Prefrosh: String(process.env.Prefrosh),
+		Freshman: String(process.env.Freshman),
+		Sophomore: String(process.env.Sophomore),
+		Junior: String(process.env.Junior),
+		Senior: String(process.env.Senior),
 		Graduatestudent: String(process.env.Graduatestudent),
-		Alumni: String(process.env.alumni),
+		Alumni: String(process.env.Alumni),
 	};
 	let staffRoleDictionary = {
-		Tutor: String(process.env.tutor),
-		Sileader: String(process.env.sileader),
-		Ta: String(process.env.ta),
+		Tutor: String(process.env.Tutor),
+		Sileader: String(process.env.Sileader),
+		Ta: String(process.env.Ta),
 		Studentemployee: String(process.env.Studentemployee),
 		Professor: String(process.env.Professor)
 	}
