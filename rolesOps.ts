@@ -36,9 +36,12 @@ export function checkForRoles(guild: Guild, listID: number): boolean {
 	let collection: boolean[] = [];
 
 	roleNames.forEach((roleName) => {
-		let state = guild.roles.cache.find((r) => r.name === roleName);
+		let stateName = guild.roles.cache.find((r) => r.name === roleName);
+		let stateId = guild.roles.cache.find((r) => r.id === roles[roleName]);
 
-		if (!state) {
+
+		if (!stateName && !stateId) {
+			
 			console.log(chalk.red.bold(`Role ${roleName} does not exist in ${guild.name}, Please run the /createRoles command in that server.`));
 			collection.push(false);
 			
@@ -48,6 +51,7 @@ export function checkForRoles(guild: Guild, listID: number): boolean {
 	if (collection.includes(false)) {
 		return false;
 	} else {
+		console.log(chalk.yellow.bold(`All roles in list ${listID} exist in ${guild.name}`));
 		return true;
 	}
 }
