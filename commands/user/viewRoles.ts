@@ -1,6 +1,6 @@
 import { GuildMember } from "discord.js";
 import { ICommand } from "wokcommands";
-import { returnRoles as roleDictionary } from "../../definitions";
+import { getUsersRoles } from "../../rolesOps";
 
 
 export default {
@@ -16,18 +16,7 @@ export default {
 
     // Remove roles from user
     if (!interaction.member) return;
-    let list = "";
-    const member = interaction.member as GuildMember;
-    for (const role of Object.values(roleDictionary()[0])) {
-        if (member.roles.cache.has(role)) {
-            list += `${member.guild.roles.cache.get(role)?.name}\n`;
-        }
-    }
-    for (const role of Object.values(roleDictionary()[1])) {
-      if (member.roles.cache.has(role)) {
-          list += `${member.guild.roles.cache.get(role)?.name}\n`;
-      }
-  }
+    const list = await getUsersRoles(interaction.member as GuildMember);
     
 
     // Reply to the user
