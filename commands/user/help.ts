@@ -20,12 +20,21 @@ import {
 		  const description = "Welcome to CSSC-Bot! My purpose in this server is to make sure you have the correct roles for this server. My purpose mey evolve over time. You can always use this command to see my latest features.";
       const fields = [
             {
-              name: "Commands",
+              name: "User Commands",
               value:
                 "**/help** - Shows this help embed\n" +
                 "**/github** - Shows the official GitHub repository for this bot.\n" +
                 "**/view** - Shows a list of all roles that I have assigned to you\n" +
-                "**/clear** - Removes all roles that I have assigned to you\n",
+                "**/clear** - Removes all roles that I have assigned to you\n" +
+                "**/uptime** - Shows how long I have been online" +
+                "**/status** - Shows the status of the bot" 
+            },
+            {
+              name: "Admin Commands",
+              value:
+                "**/createRoles** - Creates the roles that will be used in the server and in polls\n" +
+                "**/staffpoll** - Creates a poll for staff role choosing\n" +
+                "**/yearpoll** - Creates a poll for year role choosing\n" 
             },
             {
                 name: "Features",
