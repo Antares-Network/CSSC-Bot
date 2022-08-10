@@ -34,7 +34,7 @@ export default (client: Client): void => {
 			removePrevRole(member, 0);
 
 			// Assign the new role to the user
-			addNewRole(member, 1, interaction.values[0]);
+			addNewRole(member, 0, interaction.values[0]);
 		} else if (interaction.customId === "collegeStaffPoll") {
 			// Set the embed values
 			const title = "College Staff Poll";
