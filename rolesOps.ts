@@ -23,7 +23,7 @@ export async function removePrevRole(member: GuildMember, listID: number): Promi
 	for (const role of Object.values(roleDictionary()[listID])) {
 		if (member.roles.cache.has(role)) {
 			await member.roles.remove(role);
-			console.log(chalk.green(`Removed role ${role} from ${member.user.tag}`));
+			console.log(chalk.green(`Removed role ${chalk.green(role)} from ${chalk.yellow(member.user.tag)}`));
 		}
 	}
 }
@@ -31,8 +31,9 @@ export async function removePrevRole(member: GuildMember, listID: number): Promi
 export async function addNewRole(member: GuildMember, listID: number, roleKey: string) {
 	// This function is triggered when a user changes their role,
 	// it adds the new role to the user
-	member.roles.add(roleDictionary()[listID][roleKey]);
-	console.log(chalk.green(`Added role ${roleDictionary()[listID][roleKey]} to ${member.user.tag}`));
+	const role = roleDictionary()[listID][roleKey]
+	await member.roles.add(role);
+	console.log(chalk.green(`Added role ${chalk.green(role)} to ${chalk.yellow(member.user.tag)}`));
 }
 
 export async function createRoles(guild: Guild, listID: number): Promise<void> {

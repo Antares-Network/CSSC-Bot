@@ -9,7 +9,7 @@ export default {
 	slash: true,
 	testOnly: false,
 	guildOnly: true,
-	requiredPermissions: ["SEND_MESSAGES"],
+	requiredPermissions: ["MANAGE_GUILD", "MANAGE_ROLES"],
     ownerOnly: true,
 
 	callback: async ({ interaction }) => {
@@ -19,5 +19,8 @@ export default {
         createRoles(interaction.guild!, 0)
         createRoles(interaction.guild!, 1)
         interaction.reply("Roles created! Check the console for the role IDs\nPaste the output into your .env file and restart the bot\n ");
+
+        // Log the command usage
+		console.log(chalk.blue(`${chalk.green(`[COMMAND]`)} ${chalk.yellow(interaction.user.tag)} used the ${chalk.green(`/yearPoll`)} command in ${chalk.yellow(interaction.guild?.name)}`));
     },
 } as ICommand;

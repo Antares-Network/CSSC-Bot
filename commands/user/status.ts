@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { MessageEmbed, TextChannel } from "discord.js";
 import { ICommand } from "wokcommands";
 
@@ -28,5 +29,8 @@ export default {
 			.setFooter({ text: footer, iconURL: footerIcon });
 
 		interaction.reply({ embeds: [Embed] });
+
+		// Log the command usage
+		console.log(chalk.blue(`${chalk.green(`[COMMAND]`)} ${chalk.yellow(interaction.user.tag)} used the ${chalk.green(`/status`)} command in ${chalk.yellow(interaction.guild?.name)}`));
 	},
 } as ICommand;

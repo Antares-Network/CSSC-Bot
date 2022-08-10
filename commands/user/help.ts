@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import {
     MessageEmbed,
   } from "discord.js";
@@ -26,7 +27,7 @@ import {
                 "**/github** - Shows the official GitHub repository for this bot.\n" +
                 "**/view** - Shows a list of all roles that I have assigned to you\n" +
                 "**/clear** - Removes all roles that I have assigned to you\n" +
-                "**/uptime** - Shows how long I have been online" +
+                "**/uptime** - Shows how long I have been online\n" +
                 "**/status** - Shows the status of the bot" 
             },
             {
@@ -54,6 +55,8 @@ import {
         .addFields(fields)
         .setFooter({text: footer, iconURL: footerIcon});
         interaction.reply({embeds: [Embed]});
-      // Post command usage
+        
+        // Log the command usage
+        console.log(chalk.blue(`${chalk.green(`[COMMAND]`)} ${chalk.yellow(interaction.user.tag)} used the ${chalk.green(`/help`)} command in ${chalk.yellow(interaction.guild?.name)}`));
     }
   } as ICommand;

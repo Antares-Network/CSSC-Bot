@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { GuildMember } from "discord.js";
 import { ICommand } from "wokcommands";
 import { getUsersRoles } from "../../rolesOps";
@@ -26,5 +27,7 @@ export default {
     interaction.reply({content: "**Your roles:**\n" + list, ephemeral: true});
     }
 
+    // Log the command usage
+		console.log(chalk.blue(`${chalk.green(`[COMMAND]`)} ${chalk.yellow(interaction.user.tag)} used the ${chalk.green(`/view`)} command in ${chalk.yellow(interaction.guild?.name)}`));
   },
 } as ICommand;
