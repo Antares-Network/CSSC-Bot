@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { MessageEmbed, MessageActionRow, MessageSelectMenu } from "discord.js";
 import { ICommand } from "wokcommands";
 import { checkForRoles } from "../../rolesOps";
@@ -9,7 +10,7 @@ export default {
 	slash: true,
 	testOnly: false,
 	guildOnly: true,
-	requiredPermissions: ["SEND_MESSAGES"],
+	requiredPermissions: ["MANAGE_GUILD", "MANAGE_ROLES"],
 	ownerOnly: true,
 
 	callback: async ({ client, interaction: msgInt }) => {
@@ -48,7 +49,12 @@ export default {
                 {
                     label: "Student Employee",
                     value: "Studentemployee",
-                }
+                },
+				{
+					label: "None",
+					value: "None",
+					description: "Clear all staff roles",
+				}
 			)
 		);
 
@@ -58,5 +64,8 @@ export default {
 		} else {
 			msgInt.reply({ embeds: [infoEmbed], components: [row] });
 		}
+
+		// Log the command usage
+		console.log(chalk.blue(`${chalk.green(`[COMMAND]`)} ${chalk.yellow(msgInt.user.tag)} used the ${chalk.green(`/staffPoll`)} command in ${chalk.yellow(msgInt.guild?.name)}`));
 	},
 } as ICommand;

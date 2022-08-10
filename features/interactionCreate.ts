@@ -31,6 +31,10 @@ export default (client: Client): void => {
                 ephemeral: true
             });
 			// Remove any previous roles in the dictionary from the user
+			if(interaction.values[0] === "None") {
+				removePrevRole(member, 0);
+				return;
+			}
 			removePrevRole(member, 0);
 
 			// Assign the new role to the user
@@ -55,6 +59,10 @@ export default (client: Client): void => {
                 ephemeral: true
             });
 			// Remove any previous roles in the dictionary from the user
+			if(interaction.values[0] === "None") {
+				removePrevRole(member, 1);
+				return;
+			}
 			removePrevRole(member, 1);
 
 			// Assign the new role to the user
