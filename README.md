@@ -95,7 +95,7 @@ The bot should become responsive. You can check for errors in the console.
 - `Dockerfile` - The dockerfile contains values used to build the docker image.
 
 ## Features
-### User Comands
+### User Commands
 - `/help` - Shows this help embed
 - `/github` - Shows the official GitHub repository for this bot.
 - `/view` - Shows a list of all roles that I have assigned to you
