@@ -11,13 +11,9 @@ export default {
 	requiredPermissions: ["SEND_MESSAGES"],
 
 	callback: async ({ client, interaction }) => {
-		// Command Information
-		const id = interaction.user.id;
-		const chan = interaction.channel as TextChannel;
-
 		// Embed values
-		const color = "#ff3505";
-		const title = "Version:";
+		const color = "#0099ff";
+		const title = "Bot Version:";
 		const description = `I am running version: ${process.env.VERSION}`;
 		const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
 		const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
