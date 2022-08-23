@@ -7,10 +7,13 @@ export default async (client: Client) => {
 		`/help | Ping: ${client.ws.ping}ms`,
 		`V.${process.env.VERSION}`,
 		`status.playantares.com`,
-        'Go to #roles!',
-        'Hello! I\'m CSSC-Bot',
+		`playantares.com/github`,
+		`status.playantares.com`,
+		`Antares Network Hosting`,
+		'Go to #roles!',
+		'Hello! I\'m CSSC-Bot',
 
-	];
+];
 	let counter = 0;
 
 	const updateStatus = () => {
