@@ -19,6 +19,7 @@ const client = new DiscordJs.Client({
 client.on("ready", () => {
 	if (client.user) {
 		console.log(chalk.green(`Logged in as ${client.user.tag}!`));
+		console.log(chalk.yellow.bold(`I am running version: ${process.env.VERSION}`));
 		if (process.env.debugMode === "true") {
 			console.log(chalk.red.bold("Debug mode is enabled!\nTesting Server roles are loaded!"));
 		} else if (process.env.debugMode === "false") {
