@@ -9,7 +9,6 @@
 5. [Running the bot](#running-the-bot)
 6. [Resources](#resources)
 
-
 ## Prerequisites
 
 - A working docker installation, learn more at [Docker](https://docs.docker.com/get-docker/)  
@@ -20,7 +19,7 @@ OR
 
 ## Setting up the bot
 
-After you have the project and a server, go to the [Discord Developer Portal](https://discord.com/developers/applications). If you are prompted to log in, use the same credentials that you use for your Discord account. 
+After you have the project and a server, go to the [Discord Developer Portal](https://discord.com/developers/applications). If you are prompted to log in, use the same credentials that you use for your Discord account.
 
 Once that's done, create a new application **(Applications > New Application)**.
 
@@ -54,9 +53,7 @@ After that is done, generate a URL for your bot. Select **OAuth2** from the left
 
 ![Step #7](/demo/7.jpg)
 
-Follow this link in a browser, and choose the private server you created to add your bot to. 
-
-
+Follow this link in a browser, and choose the private server you created to add your bot to.
 
 ## Running the bot
 
@@ -83,7 +80,6 @@ docker run -d cssc-bot
 
 The bot should become responsive. You can check for errors in the console.
 
-
 ## Project Structure
 
 - `/commands/owner` - Commands that can only be used by the owner of the bot
@@ -95,27 +91,31 @@ The bot should become responsive. You can check for errors in the console.
 - `Dockerfile` - The dockerfile contains values used to build the docker image.
 
 ## Features
+
 ### User Commands
+
 - `/help` - Shows this help embed
 - `/github` - Shows the official GitHub repository for this bot.
 - `/view` - Shows a list of all roles that I have assigned to you
 - `/clear` - Removes all roles that I have assigned to you
 - `/uptime` - Shows how long I have been online
 - `/status` - Shows the status of the bot
+
 ### Admin Commands
+
 - `/createRoles` - Creates the roles that will be used in the server and in polls
 - `/staffpoll` - Creates a poll for staff role choosing
 - `/yearpoll` - Creates a poll for year role choosing
 
-### Features
+### Polls
+
 - `College Student Roles` - Assigns the correct role for your year in school.
 - `College Employee Roles` - Assigns the correct role for your job title.
 
-
 ## Resources
 
- - [Discord.js Docs](https://discord.js.org/#/docs)
- - [Discord.js Guide](https://discordjs.guide/)
- - [WOKcommands Docs](https://docs.wornoffkeys.com/)
- - [AntaresBot Codebase](https://playantares.com/antaresbot)
- - [Antares Status Tracking](https://status.playantares.com/)
+- [Discord.js Docs](https://discord.js.org/#/docs)
+- [Discord.js Guide](https://discordjs.guide/)
+- [WOKcommands Docs](https://docs.wornoffkeys.com/)
+- [AntaresBot Codebase](https://playantares.com/antaresbot)
+- [Antares Status Tracking](https://status.playantares.com/)
