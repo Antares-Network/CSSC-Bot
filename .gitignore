@@ -1,1 +1,6 @@
 **/__pycache__
+.vscode
+.env
+node_modules
+unused-commands
+d.py/
