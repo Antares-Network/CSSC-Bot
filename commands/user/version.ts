@@ -13,7 +13,7 @@ export default {
 	callback: async ({ client, interaction }) => {
 		// Embed values
 		const color = "#0099ff";
-		const title = "Bot Version:";
+		const title = "Bot Version";
 		const description = `I am running version: ${process.env.VERSION}`;
 		const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
 		const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
