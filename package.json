@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/llisaeva/CSSC-Bot.git"
+    "url": "git+https://github.com/Antares-Network/CSSC-Bot.git"
   },
   "author": "llisaeva, nathen418",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/llisaeva/CSSC-Bot/issues"
+    "url": "https://github.com/Antares-Network/CSSC-Bot/issues"
   },
-  "homepage": "https://github.com/llisaeva/CSSC-Bot#readme",
+  "homepage": "https://github.com/Antares-Network/CSSC-Bot#readme",
   "dependencies": {
     "axios": "^0.27.2",
     "chalk": "^4.1.2",

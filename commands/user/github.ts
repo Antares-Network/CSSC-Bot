@@ -16,7 +16,7 @@ export default {
 		const color = "#0099ff";
 		const thumbnail = "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";
 		const title = "Github";
-		const description = "Click here to go to the CSSC-bot repo: \n https://github.com/llisaeva/CSSC-Bot";
+		const description = "Click here to go to the CSSC-bot repo: \n https://github.com/Antares-Network/CSSC-Bot";
 		const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
 		const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
 

@@ -9,7 +9,7 @@ export default async (client: Client) => {
 		`status.playantares.com`,
 		`playantares.com/github`,
 		`status.playantares.com`,
-		`Antares Network Hosting`,
+		`Antares Network Server Hosting`,
 		'Go to #roles!',
 		'Hello! I\'m CSSC-Bot',
 

@@ -60,7 +60,7 @@ Follow this link in a browser, and choose the private server you created to add 
 ### Run from source
 
 ```bash
-git clone https://github.com/llisaeva/CSSC-Bot.git
+git clone https://github.com/Antares-Network/CSSC-Bot.git
 # Fill out the .env file using the template in .env.template
 npm install
 npm install -g typescript ts-node
@@ -70,7 +70,7 @@ ts-node index.ts
 ### Run from Docker
 
 ```bash
-git clone https://github.com/llisaeva/CSSC-Bot.git
+git clone https://github.com/Antares-Network/CSSC-Bot.git
 # Fill out the .env file using the template in .env.template;
 # Or add the environment variables to your docker run command by adding the 
 # --env-file .env option 
@@ -119,3 +119,8 @@ The bot should become responsive. You can check for errors in the console.
 - [WOKcommands Docs](https://docs.wornoffkeys.com/)
 - [AntaresBot Codebase](https://playantares.com/antaresbot)
 - [Antares Status Tracking](https://status.playantares.com/)
+
+## Credits
+
+- [Lisa Isaeva](https://github.com/llisaeva)
+- [Nate Goldsborough](https://github.com/nathen418)
