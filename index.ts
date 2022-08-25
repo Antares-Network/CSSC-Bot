@@ -48,7 +48,7 @@ client.on("ready", () => {
 		typeScript: true,
 		mongoUri: String(process.env.MONGODB_URI),
 		disabledDefaultCommands: ["help", "language"],
-		botOwners: ["603629606154666024", "680813135556378634"],
+		botOwners: ["603629606154666024", "680813135556378634", "451761128704573440"],
 	}).setDefaultPrefix(String(process.env.BOT_DEFAULT_PREFIX));
 
 	// Set up the connection to the database
