@@ -52,7 +52,6 @@ export default {
     )
 
     // Create menus from chunks
-    const menus: MessageSelectMenu[] = []
     class_chunks.forEach(
       (class_chunk, index) => {
         const menu = new MessageSelectMenu()
@@ -60,14 +59,9 @@ export default {
         menu.setPlaceholder("Select an option")
         // create a new list of options from the classes and add to menu
         menu.addOptions(class_chunk.map(create_option_from_class))
-        menus.push(menu)
-      }
-    )
 
-    menus.forEach(
-      (menu_chunk, index) => {
         const row = new MessageActionRow()
-        row.addComponents(menu_chunk)
+        row.addComponents(menu)
 
         // Define embeds used in this command
         const infoEmbed = new MessageEmbed()
@@ -85,9 +79,12 @@ export default {
         else {
           msgInt.channel!.send({ components: [row] });
         }
+
+
+
+
       }
     )
-
   },
 } as ICommand;
 
