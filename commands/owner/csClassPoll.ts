@@ -60,6 +60,7 @@ export default {
         // create a new list of options from the classes and add to menu
         menu.addOptions(class_chunk.map(create_option_from_class))
 
+        // Add single message to action row
         const row = new MessageActionRow()
         row.addComponents(menu)
 
@@ -73,15 +74,12 @@ export default {
               text: `Delivered in: ${client.ws.ping}ms | CSSC-Bot | ${process.env.VERSION}`,
               iconURL: "https://playantares.com/resources/CSSC-bot/icon.jpg",
             });
+
           msgInt.reply({ embeds: [infoEmbed], components: [row] });
         }
         else {
           msgInt.channel!.send({ components: [row] });
         }
-
-
-
-
       }
     )
   },
