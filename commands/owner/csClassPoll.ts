@@ -40,22 +40,22 @@ export default {
     console.log(`Number of classes ${classes.length}`)
 
     // split classes into chunks of 25
-    let class_chunks: Class[][] = split_list(classes, 25)
+    const class_chunks: Class[][] = split_list(classes, 25)
 
     //TODO: remove logging
     console.log(`Number of chunks: ${class_chunks.length}`)
     //TODO: remove logging
     class_chunks.forEach(
       (class_chunk, index) => {
-        console.log(`Chunk#: ${index + 1},\nChunk length: ${class_chunk.length}`)
+        console.log(`Chunk: ${index + 1},\t length: ${class_chunk.length}`)
       }
     )
 
     // Create menus from chunks
-    let menus: MessageSelectMenu[] = []
+    const menus: MessageSelectMenu[] = []
     class_chunks.forEach(
       (class_chunk, index) => {
-        let menu = new MessageSelectMenu()
+        const menu = new MessageSelectMenu()
         menu.setCustomId(`csClassPoll+${index}`)
         menu.setPlaceholder("Select an option")
         // create a new list of options from the classes and add to menu
@@ -66,7 +66,7 @@ export default {
 
     menus.forEach(
       (menu_chunk, index) => {
-        let row = new MessageActionRow()
+        const row = new MessageActionRow()
         row.addComponents(menu_chunk)
 
         // Define embeds used in this command
