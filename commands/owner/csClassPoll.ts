@@ -63,17 +63,16 @@ export default {
         const row = new MessageActionRow()
         row.addComponents(menu)
 
-        // Define embeds used in this command
-        const infoEmbed = new MessageEmbed()
-          .setTitle("Choose a role")
-          .setColor("#0099ff")
-          .setDescription("Select the option(s) with your current COMPSCI classes.")
-          .setFooter({
-            text: `Delivered in: ${client.ws.ping}ms | CSSC-Bot | ${process.env.VERSION}`,
-            iconURL: "https://playantares.com/resources/CSSC-bot/icon.jpg",
-          });
-
         if (index == 0) {
+          // Define embeds used in this command
+          const infoEmbed = new MessageEmbed()
+            .setTitle("Choose a role")
+            .setColor("#0099ff")
+            .setDescription("Select the option(s) with your current COMPSCI classes.")
+            .setFooter({
+              text: `Delivered in: ${client.ws.ping}ms | CSSC-Bot | ${process.env.VERSION}`,
+              iconURL: "https://playantares.com/resources/CSSC-bot/icon.jpg",
+            });
           msgInt.reply({ embeds: [infoEmbed], components: [row] });
         }
         else {
