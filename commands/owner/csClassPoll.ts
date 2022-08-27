@@ -47,7 +47,7 @@ export default {
     //TODO: remove logging
     class_chunks.forEach(
       (class_chunk, index) => {
-        console.log(`Chunk#: ${index},\nChunk length: ${class_chunk.length}`)
+        console.log(`Chunk#: ${index + 1},\nChunk length: ${class_chunk.length}`)
       }
     )
 
@@ -68,9 +68,6 @@ export default {
       (menu_chunk, index) => {
         let row = new MessageActionRow()
         row.addComponents(menu_chunk)
-
-        console.log(`Row: ${row.components}`)
-        console.log(`Index: ${index}`)
 
         // Define embeds used in this command
         const infoEmbed = new MessageEmbed()
@@ -94,8 +91,8 @@ export default {
   },
 } as ICommand;
 
+// Splits any size list into lists of at most `max_list_len`
 function split_list(list: Array<any>, max_list_len: number) {
-  // Should split any size list into lists of at most `max_list_len`
   let class_chunks = []
   for (let i = 0; i < list.length; i += max_list_len) {
     class_chunks.push(list.slice(i, i + max_list_len))
@@ -104,6 +101,7 @@ function split_list(list: Array<any>, max_list_len: number) {
   return class_chunks
 }
 
+// consumes a Class and returns Message Selec tOption data
 function create_option_from_class(_class: Class): MessageSelectOptionData {
   if (_class.code.length > 100) {
     console.log("\n")
@@ -112,7 +110,6 @@ function create_option_from_class(_class: Class): MessageSelectOptionData {
     console.log("\n")
 
   }
-
   return {
     label: _class.code,
     value: generate(),
