@@ -17,7 +17,7 @@ import {
 
       const color = "#0099ff" ;
 		  const thumbnail = "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";
-		  const title = "Github";
+		  const title = "Help and Commands List";
 		  const description = "Welcome to CSSC-Bot! My purpose in this server is to make sure you have the correct roles for this server. My purpose mey evolve over time. You can always use this command to see my latest features.";
       const fields = [
             {
