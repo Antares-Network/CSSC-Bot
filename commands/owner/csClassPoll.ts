@@ -1,13 +1,18 @@
 import chalk from "chalk";
-import { MessageEmbed, MessageActionRow, MessageSelectMenu, MessageSelectOptionData } from "discord.js";
+import {
+  MessageEmbed,
+  MessageActionRow,
+  MessageSelectMenu,
+  MessageSelectOptionData,
+} from "discord.js";
 import { ICommand } from "wokcommands";
 import { checkForRoles } from "../../rolesOps";
-import classes from "../../data/COMPSCI-Fall-Class-List.json"
-import { generate } from 'short-uuid';
+import classes from "../../data/COMPSCI-Fall-Class-List.json";
+import { generate } from "short-uuid";
 export interface Class {
-  code: string,
-  title: string,
-  info: string
+  code: string;
+  title: string;
+  info: string;
 }
 
 export default {
@@ -24,10 +29,11 @@ export default {
     // Log the command usage
     console.log(
       chalk.blue(
-        `${chalk.green(`[COMMAND]`)} ${chalk.yellow(msgInt.user.tag)} used the ${chalk.green(`/csclasspoll`)} command in ${chalk.yellow(
+        `${chalk.green(`[COMMAND]`)} ${chalk.yellow(
+          msgInt.user.tag
+        )} used the ${chalk.green(`/csclasspoll`)} command in ${chalk.yellow(
           msgInt.guild?.name
-        )
-        }`
+        )}`
       )
     );
 
@@ -37,77 +43,71 @@ export default {
     //   return
     // }
 
-    console.log(`Number of classes ${classes.length}`)
+    console.log(`Number of classes ${classes.length}`);
 
     // split classes into chunks of 25
-    const class_chunks: Class[][] = split_list(classes, 25)
+    const class_chunks: Class[][] = split_list(classes, 25);
 
     //TODO: remove logging
-    console.log(`Number of chunks: ${class_chunks.length}`)
+    console.log(`Number of chunks: ${class_chunks.length}`);
     //TODO: remove logging
-    class_chunks.forEach(
-      (class_chunk, index) => {
-        console.log(`Chunk: ${index + 1},\t length: ${class_chunk.length}`)
-      }
-    )
+    class_chunks.forEach((class_chunk, index) => {
+      console.log(`Chunk: ${index + 1},\t length: ${class_chunk.length}`);
+    });
 
     // Create menus from chunks
-    class_chunks.forEach(
-      (class_chunk, index) => {
-        const menu = new MessageSelectMenu()
-        menu.setCustomId(`csClassPoll+${index}`)
-        menu.setPlaceholder("Select an option")
-        // create a new list of options from the classes and add to menu
-        menu.addOptions(class_chunk.map(create_option_from_class))
+    class_chunks.forEach((class_chunk, index) => {
+      const menu = new MessageSelectMenu();
+      menu.setCustomId(`csClassPoll+${index}`);
+      menu.setPlaceholder("Select an option");
+      // create a new list of options from the classes and add to menu
+      menu.addOptions(class_chunk.map(create_option_from_class));
 
-        // Add single message to action row
-        const row = new MessageActionRow()
-        row.addComponents(menu)
+      // Add single message to action row
+      const row = new MessageActionRow();
+      row.addComponents(menu);
 
-        if (index == 0) {
-          // Define embeds used in this command
-          const infoEmbed = new MessageEmbed()
-            .setTitle("Choose a role")
-            .setColor("#0099ff")
-            .setDescription("Select the option(s) with your current COMPSCI classes.")
-            .setFooter({
-              text: `Delivered in: ${client.ws.ping}ms | CSSC-Bot | ${process.env.VERSION}`,
-              iconURL: "https://playantares.com/resources/CSSC-bot/icon.jpg",
-            });
+      if (index == 0) {
+        // Define embeds used in this command
+        const infoEmbed = new MessageEmbed()
+          .setTitle("Choose a role")
+          .setColor("#0099ff")
+          .setDescription(
+            "Select the option(s) with your current COMPSCI classes."
+          )
+          .setFooter({
+            text: `Delivered in: ${client.ws.ping}ms | CSSC-Bot | ${process.env.VERSION}`,
+            iconURL: "https://playantares.com/resources/CSSC-bot/icon.jpg",
+          });
 
-          msgInt.reply({ embeds: [infoEmbed], components: [row] });
-        }
-        else {
-          msgInt.channel!.send({ components: [row] });
-        }
+        msgInt.reply({ embeds: [infoEmbed], components: [row] });
+      } else {
+        msgInt.channel!.send({ components: [row] });
       }
-    )
+    });
   },
 } as ICommand;
 
 // Splits any size list into lists of at most `max_list_len`
 function split_list(list: Array<any>, max_list_len: number) {
-  let class_chunks = []
+  let class_chunks = [];
   for (let i = 0; i < list.length; i += max_list_len) {
-    class_chunks.push(list.slice(i, i + max_list_len))
-
+    class_chunks.push(list.slice(i, i + max_list_len));
   }
-  return class_chunks
+  return class_chunks;
 }
 
 // consumes a Class and returns Message Selec tOption data
 function create_option_from_class(_class: Class): MessageSelectOptionData {
   if (_class.code.length > 100) {
-    console.log("\n")
-    console.log("TOO_LONG: class code")
-    console.log(_class)
-    console.log("\n")
-
+    console.log("\n");
+    console.log("TOO_LONG: class code");
+    console.log(_class);
+    console.log("\n");
   }
   return {
     label: _class.code,
     value: generate(),
     description: _class.title,
-  }
+  };
 }
-
