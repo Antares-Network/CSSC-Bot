@@ -1,0 +1,237 @@
+[
+    {
+        "code": "COMPSCI 150",
+        "title": "Survey of Computer Science",
+        "info": "A survey of computer science. Topics include data storage and manipulation, operating systems and networks, algorithms and data structures, programming languages, artificial intelligence, and computability.\n\nCounts as repeat of CompSci 299 with similar topic. Prereq: none."
+    },
+    {
+        "code": "COMPSCI 202",
+        "title": "Introductory Programming Using Python",
+        "info": "A survey of computer science. Topics include data storage and manipulation, operating systems and networks, algorithms and data structures, programming languages, artificial intelligence, and computability.\n\nCounts as repeat of CompSci 299 with similar topic. Prereq: none."
+    },
+    {
+        "code": "COMPSCI 250",
+        "title": "Introductory Computer Programming",
+        "info": "Programming in Python. Basic control structures including recursion. Basic and library data types. Problem solving with objects. Writing classes. Basic software development skills.\n\nCounts as repeat of CompSci 290 with similar topic. Pre-req: Level 30 on Math Placement Test, or a grade of C or better in Math 105 or 108."
+    },
+    {
+        "code": "COMPSCI 251",
+        "title": "Intermediate Computer Programming",
+        "info": "Problem solving with structured programming techniques using an object-oriented programming language, including control structures, functions, arrays, vectors, and pre-defined objects.\n\nPrereq: Math Placement level 30."
+    },
+    {
+        "code": "COMPSCI 317",
+        "title": "Discrete Information Structures",
+        "info": "Problem solving with structured programming techniques using an object-oriented programming language, including control structures, functions, arrays, vectors, and pre-defined objects.\n\nPrereq: Math Placement level 30."
+    },
+    {
+        "code": "COMPSCI 337",
+        "title": "System Programming",
+        "info": "Introduction to the application programmer interface for a modern operating system. Overview of mechanisms for object oriented programming and memory management\n\nPrereq: C or better in CompSci 251(P)"
+    },
+    {
+        "code": "COMPSCI 351",
+        "title": "Data Structures and Algorithms",
+        "info": "Programming in a structured, high-level, object-oriented language. Implementation of data structures and algorithms and their application.\n\nPrereq: Math Placement Level 40 or Math 116(P) or 211(P); C or better in CompSci 251(P)."
+    },
+    {
+        "code": "COMPSCI 361",
+        "title": "Introduction to Software Engineering",
+        "info": "Introduction to core topics of software engineering including requirements analysis, object-oriented design, testing, and project management. Overview of ethical and social issues in computing.\n\nPrereq: C or better in CompSci 351(P), satisfaction of GER English Composition competency req."
+    },
+    {
+        "code": "COMPSCI 423",
+        "title": "Introduction to Natural Language Processing",
+        "info": "Introduction to natural language processing programs and an overview of the field. Topics include syntactic frameworks, parsing, semantics, interpretation, and applications.\n\nPrereq: jr st; C or better in CompSci 351(P)."
+    },
+    {
+        "code": "COMPSCI 431",
+        "title": "Programming Languages Concepts",
+        "info": "Examination of abstract features of languages. Study of syntactic and semantic models; design and programming in procedural, object-oriented, functional and logical languages. Implementation methods.\n\nPrereq: jr st; grade of C or better in CompSci 351(252)(P)."
+    },
+    {
+        "code": "COMPSCI 431G",
+        "title": "Programming Languages Concepts",
+        "info": "Examination of abstract features of languages. Study of syntactic and semantic models; design and programming in procedural, object-oriented, functional and logical languages. Implementation methods.\n\nPrereq: jr st; grade of C or better in CompSci 351(252)(P)."
+    },
+    {
+        "code": "COMPSCI 458",
+        "title": "Computer Architecture",
+        "info": "Processor organization, memory hierarchy, pipelining, computer architectures exploiting instruction/data/thread level parallelism, warehouse scale computers.\n\nCOMPSCI 458 and ELECENG 458 are jointly offered and count as repeats of one another. Prereq: sophomore standing and a grade of C or better in COMPSCI 241(P) or COMPSCI 251(P)."
+    },
+    {
+        "code": "COMPSCI 458G",
+        "title": "Computer Architecture",
+        "info": "Processor organization, memory hierarchy, pipelining, computer architectures exploiting instruction/data/thread level parallelism, warehouse scale computers.\n\nCOMPSCI 458 and ELECENG 458 are jointly offered and count as repeats of one another. Prereq: sophomore standing and a grade of C or better in COMPSCI 241(P) or COMPSCI 251(P)."
+    },
+    {
+        "code": "COMPSCI 481",
+        "title": "Server-side Internet Programming",
+        "info": "Introduces students to the concept of server-side programming and web applications development. Topics include dynamic web site development, session management, security, and relational databases.\n\nPrereq:jr st; one of COMPSCI 113 (P), INFOST 320 (P), or ART 324 (P); C or better in COMPSCI 202(P), COMPSCI 361(P) or COMPST 702(P)."
+    },
+    {
+        "code": "COMPSCI 481G",
+        "title": "Server-side Internet Programming",
+        "info": "Introduces students to the concept of server-side programming and web applications development. Topics include dynamic web site development, session management, security, and relational databases.\n\nPrereq:jr st; one of COMPSCI 113 (P), INFOST 320 (P), or ART 324 (P); C or better in COMPSCI 202(P), COMPSCI 361(P) or COMPST 702(P)."
+    },
+    {
+        "code": "COMPSCI 520",
+        "title": "Computer Networks",
+        "info": "Layered network architecture, protocols, data transmission, local area networks, multiplexing and switching, routing flow and congestion control, internetworking, wireless networking, network reliability and security.\n\nPrereq: jr. st; CompSci 315(215)(P) or CompSci 458(P) or ElecEng 367(P)."
+    },
+    {
+        "code": "COMPSCI 520G",
+        "title": "Computer Networks",
+        "info": "Layered network architecture, protocols, data transmission, local area networks, multiplexing and switching, routing flow and congestion control, internetworking, wireless networking, network reliability and security.\n\nPrereq: jr. st; CompSci 315(215)(P) or CompSci 458(P) or ElecEng 367(P)."
+    },
+    {
+        "code": "COMPSCI 535",
+        "title": "Algorithm Design and Analysis",
+        "info": "Introduction to abstract data structures, analysis of time and space requirements of numerical and non-numerical algorithms methods for data manipulation.\n\nPrereq: junior standing; MATH 211(P), MATH 213(P), MATH 221(P) or MATH 231(P); a grade of C or better in COMPSCI 351(P); and either COMPSCI 317(P) or both MATH 341(P) and MTHSTAT 361(P)."
+    },
+    {
+        "code": "COMPSCI 535G",
+        "title": "Algorithm Design and Analysis",
+        "info": "Introduction to abstract data structures, analysis of time and space requirements of numerical and non-numerical algorithms methods for data manipulation.\n\nPrereq: junior standing; MATH 211(P), MATH 213(P), MATH 221(P) or MATH 231(P); a grade of C or better in COMPSCI 351(P); and either COMPSCI 317(P) or both MATH 341(P) and MTHSTAT 361(P)."
+    },
+    {
+        "code": "COMPSCI 537",
+        "title": "Introduction to Operating Systems",
+        "info": "Process management including process creation, switching, multithreading, scheduling, communication and concurrency control; memory management including paging, segmentation and virtual memory; systems programming.\n\nPrereq: jr st; CompSci 458(C) or ElecEng 458(C); CompSci 337(P)."
+    },
+    {
+        "code": "COMPSCI 537G",
+        "title": "Introduction to Operating Systems",
+        "info": "Process management including process creation, switching, multithreading, scheduling, communication and concurrency control; memory management including paging, segmentation and virtual memory; systems programming.\n\nPrereq: jr st; CompSci 458(C) or ElecEng 458(C); CompSci 337(P)."
+    },
+    {
+        "code": "COMPSCI 552",
+        "title": "Advanced Object-Oriented Programming",
+        "info": "An advanced course in object-oriented programming. Abstraction; single and multiple inheritance; dynamic binding of functions; polymorphic types and operators; survey of object-oriented techniques.\n\nPrereq: jr st; C or better in both CompSci 351(P) & 361(P)."
+    },
+    {
+        "code": "COMPSCI 552G",
+        "title": "Advanced Object-Oriented Programming",
+        "info": "An advanced course in object-oriented programming. Abstraction; single and multiple inheritance; dynamic binding of functions; polymorphic types and operators; survey of object-oriented techniques.\n\nPrereq: jr st; C or better in both CompSci 351(P) & 361(P)."
+    },
+    {
+        "code": "COMPSCI 594",
+        "title": "Capstone Project Preparation",
+        "info": "Student teams will develop requirements and functionality specifications for their capstone projects and conduct the necessary research on the prior art and technologies to be used.\n\nMeant to be taken in the semester immediately prior to the one in which the student will take COMPSCI 595. Prereq: senior standing."
+    },
+    {
+        "code": "COMPSCI 595",
+        "title": "Capstone Project",
+        "info": "Students will integrate their knowledge of the undergraduate computer science curriculum by implementing a significant computer science team project.\n\nPrereq: senior standing, COMPSCI 351(P), COMPSCI 361(P), COMPSCI 594(P) and credit in at least 6 credits of 400 or higher COMPSCI or ELECENG courses."
+    },
+    {
+        "code": "COMPSCI 599",
+        "title": "Senior Thesis",
+        "info": "Independent scholarly research in Computer Science supervised by a faculty member.\n\nPrereq: sr st & cons instr."
+    },
+    {
+        "code": "COMPSCI 657",
+        "title": "Topics in Computer Science: 3D Graphics",
+        "info": "Lectures on recent advances in computer science. Specific credits and any additional prerequisites will be announced in Schedule of Classes whenever course is offered.\n\nMay be retaken w/chg in topic to 9 cr max. Prereq: jr st."
+    },
+    {
+        "code": "COMPSCI 657",
+        "title": "Topics in Computer Science: Cloud Computing",
+        "info": "Lectures on recent advances in computer science. Specific credits and any additional prerequisites will be announced in Schedule of Classes whenever course is offered.\n\nMay be retaken w/chg in topic to 9 cr max. Prereq: jr st."
+    },
+    {
+        "code": "COMPSCI 657",
+        "title": "Topics in Computer Science: Concurrent Programming",
+        "info": "Lectures on recent advances in computer science. Specific credits and any additional prerequisites will be announced in Schedule of Classes whenever course is offered.\n\nMay be retaken w/chg in topic to 9 cr max. Prereq: jr st."
+    },
+    {
+        "code": "COMPSCI 657",
+        "title": "Topics in Computer Science: Database Security",
+        "info": "Lectures on recent advances in computer science. Specific credits and any additional prerequisites will be announced in Schedule of Classes whenever course is offered.\n\nMay be retaken w/chg in topic to 9 cr max. Prereq: jr st."
+    },
+    {
+        "code": "COMPSCI 657",
+        "title": "Topics in Computer Science: Introduction to Research Computing",
+        "info": "Lectures on recent advances in computer science. Specific credits and any additional prerequisites will be announced in Schedule of Classes whenever course is offered.\n\nMay be retaken w/chg in topic to 9 cr max. Prereq: jr st."
+    },
+    {
+        "code": "COMPSCI 657",
+        "title": "Topics in Computer Science: Social Computing: Platforms, Technologies, and Peo",
+        "info": "Lectures on recent advances in computer science. Specific credits and any additional prerequisites will be announced in Schedule of Classes whenever course is offered.\n\nMay be retaken w/chg in topic to 9 cr max. Prereq: jr st."
+    },
+    {
+        "code": "COMPSCI 699",
+        "title": "Independent Study",
+        "info": "May be retaken to max of 6 cr by undergraduates. Prereq: jr st; cons instr."
+    },
+    {
+        "code": "COMPSCI 720",
+        "title": "Computational Models of Decision Making",
+        "info": "Theoretical foundations and practical problems of formulating and constructing computational models of decision making.\n\nPrereq: basic course in Probability or Statistics."
+    },
+    {
+        "code": "COMPSCI 723",
+        "title": "Natural Language Processing",
+        "info": "Principles and problems of natural language processing with emphasis on recent advances and open problems. Topics: lexicons, parsing, interpretation, discourse structure, generation, and collaborative interfaces.\n\nNot open to students with cr in CompSci 423. Prereq: grad st; CompSci 422(P) or 710(P)."
+    },
+    {
+        "code": "COMPSCI 790",
+        "title": "Advanced Topics in Computer Science: 3D Graphics",
+        "info": "Discussion of special advanced topics in theoretical as well as applied areas in computer science.\n\nRetakable w/chg in topic to 9 cr max. Specific topics may be jointly-offered w/Philos. Prereq: grad st; add'l prereqs depending on topic."
+    },
+    {
+        "code": "COMPSCI 790",
+        "title": "Advanced Topics in Computer Science: Cloud Computing",
+        "info": "Discussion of special advanced topics in theoretical as well as applied areas in computer science.\n\nRetakable w/chg in topic to 9 cr max. Specific topics may be jointly-offered w/Philos. Prereq: grad st; add'l prereqs depending on topic."
+    },
+    {
+        "code": "COMPSCI 790",
+        "title": "Advanced Topics in Computer Science: Concurrent Programming",
+        "info": "Discussion of special advanced topics in theoretical as well as applied areas in computer science.\n\nRetakable w/chg in topic to 9 cr max. Specific topics may be jointly-offered w/Philos. Prereq: grad st; add'l prereqs depending on topic."
+    },
+    {
+        "code": "COMPSCI 790",
+        "title": "Advanced Topics in Computer Science: Database Security",
+        "info": "Discussion of special advanced topics in theoretical as well as applied areas in computer science.\n\nRetakable w/chg in topic to 9 cr max. Specific topics may be jointly-offered w/Philos. Prereq: grad st; add'l prereqs depending on topic."
+    },
+    {
+        "code": "COMPSCI 790",
+        "title": "Advanced Topics in Computer Science: Introduction to Research Computing",
+        "info": "Discussion of special advanced topics in theoretical as well as applied areas in computer science.\n\nRetakable w/chg in topic to 9 cr max. Specific topics may be jointly-offered w/Philos. Prereq: grad st; add'l prereqs depending on topic."
+    },
+    {
+        "code": "COMPSCI 790",
+        "title": "Advanced Topics in Computer Science: Social Computing: Platforms, Technologies, and Peo",
+        "info": "Discussion of special advanced topics in theoretical as well as applied areas in computer science.\n\nRetakable w/chg in topic to 9 cr max. Specific topics may be jointly-offered w/Philos. Prereq: grad st; add'l prereqs depending on topic."
+    },
+    {
+        "code": "COMPSCI 870",
+        "title": "Medical Informatics Seminar",
+        "info": "Presentations by medical informatics affiliated faculty and invited speakers. Graduate students may present their work or published research from recent medical informatics journals or conferences.\n\nMeets once every two weeks for 100 minutes. Prereq: grad st."
+    },
+    {
+        "code": "COMPSCI 888",
+        "title": "Candidate for Degree",
+        "info": "Available for graduate students who must meet minimum credit load requirement.\n\nFee for 1 cr assessed; unit does not count towards credit load for Fin Aid. Repeatable. Satisfactory/Unsatisfactory only. Prereq: graduate standing."
+    },
+    {
+        "code": "COMPSCI 990",
+        "title": "Masters Thesis",
+        "info": "Prereq: grad st; cons instr."
+    },
+    {
+        "code": "COMPSCI 995",
+        "title": "Master's Capstone Project",
+        "info": "Independent project supervised by student's adviser\n\nPrereq: grad st; cons instr & grad prog comm."
+    },
+    {
+        "code": "COMPSCI 998",
+        "title": "Doctoral Thesis",
+        "info": "Prereq: grad st; cons instr & grad prog committee."
+    },
+    {
+        "code": "COMPSCI 999",
+        "title": "Advanced Independent Study",
+        "info": "Prereq: grad st; cons instr & grad prog comm."
+    }
+]
