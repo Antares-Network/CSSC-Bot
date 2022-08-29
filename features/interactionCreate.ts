@@ -21,17 +21,17 @@ export default (client: Client): void => {
 
 			// Create and send the embed object
 			interaction.reply({
-                embeds: [
-                    new MessageEmbed()
-                        .setColor(color)
-                        .setTitle(title)
-                        .setDescription(description)
-                        .setFooter({text: footer, iconURL: footerIcon}),
-                ],
-                ephemeral: true
-            });
+				embeds: [
+					new MessageEmbed()
+						.setColor(color)
+						.setTitle(title)
+						.setDescription(description)
+						.setFooter({ text: footer, iconURL: footerIcon }),
+				],
+				ephemeral: true
+			});
 			// Remove any previous roles in the dictionary from the user
-			if(interaction.values[0] === "None") {
+			if (interaction.values[0] === "None") {
 				removePrevRole(member, 0);
 				return;
 			}
@@ -49,17 +49,17 @@ export default (client: Client): void => {
 
 			// Create and send the embed object
 			interaction.reply({
-                embeds: [
-                    new MessageEmbed()
-                        .setColor(color)
-                        .setTitle(title)
-                        .setDescription(description)
-                        .setFooter({text: footer, iconURL: footerIcon}),
-                ],
-                ephemeral: true
-            });
+				embeds: [
+					new MessageEmbed()
+						.setColor(color)
+						.setTitle(title)
+						.setDescription(description)
+						.setFooter({ text: footer, iconURL: footerIcon }),
+				],
+				ephemeral: true
+			});
 			// Remove any previous roles in the dictionary from the user
-			if(interaction.values[0] === "None") {
+			if (interaction.values[0] === "None") {
 				removePrevRole(member, 1);
 				return;
 			}
