@@ -59,7 +59,7 @@ export default {
 		);
 
 		// Send the embed and message component rows
-		if (!checkForRoles(msgInt.guild!, 1)) {
+		if (!checkForRoles(msgInt.guild!)) {
 			msgInt.reply("Please run the `/createRoles` command in this server to create the necessary roles for this poll!");
 		} else {
 			msgInt.reply({ embeds: [infoEmbed], components: [row] });
