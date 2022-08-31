@@ -48,7 +48,7 @@ export async function addNewRole(member: GuildMember, type: string, id: string) 
 	// This function is triggered when a user changes their role, it adds the new role to the user
 	let role;
 	if (type === "class") {
-		role = await classModel.findOne({ UUID: id });
+		role = await classModel.findOne({ CODE: id });
 	} else if (type === "staff") {
 		role = await staffModel.findOne({ ROLE_NAME: id });
 	} else if (type === "year") {
