@@ -34,14 +34,14 @@ export default {
     let classes: Class[] = await classModel.find({}).sort({ CODE: 1 });
     const class_chunks = split_list(classes, 25);
 
-    class_chunks.forEach((class_chunk, index) => {
+    for(let index = 0; index < class_chunks.length; index ++){
       const menu = new MessageSelectMenu();
       menu.setCustomId(`csClassPoll+${index}`);
       // menu.setMinValues(1); //!Add this later when the bot is able to handle multiple selections at once
       // menu.setMaxValues(10);
       menu.setPlaceholder("Select an option");
       // create a new list of options from the classes and add to menu
-      menu.addOptions(class_chunk.map(create_option_from_class));
+      menu.addOptions(class_chunks[index].map(create_option_from_class));
 
       // Add single message to action row
       const row = new MessageActionRow();
@@ -64,7 +64,9 @@ export default {
       } else {
         msgInt.channel!.send({ components: [row] });
       }
-    });
+    // await on a new promise that resolves itself after a delay of 200 ms
+    await new Promise(resolve => {setTimeout(resolve, 200)})
+    };
 
     // Log the command usage
     console.log(
