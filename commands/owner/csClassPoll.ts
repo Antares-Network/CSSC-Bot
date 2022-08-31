@@ -103,7 +103,7 @@ function split_list(list: Array<any>, max_list_len: number) {
 function create_option_from_class(_class: Class): MessageSelectOptionData {
   return {
     label: _class.CODE,
-    value: _class.UUID,
+    value: _class.CODE,
     description: _class.TITLE,
   }
 }
