@@ -34,7 +34,8 @@ export default {
     let classes: Class[] = await classModel.find({}).sort({ CODE: 1 });
     const class_chunks = split_list(classes, 25);
 
-    for(let index = 0; index < class_chunks.length; index ++){
+    let rows:MessageActionRow[] = [];
+    for (let index = 0; index < class_chunks.length; index++) {
       const menu = new MessageSelectMenu();
       menu.setCustomId(`csClassPoll+${index}`);
       // menu.setMinValues(1); //!Add this later when the bot is able to handle multiple selections at once
@@ -46,7 +47,12 @@ export default {
       // Add single message to action row
       const row = new MessageActionRow();
       row.addComponents(menu);
+      rows.push(row);
+    }
 
+
+    const row_chunks = split_list(rows, 5)
+    for (let index = 0; index < row_chunks.length; index++) {
       if (index == 0) {
         // Define embeds used in this command
         const infoEmbed = new MessageEmbed()
@@ -60,13 +66,15 @@ export default {
             iconURL: "https://playantares.com/resources/CSSC-bot/icon.jpg",
           });
 
-        msgInt.reply({ embeds: [infoEmbed], components: [row] });
+        msgInt.reply({ embeds: [infoEmbed], components: row_chunks[index] });
       } else {
-        msgInt.channel!.send({ components: [row] });
+        msgInt.channel!.send({ components: row_chunks[index] });
       }
-    // await on a new promise that resolves itself after a delay of 200 ms
-    await new Promise(resolve => {setTimeout(resolve, 200)})
-    };
+      // await on a new promise that resolves itself after a delay of 200 ms
+      await new Promise((resolve) => {
+        setTimeout(resolve, 200);
+      });
+    }
 
     // Log the command usage
     console.log(
