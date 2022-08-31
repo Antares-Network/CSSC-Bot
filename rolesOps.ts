@@ -44,15 +44,15 @@ export async function removeRole(member: GuildMember, type: string): Promise<voi
 	}
 }
 
-export async function addNewRole(member: GuildMember, type: string, uuid: string) {
+export async function addNewRole(member: GuildMember, type: string, id: string) {
 	// This function is triggered when a user changes their role, it adds the new role to the user
 	let role;
 	if (type === "class") {
-		role = await classModel.findOne({ UUID: uuid });
+		role = await classModel.findOne({ UUID: id });
 	} else if (type === "staff") {
-		role = await staffModel.findOne({ UUID: uuid });
+		role = await staffModel.findOne({ ROLE_NAME: id });
 	} else if (type === "year") {
-		role = await yearModel.findOne({ UUID: uuid });
+		role = await yearModel.findOne({ ROLE_NAME: id });
 	}
 	if (member.roles.cache.has(role?.ROLE_ID)) {
 		await member.roles.add(role?.ROLE_ID);
