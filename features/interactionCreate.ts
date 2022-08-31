@@ -61,7 +61,7 @@ export default (client: Client): void => {
 
 			// Assign the new role to the user
 			addNewRole(member, "staff", interaction.values[0]);
-		} else if (interaction.customId === "csClassPoll+0" || interaction.customId === "csClassPoll+1") {
+		} else if (interaction.customId.startsWith("csClassPoll+")) {
 			// Set the embed title
 			const title = "CS Class Poll";
 			// Create and send the embed object
