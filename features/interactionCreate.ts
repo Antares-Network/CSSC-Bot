@@ -17,10 +17,6 @@ export default (client: Client): void => {
 		if (interaction.customId === "collegeYearPoll") {
 			// Set the embed values
 			const title = "College Year Poll";
-			const color = "#0099ff";
-			const description = `You selected the ${interaction.values[0]} role.`;
-			const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
-			const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
 
 			// Create and send the embed object
 			interaction.reply({

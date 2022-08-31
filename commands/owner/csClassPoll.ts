@@ -37,6 +37,8 @@ export default {
     class_chunks.forEach((class_chunk, index) => {
       const menu = new MessageSelectMenu();
       menu.setCustomId(`csClassPoll+${index}`);
+      // menu.setMinValues(1); //!Add this later when the bot is able to handle multiple selections at once
+      // menu.setMaxValues(10);
       menu.setPlaceholder("Select an option");
       // create a new list of options from the classes and add to menu
       menu.addOptions(class_chunk.map(create_option_from_class));

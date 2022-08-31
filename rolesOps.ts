@@ -54,7 +54,7 @@ export async function addNewRole(member: GuildMember, type: string, id: string) 
 	} else if (type === "year") {
 		role = await yearModel.findOne({ ROLE_NAME: id });
 	}
-	if (member.roles.cache.has(role?.ROLE_ID)) {
+	if (!member.roles.cache.has(role?.ROLE_ID)) {//testtest
 		await member.roles.add(role?.ROLE_ID);
 		console.log(chalk.green(`Added role ${chalk.green(role.ROLE_NAME)} to ${chalk.yellow(member.user.tag)}`));
 	}
