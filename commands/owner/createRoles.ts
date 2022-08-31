@@ -20,7 +20,7 @@ export default {
 		createRoles(interaction.guild!, "staff");
 		createRoles(interaction.guild!, "year");
 		interaction.reply({
-			content: "Roles created! Check the console for the role IDs\nPaste the output into your .env file and restart the bot\n ", 
+			content: "Roles created!", 
 			ephemeral: true,
 		});
 

@@ -17,7 +17,7 @@ export async function getUsersRoles(member: GuildMember): Promise<string> {
 	for (const group of await dbQuery()) {
 		for (const element of group) {
 			if (member.roles.cache.has(element.ROLE_ID)) {
-				list += `${member.guild.roles.cache.get(element.ROLE_NAME)?.name}\n`;
+				list += `${member.guild.roles.cache.get(element.ROLE_ID)?.name}\n`;
 			}
 		}
 	}
