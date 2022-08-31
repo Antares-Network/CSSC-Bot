@@ -20,16 +20,10 @@ client.on("ready", () => {
 	if (client.user) {
 		console.log(chalk.green(`Logged in as ${client.user.tag}!`));
 		console.log(chalk.yellow.bold(`I am running version: ${process.env.VERSION}`));
-		if (process.env.debugMode === "true") {
-			console.log(chalk.red.bold("Debug mode is enabled!\nTesting Server roles are loaded!"));
-		} else if (process.env.debugMode === "false") {
-			console.log(chalk.red.bold("Debug mode is disabled!\nProduction Server roles are loaded!"));
-		}
 		// Check to make sure the roles exist in all servers
 		console.log("Checking if all roles exist in servers.")
         client.guilds.cache.forEach(async (guild) => {
-            checkForRoles(guild, 0);
-            checkForRoles(guild, 1);
+            checkForRoles(guild);
         });
 	}
 

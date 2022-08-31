@@ -1,12 +1,15 @@
 import { Client, MessageEmbed, GuildMember } from "discord.js";
-import { removePrevRole, addNewRole } from "../rolesOps";
+import { removeRole, addNewRole } from "../rolesOps";
 
 // Listen interactionCreate events from the client
 export default (client: Client): void => {
 	client.on("interactionCreate", async (interaction) => {
 		// Make sure the interaction is from a select menu
 		if (!interaction.isSelectMenu()) return;
-
+		const color = "#0099ff";
+		const description = `You selected the ${interaction.values[0]} role.`;
+		const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
+		const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
 		// Constants for all interactions
 		const member = interaction.member as GuildMember;
 
@@ -21,52 +24,64 @@ export default (client: Client): void => {
 
 			// Create and send the embed object
 			interaction.reply({
-                embeds: [
-                    new MessageEmbed()
-                        .setColor(color)
-                        .setTitle(title)
-                        .setDescription(description)
-                        .setFooter({text: footer, iconURL: footerIcon}),
-                ],
-                ephemeral: true
-            });
+				embeds: [
+					new MessageEmbed()
+						.setColor(color)
+						.setTitle(title)
+						.setDescription(description)
+						.setFooter({ text: footer, iconURL: footerIcon }),
+				],
+				ephemeral: true,
+			});
 			// Remove any previous roles in the dictionary from the user
-			if(interaction.values[0] === "None") {
-				removePrevRole(member, 0);
+			if (interaction.values[0] === "None") {
+				removeRole(member, "year");
 				return;
 			}
-			removePrevRole(member, 0);
+			removeRole(member, "year");
 
 			// Assign the new role to the user
-			addNewRole(member, 0, interaction.values[0]);
+			addNewRole(member, "year", interaction.values[0]);
 		} else if (interaction.customId === "collegeStaffPoll") {
-			// Set the embed values
+			// Set the embed title
 			const title = "College Staff Poll";
-			const color = "#0099ff";
-			const description = `You selected the ${interaction.values[0]} role.`;
-			const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
-			const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
-
 			// Create and send the embed object
 			interaction.reply({
-                embeds: [
-                    new MessageEmbed()
-                        .setColor(color)
-                        .setTitle(title)
-                        .setDescription(description)
-                        .setFooter({text: footer, iconURL: footerIcon}),
-                ],
-                ephemeral: true
-            });
+				embeds: [
+					new MessageEmbed()
+						.setColor(color)
+						.setTitle(title)
+						.setDescription(description)
+						.setFooter({ text: footer, iconURL: footerIcon }),
+				],
+				ephemeral: true,
+			});
 			// Remove any previous roles in the dictionary from the user
-			if(interaction.values[0] === "None") {
-				removePrevRole(member, 1);
+			if (interaction.values[0] === "None") {
+				removeRole(member, "staff");
 				return;
 			}
-			removePrevRole(member, 1);
+			removeRole(member, "staff");
 
 			// Assign the new role to the user
-			addNewRole(member, 1, interaction.values[0]);
+			addNewRole(member, "staff", interaction.values[0]);
+		} else if (interaction.customId === "csClassPoll+0" || interaction.customId === "csClassPoll+1") {
+			// Set the embed title
+			const title = "CS Class Poll";
+			// Create and send the embed object
+			interaction.reply({
+				embeds: [
+					new MessageEmbed()
+						.setColor(color)
+						.setTitle(title)
+						.setDescription(description)
+						.setFooter({ text: footer, iconURL: footerIcon }),
+				],
+				ephemeral: true,
+			});
+			// Assign the new role to the user
+
+			addNewRole(member, "class", interaction.values[0]);
 		}
 	});
 };
