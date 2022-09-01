@@ -1,10 +1,5 @@
 import chalk from "chalk";
-import {
-  MessageEmbed,
-  MessageActionRow,
-  MessageSelectMenu,
-  Message,
-} from "discord.js";
+import { MessageEmbed, MessageActionRow, MessageSelectMenu } from "discord.js";
 import { ICommand } from "wokcommands";
 import { checkForRoles } from "../../rolesOps";
 
@@ -56,7 +51,7 @@ export default {
             value: "Senior",
           },
           {
-            label: "Graduate Student",
+            label: "Grad Student",
             value: "Graduatestudent",
           },
           {
@@ -72,10 +67,12 @@ export default {
     );
 
     // Send the embed and message component rows
-    if (!checkForRoles(msgInt.guild!, 0)) {
-      msgInt.reply(
-        "Please run the /createRoles command in this server to create the necessary roles for this poll!"
-      );
+    if (!checkForRoles(msgInt.guild!)) {
+      msgInt.reply({
+        content:
+          "Please run the /createRoles command in this server to create the necessary roles for this poll!",
+        ephemeral: true,
+      });
     } else {
       msgInt.reply({ embeds: [infoEmbed], components: [row] });
     }

@@ -1,0 +1,23 @@
+name: Publish Docker image to GitHub Package Registry
+on:
+  push:
+    branches: [ "master" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest 
+    steps:
+
+    - name: Copy Repo Files
+      uses: actions/checkout@master
+
+     #This Action Emits 2 Variables, IMAGE_SHA_NAME and IMAGE_URL 
+     #which you can reference in subsequent steps
+    - name: Publish Docker Image to GPR
+      uses: machine-learning-apps/gpr-docker-publish@master
+      id: docker
+      with:
+        IMAGE_NAME: 'cssc-bot'
+        TAG: 'latest'
+        DOCKERFILE_PATH: './Dockerfile'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

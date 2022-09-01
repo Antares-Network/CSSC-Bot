@@ -22,11 +22,13 @@ export default {
       chalk.red("------------------------------------------------------")
     );
     // Create the roles
-    createRoles(interaction.guild!, 0);
-    createRoles(interaction.guild!, 1);
-    interaction.reply(
-      "Roles created! Check the console for the role IDs\nPaste the output into your .env file and restart the bot\n "
-    );
+    createRoles(interaction.guild!, "class");
+    createRoles(interaction.guild!, "staff");
+    createRoles(interaction.guild!, "year");
+    interaction.reply({
+      content: "Roles created!",
+      ephemeral: true,
+    });
 
     // Log the command usage
     console.log(

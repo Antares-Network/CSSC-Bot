@@ -1,8 +1,7 @@
 import chalk from "chalk";
 import { GuildMember } from "discord.js";
 import { ICommand } from "wokcommands";
-import { returnRoles as roleDictionary } from "../../definitions";
-import { removePrevRole } from "../../rolesOps";
+import { removeRole } from "../../rolesOps";
 
 export default {
   name: "clear",
@@ -17,8 +16,9 @@ export default {
     // Remove roles from user
     if (!interaction.member) return;
     const member = interaction.member as GuildMember;
-    removePrevRole(member, 0);
-    removePrevRole(member, 1);
+    removeRole(member, "class");
+    removeRole(member, "year");
+    removeRole(member, "staff");
     // Reply to the user
     interaction.reply({
       content: "Cleared all roles that I have assigned to you.",

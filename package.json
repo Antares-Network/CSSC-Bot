@@ -1,25 +1,25 @@
 {
   "name": "cssc-bot",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "engines": {
     "node": "17.x"
   },
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "ts-node index.ts",
     "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/llisaeva/CSSC-Bot.git"
+    "url": "git+https://github.com/Antares-Network/CSSC-Bot.git"
   },
-  "author": "llisaeva, nathen418",
+  "author": "llisaeva, nathen418, schiltz3",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/llisaeva/CSSC-Bot/issues"
+    "url": "https://github.com/Antares-Network/CSSC-Bot/issues"
   },
-  "homepage": "https://github.com/llisaeva/CSSC-Bot#readme",
+  "homepage": "https://github.com/Antares-Network/CSSC-Bot#readme",
   "dependencies": {
     "axios": "^0.27.2",
     "chalk": "^4.1.2",

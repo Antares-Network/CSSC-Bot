@@ -27,24 +27,10 @@ client.on("ready", () => {
     console.log(
       chalk.yellow.bold(`I am running version: ${process.env.VERSION}`)
     );
-    if (process.env.debugMode === "true") {
-      console.log(
-        chalk.red.bold(
-          "Debug mode is enabled!\nTesting Server roles are loaded!"
-        )
-      );
-    } else if (process.env.debugMode === "false") {
-      console.log(
-        chalk.red.bold(
-          "Debug mode is disabled!\nProduction Server roles are loaded!"
-        )
-      );
-    }
     // Check to make sure the roles exist in all servers
     console.log("Checking if all roles exist in servers.");
     client.guilds.cache.forEach(async (guild) => {
-      checkForRoles(guild, 0);
-      checkForRoles(guild, 1);
+      checkForRoles(guild);
     });
   }
 
@@ -63,7 +49,11 @@ client.on("ready", () => {
     typeScript: true,
     mongoUri: String(process.env.MONGODB_URI),
     disabledDefaultCommands: ["help", "language"],
-    botOwners: ["603629606154666024", "680813135556378634"],
+    botOwners: [
+      "603629606154666024",
+      "680813135556378634",
+      "451761128704573440",
+    ],
   }).setDefaultPrefix(String(process.env.BOT_DEFAULT_PREFIX));
 
   // Set up the connection to the database

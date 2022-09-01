@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { MessageEmbed, TextChannel } from "discord.js";
+import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 
 export default {
@@ -18,7 +18,7 @@ export default {
       "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";
     const title = "Github";
     const description =
-      "Click here to go to the CSSC-bot repo: \n https://github.com/llisaeva/CSSC-Bot";
+      "Click here to go to the CSSC-bot repo: \n https://github.com/Antares-Network/CSSC-Bot";
     const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
     const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
 
