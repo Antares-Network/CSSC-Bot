@@ -17,6 +17,5 @@ jobs:
         IMAGE_NAME: 'cssc-bot'
         TAG: 'latest'
         DOCKERFILE_PATH: './Dockerfile'
-        BUILD_CONTEXT: 'argo/'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
