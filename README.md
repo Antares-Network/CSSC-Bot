@@ -1,3 +1,4 @@
+[![DeepSource](https://deepsource.io/gh/Antares-Network/CSSC-Bot.svg/?label=active+issues&show_trend=true&token=GgdxIdd6daxTyyfTYz5OUiUl)](https://deepsource.io/gh/Antares-Network/CSSC-Bot/?ref=repository-badge)
 # CS Smart Club Bot
 
 ## Table of Contents
@@ -124,3 +125,4 @@ The bot should become responsive. You can check for errors in the console.
 
 - [Lisa Isaeva](https://github.com/llisaeva)
 - [Nate Goldsborough](https://github.com/nathen418)
+- [John Schiltz](https://github.com/schiltz3)
