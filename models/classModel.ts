@@ -7,6 +7,8 @@ const CLASS = new Schema({
     INFO: String,
     ROLE_NAME: String,
     ROLE_ID: String,
+    CHANNEL_NAME: String,
+    CHANNEL_ID: String,
     UUID: String
 });
 

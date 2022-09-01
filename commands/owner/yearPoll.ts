@@ -52,7 +52,7 @@ export default {
 					value: "Senior",
 				},
 				{
-					label: "Graduate Student",
+					label: "Grad Student",
 					value: "Graduatestudent",
 				},
 				{
