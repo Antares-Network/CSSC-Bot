@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/Antares-Network/CSSC-Bot.git"
   },
-  "author": "llisaeva, nathen418",
+  "author": "llisaeva, nathen418, schiltz3",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Antares-Network/CSSC-Bot/issues"
@@ -26,6 +26,7 @@
     "discord.js": "^13.9.2",
     "mongoose": "^6.2.2",
     "path": "^0.12.7",
+    "prettier": "^2.7.1",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5",
     "wokcommands": "^1.5.3"
