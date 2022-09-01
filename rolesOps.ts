@@ -50,11 +50,11 @@ export async function addNewRole(member: GuildMember, type: string, id: string) 
 	if (type === "class") {
 		role = await classModel.findOne({ CODE: id });
 	} else if (type === "staff") {
-		role = await staffModel.findOne({ ROLE_NAME: id });
+		role = await staffModel.findOne({ NAME: id });
 	} else if (type === "year") {
-		role = await yearModel.findOne({ ROLE_NAME: id });
+		role = await yearModel.findOne({ NAME: id });
 	}
-	if (!member.roles.cache.has(role?.ROLE_ID)) {//testtest
+	if (!member.roles.cache.has(role?.ROLE_ID)) {
 		await member.roles.add(role?.ROLE_ID);
 		console.log(chalk.green(`Added role ${chalk.green(role.ROLE_NAME)} to ${chalk.yellow(member.user.tag)}`));
 	}
