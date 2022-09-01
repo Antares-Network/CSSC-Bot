@@ -1,13 +1,14 @@
 {
   "name": "cssc-bot",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "engines": {
     "node": "17.x"
   },
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "run": "ts-node index.ts"
+    "run": "ts-node index.ts",
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
