@@ -24,23 +24,31 @@ export default {
     const seconds = Math.floor(time / 1000) % 60;
 
     // Embed values
-    const color = "#0099ff"
-    const title = "Bot Uptime"
-    const description = `I have been online for ${days}d ${hours}h ${minutes}m ${seconds}s`
+    const color = "#0099ff";
+    const title = "Bot Uptime";
+    const description = `I have been online for ${days}d ${hours}h ${minutes}m ${seconds}s`;
     const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
-	  const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
-      
+    const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
+
     // Embed construction
     const Embed = new MessageEmbed()
       .setColor(color)
       .setTitle(title)
       .setDescription(description)
-      .setFooter({text: footer, iconURL: footerIcon});
-    
+      .setFooter({ text: footer, iconURL: footerIcon });
+
     // Return the embed
-    interaction.reply({embeds: [Embed]});
+    interaction.reply({ embeds: [Embed] });
 
     // Log the command usage
-		console.log(chalk.blue(`${chalk.green(`[COMMAND]`)} ${chalk.yellow(interaction.user.tag)} used the ${chalk.green(`/uptime`)} command in ${chalk.yellow(interaction.guild?.name)}`));
+    console.log(
+      chalk.blue(
+        `${chalk.green(`[COMMAND]`)} ${chalk.yellow(
+          interaction.user.tag
+        )} used the ${chalk.green(`/uptime`)} command in ${chalk.yellow(
+          interaction.guild?.name
+        )}`
+      )
+    );
   },
 } as ICommand;

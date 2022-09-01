@@ -1,16 +1,21 @@
-import { MessageEmbed, MessageActionRow, MessageSelectMenu, MessageSelectOptionData } from "discord.js";
+import {
+  MessageEmbed,
+  MessageActionRow,
+  MessageSelectMenu,
+  MessageSelectOptionData,
+} from "discord.js";
 import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import classModel from "../../models/classModel";
 import { checkForRoles } from "../../rolesOps";
 
 export interface Class {
-  CODE: string,
-  TITLE: string,
-  INFO: string,
-  ROLE_NAME: string,
-  ROLE_ID: string,
-  UUID: string,
+  CODE: string;
+  TITLE: string;
+  INFO: string;
+  ROLE_NAME: string;
+  ROLE_ID: string;
+  UUID: string;
 }
 
 export default {
@@ -34,7 +39,7 @@ export default {
     let classes: Class[] = await classModel.find({}).sort({ CODE: 1 });
     const class_chunks = split_list(classes, 25);
 
-    let rows:MessageActionRow[] = [];
+    let rows: MessageActionRow[] = [];
     for (let index = 0; index < class_chunks.length; index++) {
       const menu = new MessageSelectMenu();
       menu.setCustomId(`csClassPoll+${index}`);
@@ -50,8 +55,7 @@ export default {
       rows.push(row);
     }
 
-
-    const row_chunks = split_list(rows, 5)
+    const row_chunks = split_list(rows, 5);
     for (let index = 0; index < row_chunks.length; index++) {
       if (index == 0) {
         // Define embeds used in this command
@@ -91,12 +95,11 @@ export default {
 
 // Splits any size list into lists of at most `max_list_len`
 function split_list(list: Array<any>, max_list_len: number) {
-  let class_chunks = []
+  let class_chunks = [];
   for (let i = 0; i < list.length; i += max_list_len) {
-    class_chunks.push(list.slice(i, i + max_list_len))
-
+    class_chunks.push(list.slice(i, i + max_list_len));
   }
-  return class_chunks
+  return class_chunks;
 }
 
 // consumes a Class and returns Message Selec tOption data
@@ -105,6 +108,5 @@ function create_option_from_class(_class: Class): MessageSelectOptionData {
     label: _class.CODE,
     value: _class.CODE,
     description: _class.TITLE,
-  }
+  };
 }
-
