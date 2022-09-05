@@ -3,7 +3,13 @@ import chalk from "chalk";
 import { classModel, IClass } from "./models/classModel";
 import { staffModel, IStaff } from "./models/staffModel";
 import { yearModel, IYear } from "./models/yearModel";
+import { Model } from "mongoose";
 
+export async function checkIfCollectionsExist(model: Model<any>) {
+  if (!(await model.exists({}))) {
+    throw new Error(`${model.name} collection does not exist`);
+  }
+}
 async function dbQuery() {
   const classes = await classModel.find({});
   const staff = await staffModel.find({});
