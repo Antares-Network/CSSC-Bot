@@ -19,9 +19,9 @@ export default {
     // Remove roles from user
     if (!interaction.member) return;
     const member = interaction.member as GuildMember;
-    removeRole(member, classModel);
-    removeRole(member, yearModel);
-    removeRole(member, staffModel);
+    await removeRole(member, classModel);
+    await removeRole(member, yearModel);
+    await removeRole(member, staffModel);
     // Reply to the user
     interaction.reply({
       content: "Cleared all roles that I have assigned to you.",
