@@ -133,7 +133,7 @@ export async function checkForRoles(guild: Guild): Promise<boolean> {
       if (name == undefined && id == undefined) {
         console.log(
           chalk.red.bold(
-            `Role ${name} does not exist in ${guild.name}, Please run the /createRoles command in that server.`
+            `Role ${element.ROLE_NAME} does not exist in ${guild.name}, Please run the /createRoles command in that server.`
           )
         );
         collection.push(false);
