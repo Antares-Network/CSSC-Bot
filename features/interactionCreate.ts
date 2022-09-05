@@ -33,7 +33,7 @@ export default (client: Client): void => {
         ephemeral: true,
       });
       // Remove any previous roles in the dictionary from the user
-      removeRole(member, yearModel);
+      await removeRole(member, yearModel);
 
       // No role to add
       if (interaction.values[0] === "None") {
@@ -41,7 +41,7 @@ export default (client: Client): void => {
       }
 
       // Assign the new role to the user
-      addNewRole(member, yearModel, interaction.values[0]);
+      await addNewRole(member, yearModel, interaction.values[0]);
     } else if (interaction.customId === "collegeStaffPoll") {
       // Set the embed title
       const title = "College Staff Poll";
@@ -58,7 +58,7 @@ export default (client: Client): void => {
       });
 
       // Remove any previous roles in the dictionary from the user
-      removeRole(member, staffModel);
+      await removeRole(member, staffModel);
 
       // No role to add
       if (interaction.values[0] === "None") {
@@ -66,7 +66,7 @@ export default (client: Client): void => {
       }
 
       // Assign the new role to the user
-      addNewRole(member, staffModel, interaction.values[0]);
+      await addNewRole(member, staffModel, interaction.values[0]);
     } else if (interaction.customId.startsWith("csClassPoll+")) {
       // Set the embed title
       const title = "CS Class Poll";
@@ -83,7 +83,7 @@ export default (client: Client): void => {
       });
       // Assign the new role to the user
 
-      addNewRole(member, classModel, interaction.values[0]);
+      await addNewRole(member, classModel, interaction.values[0]);
     }
   });
 };

@@ -61,9 +61,9 @@ client.on("ready", () => {
 
   // Set up the connection to the database
   wok.on("databaseConnected", async () => {
-    checkIfCollectionsExist(classModel);
-    checkIfCollectionsExist(staffModel);
-    checkIfCollectionsExist(yearModel);
+    await checkIfCollectionsExist(classModel);
+    await checkIfCollectionsExist(staffModel);
+    await checkIfCollectionsExist(yearModel);
     console.log(chalk.green("Connected to the database"));
   });
 });
