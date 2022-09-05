@@ -20,10 +20,13 @@ export default {
     console.log(
       chalk.red("------------------------------------------------------")
     );
+    if (interaction.guild === null) {
+      return;
+    }
     // Create the roles
-    await createRoles(interaction.guild!, classModel);
-    await createRoles(interaction.guild!, staffModel);
-    await createRoles(interaction.guild!, yearModel);
+    await createRoles(interaction.guild, classModel);
+    await createRoles(interaction.guild, staffModel);
+    await createRoles(interaction.guild, yearModel);
     interaction.reply({
       content: "Roles created!",
       ephemeral: true,
