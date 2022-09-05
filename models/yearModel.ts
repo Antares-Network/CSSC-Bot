@@ -15,4 +15,4 @@ const YearSchema = new Schema({
 });
 
 const name = "year";
-export let yearModel = mongoose.model<IYear>(name, YearSchema, name);
+export const yearModel = mongoose.model<IYear>(name, YearSchema, name);
