@@ -24,4 +24,6 @@ const ClassSchema = new Schema({
   UUID: { type: String, default: "remove" },
 });
 
-export let classModel = mongoose.model<IClass>("class", ClassSchema);
+const name = "class";
+
+export const classModel = mongoose.model<IClass>(name, ClassSchema, name);

@@ -14,4 +14,6 @@ const YearSchema = new Schema({
   ROLE_ID: { type: String, required: true },
 });
 
-export let yearModel = mongoose.model("year", YearSchema);
+// export let yearModel = mongoose.model("year", YearSchema);
+const name = "year";
+export let yearModel = mongoose.model<IYear>(name, YearSchema, name);

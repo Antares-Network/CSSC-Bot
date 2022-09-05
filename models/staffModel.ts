@@ -14,4 +14,7 @@ const StaffSchema = new Schema({
   ROLE_ID: { type: String, required: true },
 });
 
-export let staffModel = model("staff", StaffSchema);
+// export let staffModel = model("staff", StaffSchema);
+const name = "staff";
+
+export const staffModel = mongoose.model<IStaff>(name, StaffSchema, name);
