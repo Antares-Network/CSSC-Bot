@@ -13,7 +13,7 @@ export default {
   requiredPermissions: ["MANAGE_GUILD", "MANAGE_ROLES"],
   ownerOnly: true,
 
-  callback: async ({ client, interaction: msgInt }) => {
+  callback:  ({ client, interaction: msgInt }) => {
     // Define embeds used in this command
     const infoEmbed = new MessageEmbed()
       .setTitle("Choose a role")

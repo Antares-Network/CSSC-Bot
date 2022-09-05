@@ -1,6 +1,6 @@
 import { Client } from "discord.js";
 
-export default async (client: Client) => {
+export default  (client: Client) => {
   const statusOptions = [
     `/help | Ping: ${client.ws.ping}ms`,
     `V.${process.env.VERSION}`,

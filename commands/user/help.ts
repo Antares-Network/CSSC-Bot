@@ -11,7 +11,7 @@ export default {
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
-  callback: async ({ client, interaction }) => {
+  callback:  ({ client, interaction }) => {
     const color = "#0099ff";
     const thumbnail =
       "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";

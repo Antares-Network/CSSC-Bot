@@ -11,7 +11,7 @@ export default {
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
-  callback: async ({ client, interaction }) => {
+  callback:  ({ client, interaction }) => {
     // Command information
     const id = interaction.user.id;
     const chan = interaction.channel as TextChannel;

@@ -29,7 +29,7 @@ client.on("ready", () => {
     );
     // Check to make sure the roles exist in all servers
     console.log("Checking if all roles exist in servers.");
-    client.guilds.cache.forEach(async (guild) => {
+    client.guilds.cache.forEach( (guild) => {
       checkForRoles(guild);
     });
   }
@@ -57,7 +57,7 @@ client.on("ready", () => {
   }).setDefaultPrefix(String(process.env.BOT_DEFAULT_PREFIX));
 
   // Set up the connection to the database
-  wok.on("databaseConnected", async () => {
+  wok.on("databaseConnected",  () => {
     console.log(chalk.green("Connected to the database"));
   });
 });
