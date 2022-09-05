@@ -1,6 +1,9 @@
 import { ICommand } from "wokcommands";
 import { createRoles } from "../../rolesOps";
 import chalk from "chalk";
+import { classModel } from "../../models/classModel";
+import { staffModel } from "../../models/staffModel";
+import { yearModel } from "../../models/yearModel";
 
 export default {
   name: "createRoles",
@@ -18,9 +21,9 @@ export default {
       chalk.red("------------------------------------------------------")
     );
     // Create the roles
-    createRoles(interaction.guild!, "class");
-    createRoles(interaction.guild!, "staff");
-    createRoles(interaction.guild!, "year");
+    createRoles(interaction.guild!, classModel);
+    createRoles(interaction.guild!, staffModel);
+    createRoles(interaction.guild!, yearModel);
     interaction.reply({
       content: "Roles created!",
       ephemeral: true,

@@ -85,15 +85,11 @@ export async function addNewRole(
   }
 }
 
-export async function createRoles(guild: Guild, type: string): Promise<void> {
-  let list = null;
-  if (type === "class") {
-    list = await classModel.find({});
-  } else if (type === "staff") {
-    list = await staffModel.find({});
-  } else if (type === "year") {
-    list = await yearModel.find({});
-  }
+export async function createRoles<T extends IRole>(
+  guild: Guild,
+  model: Model<T>
+): Promise<void> {
+  let list = await model.find({});
 
   list?.forEach(async (element) => {
     if (!guild.roles.cache.find((r) => r.name === element.ROLE_NAME)) {
