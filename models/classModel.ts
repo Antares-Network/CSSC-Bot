@@ -1,6 +1,18 @@
 import mongoose, { Schema } from "mongoose";
 
-const CLASS = new Schema({
+export interface IClass {
+  id: string;
+  CODE: string;
+  TITLE: string;
+  INFO: string;
+  ROLE_NAME: string;
+  ROLE_ID: string;
+  CHANNEL_NAME: string;
+  CHANNEL_ID: string;
+  UUID: string;
+}
+
+const ClassSchema = new Schema({
   id: String,
   CODE: String,
   TITLE: String,
@@ -12,6 +24,4 @@ const CLASS = new Schema({
   UUID: String,
 });
 
-const name = "class";
-
-export = mongoose.models[name] || mongoose.model(name, CLASS, name);
+export let classModel = mongoose.model<IClass>("class", ClassSchema);

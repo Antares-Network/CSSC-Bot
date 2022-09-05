@@ -1,8 +1,8 @@
 import { GuildMember, Guild } from "discord.js";
 import chalk from "chalk";
-import classModel from "./models/classModel";
-import staffModel from "./models/staffModel";
-import yearModel from "./models/yearModel";
+import { classModel } from "./models/classModel";
+import { staffModel } from "./models/staffModel";
+import { yearModel } from "./models/yearModel";
 
 async function dbQuery() {
   const classes = await classModel.find({});

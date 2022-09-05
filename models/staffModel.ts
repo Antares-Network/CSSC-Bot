@@ -1,12 +1,17 @@
 import mongoose, { Schema } from "mongoose";
 
-const STAFF = new Schema({
+export interface IStaff {
+  id: string;
+  NAME: string;
+  ROLE_NAME: string;
+  ROLE_ID: string;
+}
+
+const StaffSchema = new Schema({
   id: String,
   NAME: String,
   ROLE_NAME: String,
   ROLE_ID: String,
 });
 
-const name = "staff";
-
-export = mongoose.models[name] || mongoose.model(name, STAFF, name);
+export let staffModel = mongoose.model("staff", StaffSchema);
