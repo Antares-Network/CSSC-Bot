@@ -1,8 +1,8 @@
 import { GuildMember, Guild } from "discord.js";
 import chalk from "chalk";
-import { classModel } from "./models/classModel";
-import { staffModel } from "./models/staffModel";
-import { yearModel } from "./models/yearModel";
+import { classModel, IClass } from "./models/classModel";
+import { staffModel, IStaff } from "./models/staffModel";
+import { yearModel, IYear } from "./models/yearModel";
 
 async function dbQuery() {
   const classes = await classModel.find({});
@@ -29,7 +29,7 @@ export async function removeRole(
 ): Promise<void> {
   // This function is triggered when a user changes their role,
   // it removes the previous role from the user
-  let list = [];
+  let list: any[] = [];
   if (type === "class") {
     list = await classModel.find({});
   } else if (type === "staff") {
@@ -58,7 +58,7 @@ export async function addNewRole(
   id: string
 ) {
   // This function is triggered when a user changes their role, it adds the new role to the user
-  let role;
+  let role: IClass | IYear | IStaff | null = null;
   if (type === "class") {
     role = await classModel.findOne({ CODE: id });
   } else if (type === "staff") {
@@ -66,8 +66,11 @@ export async function addNewRole(
   } else if (type === "year") {
     role = await yearModel.findOne({ NAME: id });
   }
-  if (!member.roles.cache.has(role?.ROLE_ID)) {
-    await member.roles.add(role?.ROLE_ID);
+  if (role === null) {
+    throw new Error(`No roll found with id: ${id}`);
+  }
+  if (!member.roles.cache.has(role.ROLE_ID)) {
+    await member.roles.add(role.ROLE_ID);
     console.log(
       chalk.green(
         `Added role ${chalk.green(role.ROLE_NAME)} to ${chalk.yellow(
@@ -79,7 +82,7 @@ export async function addNewRole(
 }
 
 export async function createRoles(guild: Guild, type: string): Promise<void> {
-  let list;
+  let list = null;
   if (type === "class") {
     list = await classModel.find({});
   } else if (type === "staff") {
@@ -98,10 +101,14 @@ export async function createRoles(guild: Guild, type: string): Promise<void> {
       console.log(chalk.yellow(`${element}: ${role?.id}`));
     } else {
       // If the role already exists, print the id to the console
-      const role = guild.roles.cache.find((r) => r.name === element.ROLE_NAME);
-      element.ROLE_ID = role?.id;
+      const id = guild.roles.cache.find(
+        (r) => r.name === element.ROLE_NAME
+      )?.id;
+      if (id !== undefined) {
+        element.ROLE_ID = id;
+      }
       element.save();
-      console.log(chalk.yellow(`${element}: ${role?.id}`));
+      console.log(chalk.yellow(`${element}: ${id}`));
     }
   });
 }

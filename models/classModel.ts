@@ -13,15 +13,15 @@ export interface IClass {
 }
 
 const ClassSchema = new Schema({
-  id: String,
-  CODE: String,
-  TITLE: String,
-  INFO: String,
-  ROLE_NAME: String,
-  ROLE_ID: String,
-  CHANNEL_NAME: String,
-  CHANNEL_ID: String,
-  UUID: String,
+  id: { type: String, required: true },
+  CODE: { type: String, required: true },
+  TITLE: { type: String, required: true },
+  INFO: { type: String, required: true },
+  ROLE_NAME: { type: String, required: true },
+  ROLE_ID: { type: String, required: true },
+  CHANNEL_NAME: { type: String, required: true },
+  CHANNEL_ID: { type: String, required: true },
+  UUID: { type: String, default: "remove" },
 });
 
 export let classModel = mongoose.model<IClass>("class", ClassSchema);

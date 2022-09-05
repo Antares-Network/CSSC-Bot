@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 export interface IStaff {
   id: string;
@@ -8,10 +8,10 @@ export interface IStaff {
 }
 
 const StaffSchema = new Schema({
-  id: String,
-  NAME: String,
-  ROLE_NAME: String,
-  ROLE_ID: String,
+  id: { type: String, required: true },
+  NAME: { type: String, required: true },
+  ROLE_NAME: { type: String, required: true },
+  ROLE_ID: { type: String, required: true },
 });
 
-export let staffModel = mongoose.model("staff", StaffSchema);
+export let staffModel = model("staff", StaffSchema);
