@@ -1,6 +1,6 @@
 **/__pycache__
 .vscode
-.env
+*.env
 node_modules
 unused-commands
 d.py/
