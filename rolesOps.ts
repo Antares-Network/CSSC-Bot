@@ -56,23 +56,25 @@ export async function removeRole<T extends IRole>(
   }
 }
 
-export async function addNewRole(
+export async function addNewRole<T extends IRole>(
   member: GuildMember,
-  type: string,
+  model: Model<T>,
   id: string
 ) {
   // This function is triggered when a user changes their role, it adds the new role to the user
-  let role: IClass | IYear | IStaff | null = null;
-  if (type === "class") {
-    role = await classModel.findOne({ CODE: id });
-  } else if (type === "staff") {
-    role = await staffModel.findOne({ NAME: id });
-  } else if (type === "year") {
-    role = await yearModel.findOne({ NAME: id });
+  let role;
+  switch (model.constructor) {
+    case classModel:
+      //TODO: Rewrite IRole to include name, and replace CODE with name
+      role = await model.findOne({ CODE: id });
+    default:
+      role = await model.findOne({ Name: id });
   }
+
   if (role === null) {
     throw new Error(`No roll found with id: ${id}`);
   }
+
   if (!member.roles.cache.has(role.ROLE_ID)) {
     await member.roles.add(role.ROLE_ID);
     console.log(
