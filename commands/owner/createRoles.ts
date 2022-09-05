@@ -12,7 +12,7 @@ export default {
   requiredPermissions: ["MANAGE_GUILD", "MANAGE_ROLES"],
   ownerOnly: true,
 
-  callback:  ({ interaction }) => {
+  callback: ({ interaction }) => {
     console.log(
       chalk.green(
         "Creating roles...\nCopy and paste the following output into your .env file"

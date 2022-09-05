@@ -11,7 +11,7 @@ export default {
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
-  callback:  ({ client, interaction }) => {
+  callback: ({ client, interaction }) => {
     // Embed values
     const color = "#0099ff";
     const thumbnail =

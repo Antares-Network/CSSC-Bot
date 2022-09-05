@@ -12,7 +12,7 @@ export default {
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
-  callback:  ({ interaction }) => {
+  callback: ({ interaction }) => {
     // Remove roles from user
     if (!interaction.member) return;
     const member = interaction.member as GuildMember;

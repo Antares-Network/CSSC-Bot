@@ -3,7 +3,7 @@ import { removeRole, addNewRole } from "../rolesOps";
 
 // Listen interactionCreate events from the client
 export default (client: Client): void => {
-  client.on("interactionCreate",  (interaction) => {
+  client.on("interactionCreate", (interaction) => {
     // Make sure the interaction is from a select menu
     if (!interaction.isSelectMenu()) return;
     const color = "#0099ff";
