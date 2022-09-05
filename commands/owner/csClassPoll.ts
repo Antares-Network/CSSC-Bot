@@ -27,8 +27,7 @@ export default {
       return;
     }
 
-    // let classes: IClass[] = await classModel.find({}).sort({ CODE: 1 });
-    let classes = await classModel.find({}).sort({ CODE: 1 });
+    const classes = await classModel.find({}).sort({ CODE: 1 });
     const class_chunks = split_list(classes, 25);
 
     let rows: MessageActionRow[] = [];

@@ -1,8 +1,8 @@
 import { GuildMember, Guild } from "discord.js";
 import chalk from "chalk";
-import { classModel, IClass } from "./models/classModel";
-import { staffModel, IStaff } from "./models/staffModel";
-import { yearModel, IYear } from "./models/yearModel";
+import { classModel } from "./models/classModel";
+import { staffModel } from "./models/staffModel";
+import { yearModel } from "./models/yearModel";
 import { Model } from "mongoose";
 
 export interface IRole {
@@ -91,7 +91,7 @@ export async function createRoles<T extends IRole>(
   guild: Guild,
   model: Model<T>
 ): Promise<void> {
-  let list = await model.find({});
+  const list = await model.find({});
 
   list?.forEach(async (element) => {
     if (!guild.roles.cache.find((r) => r.name === element.ROLE_NAME)) {
