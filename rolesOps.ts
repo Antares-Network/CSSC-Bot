@@ -10,7 +10,7 @@ export interface IRole {
   ROLE_ID: string;
 }
 
-export async function checkIfCollectionsExist(model: Model<any>) {
+export async function checkIfCollectionsExist<T>(model: Model<T>) {
   if (!(await model.exists({}))) {
     throw new Error(`${model.name} collection does not exist`);
   }
