@@ -13,11 +13,7 @@ export default {
   ownerOnly: true,
 
   callback: async ({ interaction }) => {
-    console.log(
-      chalk.green(
-        "Creating roles...\nCopy and paste the following output into your .env file"
-      )
-    );
+    console.log(chalk.green("Creating roles..."));
     console.log(
       chalk.red("------------------------------------------------------")
     );
