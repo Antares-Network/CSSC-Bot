@@ -1,12 +1,11 @@
 import mongoose, { Schema } from "mongoose";
+import { IRole } from "../rolesOps";
 
-export interface IClass {
+export interface IClass extends IRole {
   id: string;
   CODE: string;
   TITLE: string;
   INFO: string;
-  ROLE_NAME: string;
-  ROLE_ID: string;
   CHANNEL_NAME: string;
   CHANNEL_ID: string;
   UUID: string;

@@ -5,6 +5,11 @@ import { staffModel, IStaff } from "./models/staffModel";
 import { yearModel, IYear } from "./models/yearModel";
 import { Model } from "mongoose";
 
+export interface IRole {
+  ROLE_NAME: string;
+  ROLE_ID: string;
+}
+
 export async function checkIfCollectionsExist(model: Model<any>) {
   if (!(await model.exists({}))) {
     throw new Error(`${model.name} collection does not exist`);

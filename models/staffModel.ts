@@ -1,10 +1,9 @@
 import mongoose, { Schema } from "mongoose";
+import { IRole } from "../rolesOps";
 
-export interface IStaff {
+export interface IStaff extends IRole {
   id: string;
   NAME: string;
-  ROLE_NAME: string;
-  ROLE_ID: string;
 }
 
 const StaffSchema = new Schema({
