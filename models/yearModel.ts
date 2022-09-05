@@ -8,7 +8,7 @@ export interface IYear {
 }
 
 const YearSchema = new Schema({
-  id: { type: String, required: true },
+  id: { type: String },
   NAME: { type: String, required: true },
   ROLE_NAME: { type: String, required: true },
   ROLE_ID: { type: String, required: true },

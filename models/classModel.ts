@@ -13,14 +13,14 @@ export interface IClass {
 }
 
 const ClassSchema = new Schema({
-  id: { type: String, required: true },
+  id: { type: String },
   CODE: { type: String, required: true },
   TITLE: { type: String, required: true },
   INFO: { type: String, required: true },
   ROLE_NAME: { type: String, required: true },
   ROLE_ID: { type: String, required: true },
-  CHANNEL_NAME: { type: String, required: true },
-  CHANNEL_ID: { type: String, required: true },
+  CHANNEL_NAME: { type: String },
+  CHANNEL_ID: { type: String },
   UUID: { type: String, default: "remove" },
 });
 
