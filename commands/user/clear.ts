@@ -1,6 +1,9 @@
 import chalk from "chalk";
 import { GuildMember } from "discord.js";
 import { ICommand } from "wokcommands";
+import { classModel } from "../../models/classModel";
+import { staffModel } from "../../models/staffModel";
+import { yearModel } from "../../models/yearModel";
 import { removeRole } from "../../rolesOps";
 
 export default {
@@ -16,9 +19,9 @@ export default {
     // Remove roles from user
     if (!interaction.member) return;
     const member = interaction.member as GuildMember;
-    removeRole(member, "class");
-    removeRole(member, "year");
-    removeRole(member, "staff");
+    removeRole(member, classModel);
+    removeRole(member, yearModel);
+    removeRole(member, staffModel);
     // Reply to the user
     interaction.reply({
       content: "Cleared all roles that I have assigned to you.",

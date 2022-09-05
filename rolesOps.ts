@@ -34,20 +34,13 @@ export async function getUsersRoles(member: GuildMember): Promise<string> {
   return list;
 }
 
-export async function removeRole(
+export async function removeRole<T extends IRole>(
   member: GuildMember,
-  type: string
+  model: Model<T>
 ): Promise<void> {
   // This function is triggered when a user changes their role,
   // it removes the previous role from the user
-  let list: any[] = [];
-  if (type === "class") {
-    list = await classModel.find({});
-  } else if (type === "staff") {
-    list = await staffModel.find({});
-  } else if (type === "year") {
-    list = await yearModel.find({});
-  }
+  const list = await model.find({});
 
   for (const role of list) {
     if (member.roles.cache.has(role.ROLE_ID)) {

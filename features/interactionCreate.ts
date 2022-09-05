@@ -1,5 +1,7 @@
 import { Client, MessageEmbed, GuildMember } from "discord.js";
+import { yearModel } from "../models/yearModel";
 import { removeRole, addNewRole } from "../rolesOps";
+import { staffModel } from "../models/staffModel";
 
 // Listen interactionCreate events from the client
 export default (client: Client): void => {
@@ -30,11 +32,12 @@ export default (client: Client): void => {
         ephemeral: true,
       });
       // Remove any previous roles in the dictionary from the user
+      removeRole(member, yearModel);
+
+      // No role to add
       if (interaction.values[0] === "None") {
-        removeRole(member, "year");
         return;
       }
-      removeRole(member, "year");
 
       // Assign the new role to the user
       addNewRole(member, "year", interaction.values[0]);
@@ -52,12 +55,14 @@ export default (client: Client): void => {
         ],
         ephemeral: true,
       });
+
       // Remove any previous roles in the dictionary from the user
+      removeRole(member, staffModel);
+
+      // No role to add
       if (interaction.values[0] === "None") {
-        removeRole(member, "staff");
         return;
       }
-      removeRole(member, "staff");
 
       // Assign the new role to the user
       addNewRole(member, "staff", interaction.values[0]);
