@@ -8,6 +8,7 @@ import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
 import { checkForRoles } from "../../rolesOps";
+import { sleep } from "../../util";
 
 // Splits any size list into lists of at most `max_list_len`
 function split_list<T>(list: T[], max_list_len: number): T[][] {
@@ -82,10 +83,8 @@ export default {
       } else {
         msgInt.channel!.send({ components: row_chunks[index] });
       }
-      // await on a new promise that resolves itself after a delay of 200 ms
-      await new Promise((resolve) => {
-        setTimeout(resolve, 200);
-      });
+
+      await sleep(200);
     }
 
     // Log the command usage
