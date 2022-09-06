@@ -58,8 +58,12 @@ export default {
         )
     );
 
+    if (msgInt.guild === null) {
+      console.log(chalk.red("No guild"));
+      return;
+    }
     // Send the embed and message component rows
-    if (!(await checkForRoles(msgInt.guild!))) {
+    if (!(await checkForRoles(msgInt.guild))) {
       msgInt.reply(
         "Please run the `/createRoles` command in this server to create the necessary roles for this poll!"
       );

@@ -13,7 +13,7 @@ export default {
 
   callback: async ({ client, interaction }) => {
     // Computed values
-    const time = client.uptime!;
+    const time = client.uptime !== null ? client.uptime : 0;
     const days = Math.floor(time / 86400000);
     const hours = Math.floor(time / 3600000) % 24;
     const minutes = Math.floor(time / 60000) % 60;
