@@ -9,6 +9,23 @@ import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
 import { checkForRoles } from "../../rolesOps";
 
+// Splits any size list into lists of at most `max_list_len`
+function split_list<T>(list: T[], max_list_len: number):T[][] {
+  let class_chunks = [];
+  for (let i = 0; i < list.length; i += max_list_len) {
+    class_chunks.push(list.slice(i, i + max_list_len));
+  }
+  return class_chunks;
+}
+
+// consumes a Class and returns Message Selec tOption data
+function create_option_from_class(_class: IClass): MessageSelectOptionData {
+  return {
+    label: _class.CODE,
+    value: _class.CODE,
+    description: _class.TITLE,
+  };
+}
 export default {
   name: "csClassPoll",
   category: "owner",
@@ -83,21 +100,3 @@ export default {
     );
   },
 } as ICommand;
-
-// Splits any size list into lists of at most `max_list_len`
-function split_list<T>(list: T[], max_list_len: number):T[][] {
-  let class_chunks = [];
-  for (let i = 0; i < list.length; i += max_list_len) {
-    class_chunks.push(list.slice(i, i + max_list_len));
-  }
-  return class_chunks;
-}
-
-// consumes a Class and returns Message Selec tOption data
-function create_option_from_class(_class: IClass): MessageSelectOptionData {
-  return {
-    label: _class.CODE,
-    value: _class.CODE,
-    description: _class.TITLE,
-  };
-}
