@@ -8,7 +8,25 @@ import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
 import { checkForRoles } from "../../rolesOps";
+import { sleep } from "../../util";
 
+// Splits any size list into lists of at most `max_list_len`
+function split_list<T>(list: T[], max_list_len: number): T[][] {
+  const class_chunks: T[][] = [];
+  for (let i = 0; i < list.length; i += max_list_len) {
+    class_chunks.push(list.slice(i, i + max_list_len));
+  }
+  return class_chunks;
+}
+
+// consumes a Class and returns Message Selec tOption data
+function create_option_from_class(_class: IClass): MessageSelectOptionData {
+  return {
+    label: _class.CODE,
+    value: _class.CODE,
+    description: _class.TITLE,
+  };
+}
 export default {
   name: "csClassPoll",
   category: "owner",
@@ -20,7 +38,11 @@ export default {
   ownerOnly: true,
 
   callback: async ({ client, interaction: msgInt }) => {
-    if (!checkForRoles(msgInt.guild!)) {
+    if (msgInt.guild === null) {
+      console.log(chalk.red("No guild"));
+      return;
+    }
+    if (!(await checkForRoles(msgInt.guild))) {
       msgInt.reply(
         "Please run the `/ createRoles` command in this server to create the necessary roles for this poll!"
       );
@@ -30,7 +52,7 @@ export default {
     const classes = await classModel.find({}).sort({ CODE: 1 });
     const class_chunks = split_list(classes, 25);
 
-    let rows: MessageActionRow[] = [];
+    const rows: MessageActionRow[] = [];
     for (let index = 0; index < class_chunks.length; index++) {
       const menu = new MessageSelectMenu();
       menu.setCustomId(`csClassPoll+${index}`);
@@ -63,12 +85,10 @@ export default {
 
         msgInt.reply({ embeds: [infoEmbed], components: row_chunks[index] });
       } else {
-        msgInt.channel!.send({ components: row_chunks[index] });
+        msgInt.reply({ components: row_chunks[index] });
       }
-      // await on a new promise that resolves itself after a delay of 200 ms
-      await new Promise((resolve) => {
-        setTimeout(resolve, 200);
-      });
+
+      await sleep(200);
     }
 
     // Log the command usage
@@ -83,21 +103,3 @@ export default {
     );
   },
 } as ICommand;
-
-// Splits any size list into lists of at most `max_list_len`
-function split_list(list: Array<any>, max_list_len: number) {
-  let class_chunks = [];
-  for (let i = 0; i < list.length; i += max_list_len) {
-    class_chunks.push(list.slice(i, i + max_list_len));
-  }
-  return class_chunks;
-}
-
-// consumes a Class and returns Message Selec tOption data
-function create_option_from_class(_class: IClass): MessageSelectOptionData {
-  return {
-    label: _class.CODE,
-    value: _class.CODE,
-    description: _class.TITLE,
-  };
-}

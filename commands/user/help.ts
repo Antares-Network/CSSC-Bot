@@ -53,7 +53,7 @@ export default {
       .setDescription(description)
       .addFields(fields)
       .setFooter({ text: footer, iconURL: footerIcon });
-    interaction.reply({ embeds: [Embed] });
+    await interaction.reply({ embeds: [Embed] });
 
     // Log the command usage
     console.log(

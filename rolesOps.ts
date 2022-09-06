@@ -16,10 +16,11 @@ export async function checkIfCollectionsExist<T>(model: Model<T>) {
   }
 }
 async function dbQuery() {
-  const classes = await classModel.find({});
-  const staff = await staffModel.find({});
-  const years = await yearModel.find({});
-  return [classes, staff, years];
+  return await Promise.all([
+    classModel.find({}),
+    staffModel.find({}),
+    yearModel.find({}),
+  ]);
 }
 
 export async function getUsersRoles(member: GuildMember): Promise<string> {
@@ -120,7 +121,7 @@ export async function checkForRoles(guild: Guild): Promise<boolean> {
   // Check if all roles exist in a guild
   // Return true if they do, false if they don't
 
-  let collection: boolean[] = [];
+  const collection: boolean[] = [];
 
   for (const group of await dbQuery()) {
     for (const element of group) {

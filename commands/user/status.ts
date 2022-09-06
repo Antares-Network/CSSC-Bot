@@ -30,7 +30,7 @@ export default {
       .setDescription(description)
       .setFooter({ text: footer, iconURL: footerIcon });
 
-    interaction.reply({ embeds: [Embed] });
+    await interaction.reply({ embeds: [Embed] });
 
     // Log the command usage
     console.log(
