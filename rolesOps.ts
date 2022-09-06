@@ -119,7 +119,7 @@ export async function checkForRoles(guild: Guild): Promise<boolean> {
   // Check if all roles exist in a guild
   // Return true if they do, false if they don't
 
-  let collection: boolean[] = [];
+  const collection: boolean[] = [];
 
   for (const group of await dbQuery()) {
     for (const element of group) {

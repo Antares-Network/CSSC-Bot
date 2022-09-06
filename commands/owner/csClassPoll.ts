@@ -12,7 +12,7 @@ import { sleep } from "../../util";
 
 // Splits any size list into lists of at most `max_list_len`
 function split_list<T>(list: T[], max_list_len: number): T[][] {
-  let class_chunks = [];
+  const class_chunks: T[][] = [];
   for (let i = 0; i < list.length; i += max_list_len) {
     class_chunks.push(list.slice(i, i + max_list_len));
   }
@@ -52,7 +52,7 @@ export default {
     const classes = await classModel.find({}).sort({ CODE: 1 });
     const class_chunks = split_list(classes, 25);
 
-    let rows: MessageActionRow[] = [];
+    const rows: MessageActionRow[] = [];
     for (let index = 0; index < class_chunks.length; index++) {
       const menu = new MessageSelectMenu();
       menu.setCustomId(`csClassPoll+${index}`);
