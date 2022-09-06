@@ -10,7 +10,7 @@ import { classModel, IClass } from "../../models/classModel";
 import { checkForRoles } from "../../rolesOps";
 
 // Splits any size list into lists of at most `max_list_len`
-function split_list<T>(list: T[], max_list_len: number):T[][] {
+function split_list<T>(list: T[], max_list_len: number): T[][] {
   let class_chunks = [];
   for (let i = 0; i < list.length; i += max_list_len) {
     class_chunks.push(list.slice(i, i + max_list_len));
@@ -37,7 +37,7 @@ export default {
   ownerOnly: true,
 
   callback: async ({ client, interaction: msgInt }) => {
-    if (!checkForRoles(msgInt.guild!)) {
+    if (!(await checkForRoles(msgInt.guild!))) {
       msgInt.reply(
         "Please run the `/ createRoles` command in this server to create the necessary roles for this poll!"
       );
