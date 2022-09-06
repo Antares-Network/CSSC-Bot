@@ -63,12 +63,13 @@ export async function addNewRole<T extends IRole>(
 ) {
   // This function is triggered when a user changes their role, it adds the new role to the user
   let role;
-  switch (model.constructor) {
-    case classModel:
+  switch (model.modelName) {
+    case "class":
       //TODO: Rewrite IRole to include name, and replace CODE with name
       role = await model.findOne({ CODE: id });
+      break;
     default:
-      role = await model.findOne({ Name: id });
+      role = await model.findOne({ NAME: id });
   }
 
   if (role === null) {
