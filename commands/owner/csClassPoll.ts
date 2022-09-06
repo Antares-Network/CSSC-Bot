@@ -85,7 +85,7 @@ export default {
 } as ICommand;
 
 // Splits any size list into lists of at most `max_list_len`
-function split_list(list: Array<any>, max_list_len: number) {
+function split_list<T>(list: T[], max_list_len: number):T[][] {
   let class_chunks = [];
   for (let i = 0; i < list.length; i += max_list_len) {
     class_chunks.push(list.slice(i, i + max_list_len));
