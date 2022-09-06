@@ -38,7 +38,11 @@ export default {
   ownerOnly: true,
 
   callback: async ({ client, interaction: msgInt }) => {
-    if (!(await checkForRoles(msgInt.guild!))) {
+    if (msgInt.guild === null) {
+      console.log(chalk.red("No guild"));
+      return;
+    }
+    if (!(await checkForRoles(msgInt.guild))) {
       msgInt.reply(
         "Please run the `/ createRoles` command in this server to create the necessary roles for this poll!"
       );
@@ -81,7 +85,7 @@ export default {
 
         msgInt.reply({ embeds: [infoEmbed], components: row_chunks[index] });
       } else {
-        msgInt.channel!.send({ components: row_chunks[index] });
+        msgInt.reply({ components: row_chunks[index] });
       }
 
       await sleep(200);
