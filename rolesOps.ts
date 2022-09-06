@@ -1,9 +1,20 @@
 import { GuildMember, Guild } from "discord.js";
 import chalk from "chalk";
-import classModel from "./models/classModel";
-import staffModel from "./models/staffModel";
-import yearModel from "./models/yearModel";
+import { classModel } from "./models/classModel";
+import { staffModel } from "./models/staffModel";
+import { yearModel } from "./models/yearModel";
+import { Model } from "mongoose";
 
+export interface IRole {
+  ROLE_NAME: string;
+  ROLE_ID: string;
+}
+
+export async function checkIfCollectionsExist<T>(model: Model<T>) {
+  if (!(await model.exists({}))) {
+    throw new Error(`${model.name} collection does not exist`);
+  }
+}
 async function dbQuery() {
   const classes = await classModel.find({});
   const staff = await staffModel.find({});
@@ -23,20 +34,13 @@ export async function getUsersRoles(member: GuildMember): Promise<string> {
   return list;
 }
 
-export async function removeRole(
+export async function removeRole<T extends IRole>(
   member: GuildMember,
-  type: string
+  model: Model<T>
 ): Promise<void> {
   // This function is triggered when a user changes their role,
   // it removes the previous role from the user
-  let list = [];
-  if (type === "class") {
-    list = await classModel.find({});
-  } else if (type === "staff") {
-    list = await staffModel.find({});
-  } else if (type === "year") {
-    list = await yearModel.find({});
-  }
+  const list = await model.find({});
 
   for (const role of list) {
     if (member.roles.cache.has(role.ROLE_ID)) {
@@ -52,22 +56,27 @@ export async function removeRole(
   }
 }
 
-export async function addNewRole(
+export async function addNewRole<T extends IRole>(
   member: GuildMember,
-  type: string,
+  model: Model<T>,
   id: string
 ) {
   // This function is triggered when a user changes their role, it adds the new role to the user
   let role;
-  if (type === "class") {
-    role = await classModel.findOne({ CODE: id });
-  } else if (type === "staff") {
-    role = await staffModel.findOne({ NAME: id });
-  } else if (type === "year") {
-    role = await yearModel.findOne({ NAME: id });
+  switch (model.constructor) {
+    case classModel:
+      //TODO: Rewrite IRole to include name, and replace CODE with name
+      role = await model.findOne({ CODE: id });
+    default:
+      role = await model.findOne({ Name: id });
   }
-  if (!member.roles.cache.has(role?.ROLE_ID)) {
-    await member.roles.add(role?.ROLE_ID);
+
+  if (role === null) {
+    throw new Error(`No roll found with id: ${id}`);
+  }
+
+  if (!member.roles.cache.has(role.ROLE_ID)) {
+    await member.roles.add(role.ROLE_ID);
     console.log(
       chalk.green(
         `Added role ${chalk.green(role.ROLE_NAME)} to ${chalk.yellow(
@@ -78,15 +87,11 @@ export async function addNewRole(
   }
 }
 
-export async function createRoles(guild: Guild, type: string): Promise<void> {
-  let list;
-  if (type === "class") {
-    list = await classModel.find({});
-  } else if (type === "staff") {
-    list = await staffModel.find({});
-  } else if (type === "year") {
-    list = await yearModel.find({});
-  }
+export async function createRoles<T extends IRole>(
+  guild: Guild,
+  model: Model<T>
+): Promise<void> {
+  const list = await model.find({});
 
   list?.forEach(async (element) => {
     if (!guild.roles.cache.find((r) => r.name === element.ROLE_NAME)) {
@@ -98,10 +103,14 @@ export async function createRoles(guild: Guild, type: string): Promise<void> {
       console.log(chalk.yellow(`${element}: ${role?.id}`));
     } else {
       // If the role already exists, print the id to the console
-      const role = guild.roles.cache.find((r) => r.name === element.ROLE_NAME);
-      element.ROLE_ID = role?.id;
+      const id = guild.roles.cache.find(
+        (r) => r.name === element.ROLE_NAME
+      )?.id;
+      if (id !== undefined) {
+        element.ROLE_ID = id;
+      }
       element.save();
-      console.log(chalk.yellow(`${element}: ${role?.id}`));
+      console.log(chalk.yellow(`${element}: ${id}`));
     }
   });
 }
@@ -120,7 +129,7 @@ export async function checkForRoles(guild: Guild): Promise<boolean> {
       if (name == undefined && id == undefined) {
         console.log(
           chalk.red.bold(
-            `Role ${name} does not exist in ${guild.name}, Please run the /createRoles command in that server.`
+            `Role ${element.ROLE_NAME} does not exist in ${guild.name}, Please run the /createRoles command in that server.`
           )
         );
         collection.push(false);

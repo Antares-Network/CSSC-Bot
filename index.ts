@@ -6,7 +6,10 @@ import chalk from "chalk";
 import dotenv from "dotenv";
 
 // import custom modules
-import { checkForRoles } from "./rolesOps";
+import { checkForRoles, checkIfCollectionsExist } from "./rolesOps";
+import { classModel } from "./models/classModel";
+import { staffModel } from "./models/staffModel";
+import { yearModel } from "./models/yearModel";
 
 // import all environment variables from .env file
 dotenv.config();
@@ -58,6 +61,9 @@ client.on("ready", () => {
 
   // Set up the connection to the database
   wok.on("databaseConnected", async () => {
+    await checkIfCollectionsExist(classModel);
+    await checkIfCollectionsExist(staffModel);
+    await checkIfCollectionsExist(yearModel);
     console.log(chalk.green("Connected to the database"));
   });
 });
