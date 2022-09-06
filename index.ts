@@ -35,7 +35,7 @@ client.on("ready", async () => {
 
     await Promise.all(
       client.guilds.cache.map(async (guild) => {
-        await checkForRoles(guild);
+        checkForRoles(guild);
       })
     );
   }
