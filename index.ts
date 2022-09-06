@@ -24,7 +24,7 @@ const client = new DiscordJs.Client({
   ],
 });
 
-client.on("ready", () => {
+client.on("ready", async () => {
   if (client.user) {
     console.log(chalk.green(`Logged in as ${client.user.tag}!`));
     console.log(
@@ -32,9 +32,12 @@ client.on("ready", () => {
     );
     // Check to make sure the roles exist in all servers
     console.log("Checking if all roles exist in servers.");
-    client.guilds.cache.forEach(async (guild) => {
-      checkForRoles(guild);
-    });
+
+    await Promise.all(
+      client.guilds.cache.map(async (guild) => {
+        await checkForRoles(guild);
+      })
+    );
   }
 
   const dbOptions = {

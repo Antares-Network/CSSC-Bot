@@ -34,7 +34,7 @@ export default {
       .setFooter({ text: footer, iconURL: footerIcon });
 
     // Return the embed
-    interaction.reply({ embeds: [Embed] });
+    await interaction.reply({ embeds: [Embed] });
 
     // Log the command usage
     console.log(

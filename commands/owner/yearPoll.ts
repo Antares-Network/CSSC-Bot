@@ -72,13 +72,13 @@ export default {
     }
     // Send the embed and message component rows
     if (!(await checkForRoles(msgInt.guild))) {
-      msgInt.reply({
+      await msgInt.reply({
         content:
           "Please run the /createRoles command in this server to create the necessary roles for this poll!",
         ephemeral: true,
       });
     } else {
-      msgInt.reply({ embeds: [infoEmbed], components: [row] });
+      await msgInt.reply({ embeds: [infoEmbed], components: [row] });
     }
 
     // Log the command usage
