@@ -10,7 +10,6 @@ import { checkForRoles, checkIfCollectionsExist } from "./rolesOps";
 import { classModel } from "./models/classModel";
 import { staffModel } from "./models/staffModel";
 import { yearModel } from "./models/yearModel";
-import { sleep } from "./util";
 
 // import all environment variables from .env file
 dotenv.config();
