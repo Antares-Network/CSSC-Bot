@@ -34,8 +34,8 @@ client.on("ready", async () => {
     console.log("Checking if all roles exist in servers.");
 
     await Promise.all(
-      client.guilds.cache.map(async (guild) => {
-        checkForRoles(guild);
+      client.guilds.cache.map((guild) => {
+        return checkForRoles(guild);
       })
     );
   }
