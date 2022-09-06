@@ -12,10 +12,6 @@ export default {
   requiredPermissions: ["SEND_MESSAGES"],
 
   callback: async ({ client, interaction }) => {
-    // Command information
-    const id = interaction.user.id;
-    const chan = interaction.channel as TextChannel;
-
     // Computed values
     const time = client.uptime!;
     const days = Math.floor(time / 86400000);
