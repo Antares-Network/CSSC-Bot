@@ -28,7 +28,8 @@ const client = new DiscordJs.Client({
 client.on("ready", async () => {
   if (client.user) {
     console.log(chalk.green(`Logged in as ${client.user.tag}!`));
-    if (isDocker()) console.log(chalk.blueBright(`Running in a Docker container!`));
+    if (isDocker())
+      console.log(chalk.blueBright(`Running in a Docker container!`));
     console.log(
       chalk.yellow.bold(`I am running version: ${process.env.VERSION}`)
     );

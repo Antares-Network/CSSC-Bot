@@ -3,7 +3,6 @@ import { Client } from "discord.js";
 import { isDocker } from "../utils/util";
 
 export default (client: Client): void => {
-
   // Check if the bot is running in a docker container by checking if the env variable UPTIME_KUMA_CONTAINERIZED is true
   if (isDocker()) return;
   const updateStatus = async () => {
