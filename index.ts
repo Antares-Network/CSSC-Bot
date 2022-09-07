@@ -4,9 +4,10 @@ import WOKCommands from "wokcommands";
 import path from "path";
 import chalk from "chalk";
 import dotenv from "dotenv";
+import { isDocker } from "./utils/util";
 
 // import custom modules
-import { checkForRoles, checkIfCollectionsExist } from "./rolesOps";
+import { checkForRoles, checkIfCollectionsExist } from "./utils/roleUtils";
 import { classModel } from "./models/classModel";
 import { staffModel } from "./models/staffModel";
 import { yearModel } from "./models/yearModel";
@@ -27,6 +28,8 @@ const client = new DiscordJs.Client({
 client.on("ready", async () => {
   if (client.user) {
     console.log(chalk.green(`Logged in as ${client.user.tag}!`));
+    if (isDocker())
+      console.log(chalk.blueBright(`Running in a Docker container!`));
     console.log(
       chalk.yellow.bold(`I am running version: ${process.env.VERSION}`)
     );
