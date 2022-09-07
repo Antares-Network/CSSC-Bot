@@ -1,17 +1,28 @@
 import mongoose, { Schema } from "mongoose";
+import { IRole } from "../rolesOps";
 
-const CLASS = new Schema({
-  id: String,
-  CODE: String,
-  TITLE: String,
-  INFO: String,
-  ROLE_NAME: String,
-  ROLE_ID: String,
-  CHANNEL_NAME: String,
-  CHANNEL_ID: String,
-  UUID: String,
+export interface IClass extends IRole {
+  id: string;
+  CODE: string;
+  TITLE: string;
+  INFO: string;
+  CHANNEL_NAME: string;
+  CHANNEL_ID: string;
+  UUID: string;
+}
+
+const ClassSchema = new Schema({
+  id: { type: String },
+  CODE: { type: String, required: true },
+  TITLE: { type: String, required: true },
+  INFO: { type: String, required: true },
+  ROLE_NAME: { type: String, required: true },
+  ROLE_ID: { type: String, required: true },
+  CHANNEL_NAME: { type: String },
+  CHANNEL_ID: { type: String },
+  UUID: { type: String, default: "remove" },
 });
 
 const name = "class";
 
-export = mongoose.models[name] || mongoose.model(name, CLASS, name);
+export const classModel = mongoose.model<IClass>(name, ClassSchema, name);

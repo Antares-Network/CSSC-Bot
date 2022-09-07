@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { MessageEmbed, TextChannel } from "discord.js";
+import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 
 export default {
@@ -12,12 +12,8 @@ export default {
   requiredPermissions: ["SEND_MESSAGES"],
 
   callback: async ({ client, interaction }) => {
-    // Command information
-    const id = interaction.user.id;
-    const chan = interaction.channel as TextChannel;
-
     // Computed values
-    const time = client.uptime!;
+    const time = client.uptime !== null ? client.uptime : 0;
     const days = Math.floor(time / 86400000);
     const hours = Math.floor(time / 3600000) % 24;
     const minutes = Math.floor(time / 60000) % 60;
@@ -38,7 +34,7 @@ export default {
       .setFooter({ text: footer, iconURL: footerIcon });
 
     // Return the embed
-    interaction.reply({ embeds: [Embed] });
+    await interaction.reply({ embeds: [Embed] });
 
     // Log the command usage
     console.log(

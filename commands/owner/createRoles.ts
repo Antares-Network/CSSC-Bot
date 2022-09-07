@@ -1,6 +1,9 @@
 import { ICommand } from "wokcommands";
 import { createRoles } from "../../rolesOps";
 import chalk from "chalk";
+import { classModel } from "../../models/classModel";
+import { staffModel } from "../../models/staffModel";
+import { yearModel } from "../../models/yearModel";
 
 export default {
   name: "createRoles",
@@ -13,18 +16,17 @@ export default {
   ownerOnly: true,
 
   callback: async ({ interaction }) => {
-    console.log(
-      chalk.green(
-        "Creating roles...\nCopy and paste the following output into your .env file"
-      )
-    );
+    console.log(chalk.green("Creating roles..."));
     console.log(
       chalk.red("------------------------------------------------------")
     );
+    if (interaction.guild === null) {
+      return;
+    }
     // Create the roles
-    createRoles(interaction.guild!, "class");
-    createRoles(interaction.guild!, "staff");
-    createRoles(interaction.guild!, "year");
+    await createRoles(interaction.guild, classModel);
+    await createRoles(interaction.guild, staffModel);
+    await createRoles(interaction.guild, yearModel);
     interaction.reply({
       content: "Roles created!",
       ephemeral: true,

@@ -1,12 +1,18 @@
 import mongoose, { Schema } from "mongoose";
+import { IRole } from "../rolesOps";
 
-const STAFF = new Schema({
-  id: String,
-  NAME: String,
-  ROLE_NAME: String,
-  ROLE_ID: String,
+export interface IStaff extends IRole {
+  id: string;
+  NAME: string;
+}
+
+const StaffSchema = new Schema({
+  id: { type: String },
+  NAME: { type: String, required: true },
+  ROLE_NAME: { type: String, required: true },
+  ROLE_ID: { type: String, required: true },
 });
 
 const name = "staff";
 
-export = mongoose.models[name] || mongoose.model(name, STAFF, name);
+export const staffModel = mongoose.model<IStaff>(name, StaffSchema, name);

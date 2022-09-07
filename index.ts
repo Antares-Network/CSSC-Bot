@@ -6,7 +6,10 @@ import chalk from "chalk";
 import dotenv from "dotenv";
 
 // import custom modules
-import { checkForRoles } from "./rolesOps";
+import { checkForRoles, checkIfCollectionsExist } from "./rolesOps";
+import { classModel } from "./models/classModel";
+import { staffModel } from "./models/staffModel";
+import { yearModel } from "./models/yearModel";
 
 // import all environment variables from .env file
 dotenv.config();
@@ -21,7 +24,7 @@ const client = new DiscordJs.Client({
   ],
 });
 
-client.on("ready", () => {
+client.on("ready", async () => {
   if (client.user) {
     console.log(chalk.green(`Logged in as ${client.user.tag}!`));
     console.log(
@@ -29,9 +32,12 @@ client.on("ready", () => {
     );
     // Check to make sure the roles exist in all servers
     console.log("Checking if all roles exist in servers.");
-    client.guilds.cache.forEach(async (guild) => {
-      checkForRoles(guild);
-    });
+
+    await Promise.all(
+      client.guilds.cache.map((guild) => {
+        checkForRoles(guild);
+      })
+    );
   }
 
   const dbOptions = {
@@ -58,6 +64,9 @@ client.on("ready", () => {
 
   // Set up the connection to the database
   wok.on("databaseConnected", async () => {
+    await checkIfCollectionsExist(classModel);
+    await checkIfCollectionsExist(staffModel);
+    await checkIfCollectionsExist(yearModel);
     console.log(chalk.green("Connected to the database"));
   });
 });

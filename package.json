@@ -22,9 +22,9 @@
   "homepage": "https://github.com/Antares-Network/CSSC-Bot#readme",
   "dependencies": {
     "axios": "^0.27.2",
-    "chalk": "^4.1.2",
+    "chalk": "4.1.2",
     "discord.js": "^13.9.2",
-    "mongoose": "^6.2.2",
+    "mongoose": "^6.5.4",
     "path": "^0.12.7",
     "prettier": "^2.7.1",
     "ts-node": "^10.5.0",
