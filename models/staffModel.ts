@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { IRole } from "../rolesOps";
+import { IRole } from "../utils/roleUtils";
 
 export interface IStaff extends IRole {
   id: string;

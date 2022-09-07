@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { MessageEmbed, MessageActionRow, MessageSelectMenu } from "discord.js";
 import { ICommand } from "wokcommands";
-import { checkForRoles } from "../../rolesOps";
+import { checkForRoles } from "../../utils/roleUtils";
 
 export default {
   name: "staffPoll",
