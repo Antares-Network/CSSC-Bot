@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Client } from "discord.js";
-import { isDocker } from "../util";
+import { isDocker } from "../utils/util";
 
 export default (client: Client): void => {
 
@@ -11,7 +11,6 @@ export default (client: Client): void => {
     await axios.get(
       `https://${process.env.UPTIME_KUMA_MONITOR_DOMAIN}/api/push/${process.env.UPTIME_KUMA_MONITOR_ID}?msg=OK&ping=${client.ws.ping}`
     );
-    console.log("ping anyways")
     setTimeout(updateStatus, 1000 * 60);
   };
   updateStatus().catch((err) => console.log(err));

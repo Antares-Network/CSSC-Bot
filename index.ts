@@ -4,10 +4,10 @@ import WOKCommands from "wokcommands";
 import path from "path";
 import chalk from "chalk";
 import dotenv from "dotenv";
-import { isDocker } from "./util";
+import { isDocker } from "./utils/util";
 
 // import custom modules
-import { checkForRoles, checkIfCollectionsExist } from "./rolesOps";
+import { checkForRoles, checkIfCollectionsExist } from "./utils/roleUtils";
 import { classModel } from "./models/classModel";
 import { staffModel } from "./models/staffModel";
 import { yearModel } from "./models/yearModel";
