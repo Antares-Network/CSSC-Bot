@@ -6,8 +6,10 @@ import { classModel } from "../../models/classModel";
 import {
   checkForChannel,
   createTextChannel,
+  findCategory,
   moveChannel,
 } from "../../utils/channelUtils";
+import { sleep } from "../../utils/util";
 
 export default {
   name: "csCreateChannels",
@@ -29,7 +31,7 @@ export default {
     const thumbnail =
       "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";
     const title = "Create Classes";
-    const description = `Populated ${msgInt.guild.name} with COMPSCI classes.`;
+    const description = `Finished populating ${msgInt.guild.name} with COMPSCI classes.`;
     const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
     const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
 
@@ -41,25 +43,36 @@ export default {
       .setDescription(description)
       .setFooter({ text: footer, iconURL: footerIcon });
 
+    const finish_description = `Started populating ${msgInt.guild.name} with COMPSCI classes.`;
+
+    const finish_embed = new MessageEmbed()
+      .setColor(color)
+      .setTitle(title)
+      .setThumbnail(thumbnail)
+      .setDescription(description)
+      .setFooter({ text: footer, iconURL: footerIcon });
+
+    await msgInt.reply({ embeds: [finish_embed], ephemeral: true });
+
     const classes = await classModel.find({}).sort({ CODE: 1 });
+    const cs_category_name = "COMP SCI CLASSES";
 
     for (let index = 0; index < classes.length; index++) {
       const channel = await checkForChannel(msgInt.guild, classes[index].CODE);
+      console.log(channel);
 
       if (channel === undefined || channel.type !== "GUILD_TEXT") {
         const new_channel = await createTextChannel(
           msgInt.guild,
           classes[index].CODE,
-          classes[index].INFO
+          classes[index].INFO,
+          cs_category_name
         );
 
         console.log(
-          chalk.yellow(
-            `Created channel: ${new_channel.name} in guild ${msgInt.guild.name}`
-          )
+          chalk.yellow(`Created channel: ${new_channel.name} index: ${index}`)
         );
 
-        moveChannel(msgInt.guild, new_channel, "COMP SCI CLASSES");
         //TODO: Write channel id to db
       } else {
         moveChannel(msgInt.guild, channel, "COMP SCI CLASSES");
@@ -67,7 +80,10 @@ export default {
       }
     }
 
-    await msgInt.reply({ embeds: [embed], ephemeral: true });
+    console.log("reply");
+
+    // Can't reply for some reason. Timeout?
+    // await msgInt.reply({ embeds: [embed], ephemeral: true });
 
     // Log the command usage
     console.log(
