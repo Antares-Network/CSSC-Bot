@@ -1,16 +1,35 @@
-import { MessageEmbed } from "discord.js";
+import { Client, MessageEmbed } from "discord.js";
 
 import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import { classModel } from "../../models/classModel";
 import {
   checkForChannel,
+  cleanChannelString,
   createTextChannel,
-  findCategory,
   moveChannel,
 } from "../../utils/channelUtils";
-import { sleep } from "../../utils/util";
 
+function create_default_embed(
+  client: Client,
+  title: string,
+  description: string
+) {
+  const color = "#0099ff";
+  const thumbnail =
+    "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";
+  const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
+  const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
+
+  // Embed construction
+  const embed = new MessageEmbed()
+    .setColor(color)
+    .setTitle(title)
+    .setThumbnail(thumbnail)
+    .setDescription(description)
+    .setFooter({ text: footer, iconURL: footerIcon });
+  return embed;
+}
 export default {
   name: "csCreateChannels",
   category: "owner",
@@ -27,63 +46,60 @@ export default {
       return;
     }
 
-    const color = "#0099ff";
-    const thumbnail =
-      "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";
-    const title = "Create Classes";
-    const description = `Finished populating ${msgInt.guild.name} with COMPSCI classes.`;
-    const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
-    const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
+    await msgInt.deferReply({ ephemeral: true });
 
-    // Embed construction
-    const embed = new MessageEmbed()
-      .setColor(color)
-      .setTitle(title)
-      .setThumbnail(thumbnail)
-      .setDescription(description)
-      .setFooter({ text: footer, iconURL: footerIcon });
+    const courses = await classModel.find({}).sort({ CODE: 1 });
 
-    const finish_description = `Started populating ${msgInt.guild.name} with COMPSCI classes.`;
-
-    const finish_embed = new MessageEmbed()
-      .setColor(color)
-      .setTitle(title)
-      .setThumbnail(thumbnail)
-      .setDescription(description)
-      .setFooter({ text: footer, iconURL: footerIcon });
-
-    await msgInt.reply({ embeds: [finish_embed], ephemeral: true });
-
-    const classes = await classModel.find({}).sort({ CODE: 1 });
+    //create a copy of the courses with cleaned names
+    const cleaned_courses = Array.from(courses).map((course) => {
+      course.CODE = cleanChannelString(course.CODE);
+      return course;
+    });
     const cs_category_name = "COMP SCI CLASSES";
 
-    for (let index = 0; index < classes.length; index++) {
-      const channel = await checkForChannel(msgInt.guild, classes[index].CODE);
-      console.log(channel);
+    let new_channel_count = 0;
+    let move_channel_count = 0;
+    for (let index = 0; index < cleaned_courses.length; index++) {
+      const channel = await checkForChannel(
+        msgInt.guild,
+        cleaned_courses[index].CODE
+      );
 
       if (channel === undefined || channel.type !== "GUILD_TEXT") {
+        console.log(
+          chalk.yellow(`Created channel: ${cleaned_courses[index].CODE}`)
+        );
         const new_channel = await createTextChannel(
           msgInt.guild,
-          classes[index].CODE,
-          classes[index].INFO,
+          cleaned_courses[index].CODE,
+          cleaned_courses[index].INFO,
           cs_category_name
         );
 
-        console.log(
-          chalk.yellow(`Created channel: ${new_channel.name} index: ${index}`)
-        );
+        ++new_channel_count;
+        console.log(chalk.yellow(`Created channel: ${new_channel.name}`));
 
         //TODO: Write channel id to db
       } else {
-        moveChannel(msgInt.guild, channel, "COMP SCI CLASSES");
-        //Confirm channel ID is in db
+        move_channel_count += await moveChannel(
+          msgInt.guild,
+          channel,
+          "COMP SCI CLASSES"
+        );
+        //TODO: Confirm channel ID is in db
       }
     }
 
-    console.log("reply");
+    const title = "Create Classes";
+    let description = `Created ${new_channel_count} new channels\nMoved ${move_channel_count} channels`;
+    if (move_channel_count > 0) {
+      description += ` to ${cs_category_name}`;
+    }
 
-    // Can't reply for some reason. Timeout?
-    // await msgInt.reply({ embeds: [embed], ephemeral: true });
+    const embed = create_default_embed(client, title, description);
+    await msgInt.editReply({ embeds: [embed] });
+
+    console.log(chalk.yellow(description));
 
     // Log the command usage
     console.log(
