@@ -1,19 +1,32 @@
 import { Guild, GuildChannel } from "discord.js";
 import chalk from "chalk";
 
-export async function checkForChannel(guild: Guild, channel_name: string) {
+export function checkForChannel(guild: Guild, channel_name: string) {
   return guild.channels.cache.find((channel) => {
     return channel.name == channel_name;
   });
 }
 
+export async function findCategory(guild: Guild, category_name: string) {
+  let category = guild.channels.cache.find((category) => {
+    return category.name == category_name;
+  });
+
+  if (category === undefined || category.type !== "GUILD_CATEGORY") {
+    category = await guild.channels.create(category_name, {
+      type: "GUILD_CATEGORY",
+    });
+  }
+
+  return category;
+}
 export async function createTextChannel(
   guild: Guild,
   channel_name: string,
   channel_topic: string,
   channel_category_name: string
 ) {
-  let category = await findCategory(guild, channel_category_name);
+  const category = await findCategory(guild, channel_category_name);
 
   return guild.channels.create(channel_name, {
     type: "GUILD_TEXT",
@@ -32,7 +45,7 @@ export async function moveChannel(
     channel.parent === undefined ||
     channel.parent?.name != category_name
   ) {
-    let category = await findCategory(guild, category_name);
+    const category = await findCategory(guild, category_name);
     channel.setParent(category);
 
     console.log(
@@ -43,20 +56,6 @@ export async function moveChannel(
     return 1;
   }
   return 0;
-}
-
-export async function findCategory(guild: Guild, category_name: string) {
-  let category = guild.channels.cache.find((category) => {
-    return category.name == category_name;
-  });
-
-  if (category === undefined || category.type !== "GUILD_CATEGORY") {
-    category = await guild.channels.create(category_name, {
-      type: "GUILD_CATEGORY",
-    });
-  }
-
-  return category;
 }
 
 export function cleanChannelString(s: string): string {

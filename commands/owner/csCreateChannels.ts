@@ -62,7 +62,7 @@ export default {
     let move_channel_count = 0;
 
     //Move classes no longer in the db to
-    const cs_category = await checkForChannel(msgInt.guild, cs_category_name);
+    const cs_category = checkForChannel(msgInt.guild, cs_category_name);
     if (cs_category != undefined && cs_category.type == "GUILD_CATEGORY") {
       const children = Array.from(cs_category.children.values());
       for (let index = 0; index < children.length; index++) {
@@ -81,7 +81,7 @@ export default {
 
     for (let index = 0; index < cleaned_courses.length; index++) {
       // Iterate through courses in db
-      const channel = await checkForChannel(
+      const channel = checkForChannel(
         msgInt.guild,
         cleaned_courses[index].CODE
       );
