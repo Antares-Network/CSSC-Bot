@@ -55,17 +55,39 @@ export default {
       course.CODE = cleanChannelString(course.CODE);
       return course;
     });
-    const cs_category_name = "COMP SCI CLASSES";
 
+    const cs_category_name = "COMP SCI CLASSES";
+    const cs_past_category_name = "PAST CLASSES";
     let new_channel_count = 0;
     let move_channel_count = 0;
+
+    //Move classes no longer in the db to
+    const cs_category = await checkForChannel(msgInt.guild, cs_category_name);
+    if (cs_category != undefined && cs_category.type == "GUILD_CATEGORY") {
+      const children = Array.from(cs_category.children.values());
+      for (let index = 0; index < children.length; index++) {
+        const match = cleaned_courses.find((course) => {
+          return course.CODE == children[index].name;
+        });
+        if (match == undefined) {
+          await moveChannel(
+            msgInt.guild,
+            children[index],
+            cs_past_category_name
+          );
+        }
+      }
+    }
+
     for (let index = 0; index < cleaned_courses.length; index++) {
+      // Iterate through courses in db
       const channel = await checkForChannel(
         msgInt.guild,
         cleaned_courses[index].CODE
       );
 
       if (channel === undefined || channel.type !== "GUILD_TEXT") {
+        // Create new channels
         console.log(
           chalk.yellow(`Created channel: ${cleaned_courses[index].CODE}`)
         );
@@ -81,6 +103,7 @@ export default {
 
         //TODO: Write channel id to db
       } else {
+        // Move old channels
         move_channel_count += await moveChannel(
           msgInt.guild,
           channel,
