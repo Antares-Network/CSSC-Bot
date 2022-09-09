@@ -2,6 +2,7 @@ import { CategoryChannel, Guild, GuildChannel } from "discord.js";
 import chalk from "chalk";
 
 export function checkForChannel(guild: Guild, channel_name: string) {
+  channel_name = cleanChannelString(channel_name);
   return guild.channels.cache.find((channel) => {
     return channel.name == channel_name;
   });
@@ -39,7 +40,7 @@ export async function createTextChannel(
     );
   }
 
-  return guild.channels.create(name, {
+  return guild.channels.create(cleanChannelString(name), {
     type: "GUILD_TEXT",
     topic: topic,
     parent: channel_parent,

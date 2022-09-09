@@ -87,12 +87,9 @@ export default {
       }
     }
 
-    for (let index = 0; index < cleaned_courses.length; index++) {
+    for (let index = 0; index < courses.length; index++) {
       // Iterate through courses in db
-      const channel = checkForChannel(
-        msgInt.guild,
-        cleaned_courses[index].CODE
-      );
+      const channel = checkForChannel(msgInt.guild, courses[index].CODE);
 
       let category = await findCategory(
         msgInt.guild,
@@ -110,8 +107,8 @@ export default {
       if (channel === undefined || channel.type !== "GUILD_TEXT") {
         const new_channel = await createTextChannel(
           msgInt.guild,
-          cleaned_courses[index].CODE,
-          cleaned_courses[index].INFO,
+          courses[index].CODE,
+          courses[index].INFO,
           category
         );
 
@@ -119,6 +116,8 @@ export default {
         console.log(chalk.yellow(`Created channel: ${new_channel.name}`));
 
         //TODO: Write channel id to db
+        courses[index].CHANNEL_ID = new_channel.id;
+        courses[index].save();
       }
       // Move old channels
       else if (
@@ -132,6 +131,8 @@ export default {
         );
 
         //TODO: Confirm channel ID is in db
+        courses[index].CHANNEL_ID = channel.id;
+        courses[index].save();
       }
     }
 
