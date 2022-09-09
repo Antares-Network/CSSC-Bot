@@ -7,7 +7,9 @@ import {
   checkForChannel,
   cleanChannelString,
   createTextChannel,
+  findCategory,
   moveChannel,
+  concatCategoryName,
 } from "../../utils/channelUtils";
 
 function create_default_embed(
@@ -56,13 +58,19 @@ export default {
       return course;
     });
 
-    const cs_category_name = "COMP SCI CLASSES";
+    let category_name = "COMP SCI CLASSES";
+    let category_number = 0;
+    const max_category_size = 50;
+
     const cs_past_category_name = "PAST CLASSES";
     let new_channel_count = 0;
     let move_channel_count = 0;
 
     //Move classes no longer in the db to
-    const cs_category = checkForChannel(msgInt.guild, cs_category_name);
+    const cs_category = checkForChannel(
+      msgInt.guild,
+      concatCategoryName(category_name, category_number)
+    );
     if (cs_category != undefined && cs_category.type == "GUILD_CATEGORY") {
       const children = Array.from(cs_category.children.values());
       for (let index = 0; index < children.length; index++) {
@@ -86,29 +94,42 @@ export default {
         cleaned_courses[index].CODE
       );
 
+      // Create new channels
       if (channel === undefined || channel.type !== "GUILD_TEXT") {
-        // Create new channels
-        console.log(
-          chalk.yellow(`Created channel: ${cleaned_courses[index].CODE}`)
+        let category = await findCategory(
+          msgInt.guild,
+          concatCategoryName(category_name, category_number)
         );
+
+        // Increment category if category is full
+        if (category.children.size >= max_category_size) {
+          ++category_number;
+          category = await findCategory(
+            msgInt.guild,
+            concatCategoryName(category_name, category_number)
+          );
+        }
+
         const new_channel = await createTextChannel(
           msgInt.guild,
           cleaned_courses[index].CODE,
           cleaned_courses[index].INFO,
-          cs_category_name
+          category
         );
 
         ++new_channel_count;
         console.log(chalk.yellow(`Created channel: ${new_channel.name}`));
 
         //TODO: Write channel id to db
-      } else {
-        // Move old channels
+      }
+      // Move old channels
+      else {
         move_channel_count += await moveChannel(
           msgInt.guild,
           channel,
           "COMP SCI CLASSES"
         );
+
         //TODO: Confirm channel ID is in db
       }
     }
@@ -116,7 +137,10 @@ export default {
     const title = "Create Classes";
     let description = `Created ${new_channel_count} new channels\nMoved ${move_channel_count} channels`;
     if (move_channel_count > 0) {
-      description += ` to ${cs_category_name}`;
+      description += ` to ${concatCategoryName(
+        category_name,
+        category_number
+      )}`;
     }
 
     const embed = create_default_embed(client, title, description);

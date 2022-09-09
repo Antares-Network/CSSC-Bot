@@ -75,3 +75,11 @@ export function cleanChannelString(s: string): string {
     .replace("(", "-")
     .replace("compsci ", "cs");
 }
+export function concatCategoryName(
+  category_name: string,
+  category_number: number
+) {
+  return category_number == 0
+    ? category_name
+    : category_name + ` ${category_number}`;
+}
