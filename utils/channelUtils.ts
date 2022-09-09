@@ -27,21 +27,24 @@ export async function createTextChannel(
   channel_category?: CategoryChannel,
   channel_category_name?: string
 ) {
-  if (
-    channel_category_name == undefined &&
-    channel_category_name == undefined
-  ) {
+  console.log(`Category: ${channel_category}`);
+  console.log(`Category name: ${channel_category_name}`);
+
+  let channel_parent = undefined;
+  if (channel_category !== undefined) {
+    channel_parent = channel_category;
+  } else if (channel_category_name !== undefined) {
+    channel_parent = await findCategory(guild, channel_category_name);
+  } else {
     throw Error(
       "Must specify either channel_category or channel_category_name"
     );
   }
+
   return guild.channels.create(channel_name, {
     type: "GUILD_TEXT",
-    topic: channel_topic ? channel_topic : "",
-    parent:
-      channel_category != undefined
-        ? channel_category
-        : await findCategory(guild, channel_category_name),
+    topic: channel_topic,
+    parent: channel_parent,
   });
 }
 
