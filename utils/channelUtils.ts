@@ -1,6 +1,14 @@
 import { CategoryChannel, Guild, GuildChannel } from "discord.js";
 import chalk from "chalk";
 
+export function cleanChannelString(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/[`~!@#$%^&*)|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "")
+    .replace("compsci ", "cs")
+    .replace(/[ (]/gi, "-");
+}
+
 export function checkForChannel(guild: Guild, channel_name: string) {
   channel_name = cleanChannelString(channel_name);
   return guild.channels.cache.find((channel) => {
@@ -70,13 +78,6 @@ export async function moveChannel(
   return 0;
 }
 
-export function cleanChannelString(s: string): string {
-  return s
-    .toLowerCase()
-    .replace(/[`~!@#$%^&*)|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "")
-    .replace("compsci ", "cs")
-    .replace(/[ (]/gi, "-");
-}
 export function concatCategoryName(
   category_name: string,
   category_number: number
