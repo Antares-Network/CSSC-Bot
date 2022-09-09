@@ -121,7 +121,10 @@ export default {
         //TODO: Write channel id to db
       }
       // Move old channels
-      else {
+      else if (
+        channel.parent !== null &&
+        !channel.parent.name.startsWith(category_name)
+      ) {
         move_channel_count += await moveChannel(
           msgInt.guild,
           channel,
