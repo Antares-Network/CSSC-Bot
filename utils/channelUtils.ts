@@ -22,28 +22,26 @@ export async function findCategory(guild: Guild, category_name: string) {
 }
 export async function createTextChannel(
   guild: Guild,
-  channel_name: string,
-  channel_topic: string,
-  channel_category?: CategoryChannel,
-  channel_category_name?: string
+  name: string,
+  topic: string,
+  category?: CategoryChannel,
+  category_name?: string
 ) {
-  console.log(`Category: ${channel_category}`);
-  console.log(`Category name: ${channel_category_name}`);
-
-  let channel_parent = undefined;
-  if (channel_category !== undefined) {
-    channel_parent = channel_category;
-  } else if (channel_category_name !== undefined) {
-    channel_parent = await findCategory(guild, channel_category_name);
+  //Determine which arg to use
+  let channel_parent: CategoryChannel | undefined = undefined;
+  if (category !== undefined) {
+    channel_parent = category;
+  } else if (category_name !== undefined) {
+    channel_parent = await findCategory(guild, category_name);
   } else {
     throw Error(
       "Must specify either channel_category or channel_category_name"
     );
   }
 
-  return guild.channels.create(channel_name, {
+  return guild.channels.create(name, {
     type: "GUILD_TEXT",
-    topic: channel_topic,
+    topic: topic,
     parent: channel_parent,
   });
 }
