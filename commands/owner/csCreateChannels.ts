@@ -94,22 +94,20 @@ export default {
         cleaned_courses[index].CODE
       );
 
-      // Create new channels
-      if (channel === undefined || channel.type !== "GUILD_TEXT") {
-        let category = await findCategory(
+      let category = await findCategory(
+        msgInt.guild,
+        concatCategoryName(category_name, category_number)
+      );
+      // Increment category if category is full
+      if (category.children.size >= max_category_size) {
+        ++category_number;
+        category = await findCategory(
           msgInt.guild,
           concatCategoryName(category_name, category_number)
         );
-
-        // Increment category if category is full
-        if (category.children.size >= max_category_size) {
-          ++category_number;
-          category = await findCategory(
-            msgInt.guild,
-            concatCategoryName(category_name, category_number)
-          );
-        }
-
+      }
+      // Create new channels
+      if (channel === undefined || channel.type !== "GUILD_TEXT") {
         const new_channel = await createTextChannel(
           msgInt.guild,
           cleaned_courses[index].CODE,
@@ -127,7 +125,7 @@ export default {
         move_channel_count += await moveChannel(
           msgInt.guild,
           channel,
-          "COMP SCI CLASSES"
+          concatCategoryName(category_name, category_number)
         );
 
         //TODO: Confirm channel ID is in db

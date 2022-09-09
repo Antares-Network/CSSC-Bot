@@ -61,7 +61,7 @@ export async function moveChannel(
 
     console.log(
       chalk.yellow(
-        `Moved channel${channel.name} from: ${channel.parent?.name} to: ${category_name}`
+        `Moved channel ${channel.name} from: ${channel.parent?.name} to: ${category_name}`
       )
     );
     return 1;
@@ -73,8 +73,8 @@ export function cleanChannelString(s: string): string {
   return s
     .toLowerCase()
     .replace(/[`~!@#$%^&*)|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "")
-    .replace("(", "-")
-    .replace("compsci ", "cs");
+    .replace("compsci ", "cs")
+    .replace(/[ (]/gi, "-");
 }
 export function concatCategoryName(
   category_name: string,
