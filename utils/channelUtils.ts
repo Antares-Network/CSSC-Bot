@@ -1,4 +1,4 @@
-import { Guild, GuildChannel } from "discord.js";
+import { CategoryChannel, Guild, GuildChannel } from "discord.js";
 import chalk from "chalk";
 
 export function checkForChannel(guild: Guild, channel_name: string) {
@@ -24,14 +24,24 @@ export async function createTextChannel(
   guild: Guild,
   channel_name: string,
   channel_topic: string,
-  channel_category_name: string
+  channel_category?: CategoryChannel,
+  channel_category_name?: string
 ) {
-  const category = await findCategory(guild, channel_category_name);
-
+  if (
+    channel_category_name == undefined &&
+    channel_category_name == undefined
+  ) {
+    throw Error(
+      "Must specify either channel_category or channel_category_name"
+    );
+  }
   return guild.channels.create(channel_name, {
     type: "GUILD_TEXT",
     topic: channel_topic ? channel_topic : "",
-    parent: category,
+    parent:
+      channel_category != undefined
+        ? channel_category
+        : await findCategory(guild, channel_category_name),
   });
 }
 
