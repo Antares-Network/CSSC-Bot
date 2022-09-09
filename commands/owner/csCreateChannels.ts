@@ -58,7 +58,7 @@ export default {
       return course;
     });
 
-    let category_name = "COMP SCI CLASSES";
+    const category_name = "COMP SCI CLASSES";
     let category_number = 0;
     const max_category_size = 50;
 
