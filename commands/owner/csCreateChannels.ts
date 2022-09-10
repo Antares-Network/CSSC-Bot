@@ -89,7 +89,10 @@ export default {
 
     for (let index = 0; index < courses.length; index++) {
       // Iterate through courses in db
-      const channel = checkForChannel(msgInt.guild, courses[index].CODE);
+      const channel = checkForChannel(
+        msgInt.guild,
+        cleanChannelString(courses[index].CODE)
+      );
 
       let category = await findCategory(
         msgInt.guild,
