@@ -66,26 +66,37 @@ export default {
     let new_channel_count = 0;
     let move_channel_count = 0;
 
-    //Move classes no longer in the db to
-    const cs_category = checkForChannel(
+    console.log(
+      `category name: ${concatCategoryName(category_name, category_number)}`
+    );
+    //Move classes no longer in the db to cs_past_category_name
+    let cs_category = checkForChannel(
       msgInt.guild,
       concatCategoryName(category_name, category_number)
     );
-    if (cs_category != undefined && cs_category.type == "GUILD_CATEGORY") {
+    console.log(`Channel: ${cs_category}`);
+
+    while (cs_category != undefined && cs_category.type == "GUILD_CATEGORY") {
+      console.log(`Checking category: ${cs_category.name}`);
       const children = Array.from(cs_category.children.values());
       for (let index = 0; index < children.length; index++) {
+        console.log(`Checking channel: ${children[index].name}`);
         const match = cleaned_courses.find((course) => {
           return course.CODE == children[index].name;
         });
-        if (match == undefined) {
-          await moveChannel(
-            msgInt.guild,
-            children[index],
-            cs_past_category_name
-          );
+        if (match != undefined) {
+          continue;
         }
+        await moveChannel(msgInt.guild, children[index], cs_past_category_name);
       }
+
+      ++category_number;
+      cs_category = checkForChannel(
+        msgInt.guild,
+        concatCategoryName(category_name, category_number)
+      );
     }
+    category_number = 0;
 
     for (let index = 0; index < courses.length; index++) {
       // Iterate through courses in db
