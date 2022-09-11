@@ -163,6 +163,7 @@ export default {
             category_number
           )}`
         );
+        channel.edit({ topic: courses[index].INFO });
         move_channel_count += await moveChannel(
           msgInt.guild,
           channel,
@@ -171,6 +172,11 @@ export default {
 
         courses[index].CHANNEL_ID = channel.id;
         courses[index].save();
+      } else if (
+        channel.parent !== null &&
+        channel.parent.name.startsWith(category_name)
+      ) {
+        channel.edit({ topic: courses[index].INFO });
       }
     }
 
