@@ -32,6 +32,21 @@ function create_default_embed(
     .setFooter({ text: footer, iconURL: footerIcon });
   return embed;
 }
+
+function cleanRoleString(role_name: string): string {
+  let clean_role_name: string = role_name
+    .toLowerCase()
+    .replace(/[`~!@#$%^&*))|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
+    .replace(/[ (]/gi, "-");
+
+  if (Number.isInteger(role_name[role_name.length - 1])) {
+    const num = Number(role_name[role_name.length - 1]) - 1;
+    clean_role_name = role_name.slice(0, role_name.length - 2) + String(num);
+    return clean_role_name;
+  }
+  return clean_role_name;
+}
+
 export default {
   name: "csCreateChannels",
   category: "owner",
@@ -152,11 +167,28 @@ export default {
 
         courses[index].CHANNEL_ID = new_channel.id;
         courses[index].save();
+
+        // Ping members who have this role
+        const role = msgInt.guild.roles.cache.find((role) => {
+          // console.log(
+          //   `${cleanRoleString(role.name)}:${cleanChannelString(
+          //     courses[index].CODE
+          //   )}`
+          // );
+          return (
+            cleanRoleString(role.name) ==
+            cleanChannelString(courses[index].CODE)
+          );
+        });
+        if (role !== undefined) {
+          //Ping member
+          new_channel.send(`Hey! <@&${role.id}> here is a channel for you!`);
+        }
       } else if (
         channel.parent !== null &&
         !channel.parent.name.startsWith(category_name)
       ) {
-        // Move old channels
+        // Moves and updates old channels
         console.log(
           `Moving: ${channel.name} to: ${concatCategoryName(
             category_name,
@@ -176,6 +208,7 @@ export default {
         channel.parent !== null &&
         channel.parent.name.startsWith(category_name)
       ) {
+        // updates old channels
         channel.edit({ topic: courses[index].INFO });
       }
     }
