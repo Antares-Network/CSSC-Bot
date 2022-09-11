@@ -4,9 +4,9 @@ import chalk from "chalk";
 export function cleanChannelString(s: string): string {
   return s
     .toLowerCase()
-    .replace(/[`~!@#$%^&*())|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
+    .replace(/[`~!@#$%^&*))|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
     .replace("compsci ", "cs")
-    .replace(" ", "-");
+    .replace(/[ (]/gi, "-");
 }
 
 export function checkForChannel(guild: Guild, channel_name: string) {
