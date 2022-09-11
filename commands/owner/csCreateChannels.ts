@@ -170,11 +170,6 @@ export default {
 
         // Ping members who have this role
         const role = msgInt.guild.roles.cache.find((role) => {
-          // console.log(
-          //   `${cleanRoleString(role.name)}:${cleanChannelString(
-          //     courses[index].CODE
-          //   )}`
-          // );
           return (
             cleanRoleString(role.name) ==
             cleanChannelString(courses[index].CODE)
@@ -204,6 +199,17 @@ export default {
 
         courses[index].CHANNEL_ID = channel.id;
         courses[index].save();
+        // Ping members who have this role
+        const role = msgInt.guild.roles.cache.find((role) => {
+          return (
+            cleanRoleString(role.name) ==
+            cleanChannelString(courses[index].CODE)
+          );
+        });
+        if (role !== undefined) {
+          //Ping member
+          channel.send(`Hey! <@&${role.id}> here is the channel for you!`);
+        }
       } else if (
         channel.parent !== null &&
         channel.parent.name.startsWith(category_name)
