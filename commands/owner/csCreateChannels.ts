@@ -52,11 +52,15 @@ export default {
 
     const courses = await classModel.find({}).sort({ CODE: 1 });
 
-    //create a copy of the courses with cleaned names
-    const cleaned_courses = Array.from(courses).map((course) => {
-      course.CODE = cleanChannelString(course.CODE);
-      return course;
-    });
+    //create an array of the courses with cleaned names
+    const cleaned_courses: string[] = [];
+    for (let index = 0; index < courses.length; index++) {
+      cleaned_courses.push(cleanChannelString(courses[index].CODE));
+    }
+
+    // for (let index = 0; index < courses.length; index++) {
+    //   console.log(courses[index].CODE);
+    // }
 
     const category_name = "COMP SCI CLASSES";
     let category_number = 0;
@@ -80,7 +84,7 @@ export default {
       const children = Array.from(cs_category.children.values());
       for (let index = 0; index < children.length; index++) {
         const match = cleaned_courses.find((course) => {
-          return course.CODE == children[index].name;
+          return course == children[index].name;
         });
         if (match != undefined) {
           continue;
@@ -110,6 +114,7 @@ export default {
           concatCategoryName(category_name, category_number)
         )
       ).fetch(true);
+
       // Increment category if category is full
       if (category.children.size >= max_category_size - 1) {
         ++category_number;
@@ -132,11 +137,12 @@ export default {
           category_number
         )} size: ${category.children.size}`
       );
+
       // Create new channels
       if (channel === undefined || channel.type !== "GUILD_TEXT") {
         const new_channel = await createTextChannel(
           msgInt.guild,
-          courses[index].CODE,
+          cleanChannelString(courses[index].CODE),
           courses[index].INFO,
           category
         );
@@ -144,7 +150,6 @@ export default {
         ++new_channel_count;
         console.log(chalk.yellow(`Created channel: ${new_channel.name}`));
 
-        //TODO: Write channel id to db
         courses[index].CHANNEL_ID = new_channel.id;
         courses[index].save();
       } else if (
@@ -164,7 +169,6 @@ export default {
           concatCategoryName(category_name, category_number)
         );
 
-        //TODO: Confirm channel ID is in db
         courses[index].CHANNEL_ID = channel.id;
         courses[index].save();
       }
