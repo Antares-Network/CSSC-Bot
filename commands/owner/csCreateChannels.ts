@@ -77,16 +77,15 @@ export default {
     console.log(`Channel: ${cs_category}`);
 
     while (cs_category != undefined && cs_category.type == "GUILD_CATEGORY") {
-      console.log(`Checking category: ${cs_category.name}`);
       const children = Array.from(cs_category.children.values());
       for (let index = 0; index < children.length; index++) {
-        console.log(`Checking channel: ${children[index].name}`);
         const match = cleaned_courses.find((course) => {
           return course.CODE == children[index].name;
         });
         if (match != undefined) {
           continue;
         }
+        console.log(`Moving: ${children[index]} to: ${cs_past_category_name}`);
         await moveChannel(msgInt.guild, children[index], cs_past_category_name);
       }
 
@@ -105,18 +104,34 @@ export default {
         cleanChannelString(courses[index].CODE)
       );
 
-      let category = await findCategory(
-        msgInt.guild,
-        concatCategoryName(category_name, category_number)
-      );
-      // Increment category if category is full
-      if (category.children.size >= max_category_size) {
-        ++category_number;
-        category = await findCategory(
+      let category = await (
+        await findCategory(
           msgInt.guild,
           concatCategoryName(category_name, category_number)
+        )
+      ).fetch(true);
+      // Increment category if category is full
+      if (category.children.size >= max_category_size - 1) {
+        ++category_number;
+        category = await (
+          await findCategory(
+            msgInt.guild,
+            concatCategoryName(category_name, category_number)
+          )
+        ).fetch(true);
+        console.log(
+          `old category full, new category: ${concatCategoryName(
+            category_name,
+            category_number
+          )} created`
         );
       }
+      console.log(
+        `Working in category: ${concatCategoryName(
+          category_name,
+          category_number
+        )} size: ${category.children.size}`
+      );
       // Create new channels
       if (channel === undefined || channel.type !== "GUILD_TEXT") {
         const new_channel = await createTextChannel(
@@ -132,12 +147,17 @@ export default {
         //TODO: Write channel id to db
         courses[index].CHANNEL_ID = new_channel.id;
         courses[index].save();
-      }
-      // Move old channels
-      else if (
+      } else if (
         channel.parent !== null &&
         !channel.parent.name.startsWith(category_name)
       ) {
+        // Move old channels
+        console.log(
+          `Moving: ${channel.name} to: ${concatCategoryName(
+            category_name,
+            category_number
+          )}`
+        );
         move_channel_count += await moveChannel(
           msgInt.guild,
           channel,
