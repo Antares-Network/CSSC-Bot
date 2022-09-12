@@ -36,7 +36,7 @@ export async function createTextChannel(
   category_name?: string
 ) {
   //Determine which arg to use
-  let channel_parent: CategoryChannel | undefined = undefined;
+  let channel_parent: CategoryChannel | undefined;
   if (category !== undefined) {
     channel_parent = category;
   } else if (category_name !== undefined) {
