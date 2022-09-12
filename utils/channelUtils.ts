@@ -83,5 +83,5 @@ export function concatCategoryName(
 ) {
   return category_number == 0
     ? category_name
-    : `${category_name} ${category_number}!`;
+    : `${category_name} ${category_number}`;
 }

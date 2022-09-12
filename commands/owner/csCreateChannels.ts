@@ -38,7 +38,6 @@ function cleanRoleString(role_name: string): string {
     .toLowerCase()
     .replace(/[`~!@#$%^&*))|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
     .replace(/[ (]/gi, "-");
-  console.log(`${role_name}:${clean_role_name}`);
   return clean_role_name;
 }
 
