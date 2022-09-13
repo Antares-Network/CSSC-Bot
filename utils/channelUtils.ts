@@ -5,7 +5,6 @@ export function cleanChannelString(s: string): string {
   return s
     .toLowerCase()
     .replace(/[`~!@#$%^&*))|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
-    .replace("compsci ", "cs")
     .replace(/[ (]/gi, "-");
 }
 export function isDupe(name: string): boolean {

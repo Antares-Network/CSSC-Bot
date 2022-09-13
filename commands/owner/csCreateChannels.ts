@@ -14,6 +14,9 @@ import {
 import { create_default_embed } from "../../utils/util";
 import { cleanRoleString } from "../../utils/roleUtils";
 
+function cleanCompSciString(s: string): string {
+  return s.toLowerCase().replace("compsci ", "cs");
+}
 export default {
   name: "csCreateChannels",
   category: "owner",
@@ -37,7 +40,9 @@ export default {
     //create an array of the courses with cleaned names
     const cleaned_courses: string[] = [];
     for (let index = 0; index < courses.length; index++) {
-      cleaned_courses.push(cleanChannelString(courses[index].CODE));
+      cleaned_courses.push(
+        cleanChannelString(cleanCompSciString(courses[index].CODE))
+      );
     }
 
     // for (let index = 0; index < courses.length; index++) {
@@ -87,7 +92,7 @@ export default {
       // Iterate through courses in db
       const channel = checkForChannel(
         msgInt.guild,
-        cleanChannelString(courses[index].CODE)
+        cleanChannelString(cleanCompSciString(courses[index].CODE))
       );
 
       let category = await (
@@ -124,7 +129,7 @@ export default {
       if (channel === undefined || channel.type !== "GUILD_TEXT") {
         const new_channel = await createTextChannel(
           msgInt.guild,
-          cleanChannelString(courses[index].CODE),
+          cleanCompSciString(courses[index].CODE),
           courses[index].INFO,
           category
         );
@@ -139,7 +144,7 @@ export default {
         const role = msgInt.guild.roles.cache.find((role) => {
           return (
             cleanRoleString(role.name) ==
-            cleanChannelString(courses[index].CODE)
+            cleanChannelString(cleanCompSciString(courses[index].CODE))
           );
         });
         if (role !== undefined) {
@@ -170,7 +175,7 @@ export default {
         const role = msgInt.guild.roles.cache.find((role) => {
           return (
             cleanRoleString(role.name) ==
-            cleanChannelString(courses[index].CODE)
+            cleanChannelString(cleanCompSciString(courses[index].CODE))
           );
         });
         if (role !== undefined) {
