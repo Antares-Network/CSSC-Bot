@@ -10,6 +10,14 @@ export interface IRole {
   ROLE_ID: string;
 }
 
+export function cleanRoleString(role_name: string): string {
+  const clean_role_name: string = role_name
+    .toLowerCase()
+    .replace(/[`~!@#$%^&*))|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
+    .replace(/[ (]/gi, "-");
+  return clean_role_name;
+}
+
 export async function checkIfCollectionsExist<T>(model: Model<T>) {
   if (!(await model.exists({}))) {
     throw new Error(`${model.name} collection does not exist`);

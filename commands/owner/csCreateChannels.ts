@@ -11,35 +11,8 @@ import {
   moveChannel,
   concatCategoryName,
 } from "../../utils/channelUtils";
-
-function create_default_embed(
-  client: Client,
-  title: string,
-  description: string
-) {
-  const color = "#0099ff";
-  const thumbnail =
-    "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";
-  const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
-  const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
-
-  // Embed construction
-  const embed = new MessageEmbed()
-    .setColor(color)
-    .setTitle(title)
-    .setThumbnail(thumbnail)
-    .setDescription(description)
-    .setFooter({ text: footer, iconURL: footerIcon });
-  return embed;
-}
-
-function cleanRoleString(role_name: string): string {
-  const clean_role_name: string = role_name
-    .toLowerCase()
-    .replace(/[`~!@#$%^&*))|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
-    .replace(/[ (]/gi, "-");
-  return clean_role_name;
-}
+import { create_default_embed } from "../../utils/util";
+import { cleanRoleString } from "../../utils/roleUtils";
 
 export default {
   name: "csCreateChannels",

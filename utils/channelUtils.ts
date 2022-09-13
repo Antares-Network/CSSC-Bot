@@ -8,6 +8,13 @@ export function cleanChannelString(s: string): string {
     .replace("compsci ", "cs")
     .replace(/[ (]/gi, "-");
 }
+export function isDupe(name: string): boolean {
+  if (name.search(/\(\d\)/) == -1) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 export function checkForChannel(guild: Guild, channel_name: string) {
   return guild.channels.cache.find((channel) => {
