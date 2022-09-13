@@ -1,5 +1,3 @@
-import { Client, MessageEmbed } from "discord.js";
-
 import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import { classModel } from "../../models/classModel";
