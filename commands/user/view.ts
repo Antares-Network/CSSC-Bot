@@ -25,7 +25,7 @@ export default {
       });
     } else {
       interaction.reply({
-        content: "**Your roles:**\n" + list,
+        content: `**Your roles:**\n${list}`,
         ephemeral: true,
       });
     }
