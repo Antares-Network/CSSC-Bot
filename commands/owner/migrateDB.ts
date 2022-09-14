@@ -49,7 +49,6 @@ export default {
     classModel.schema.add(oldSchema);
 
     for (let index = 0; index < courses.length; index++) {
-      hi(courses[index]);
       if (courses[index].get("CODE") != undefined) {
         let new_name = courses[index].CODE;
         const is_dupe = isDupe(new_name);
