@@ -7,6 +7,9 @@ export function cleanChannelString(s: string): string {
     .replace(/[`~!@#$%^&*))|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
     .replace(/[ (]/gi, "-");
 }
+export function getCourseName(course: IClass) {
+  return course.DUPE == true ? `${course.NAME}-${course.TITLE}` : course.NAME;
+}
 
 export function checkForChannel(guild: Guild, channel_name: string) {
   return guild.channels.cache.find((channel) => {
