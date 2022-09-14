@@ -1,11 +1,12 @@
 import { CategoryChannel, Guild, GuildChannel } from "discord.js";
 import chalk from "chalk";
+import { classModel, IClass } from "../models/classModel";
 
 export function cleanChannelString(s: string): string {
   return s
     .toLowerCase()
-    .replace(/[`~!@#$%^&*))|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
-    .replace(/[ (]/gi, "-");
+    .replace(/[`~!@#$%^&*()|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
+    .replace(/[ ]/gi, "-");
 }
 export function getCourseName(course: IClass) {
   return course.DUPE == true ? `${course.NAME}-${course.TITLE}` : course.NAME;
