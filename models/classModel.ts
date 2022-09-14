@@ -6,6 +6,7 @@ export interface IClass extends IRole {
   NAME: string;
   TITLE: string;
   INFO: string;
+  DUPE: boolean;
   CHANNEL_NAME: string;
   CHANNEL_ID: string;
 }
@@ -15,6 +16,7 @@ const ClassSchema = new Schema({
   NAME: { type: String, required: true },
   TITLE: { type: String, required: true },
   INFO: { type: String, required: true },
+  DUPE: { type: Boolean, required: true },
   ROLE_ID: { type: String, required: true },
   CHANNEL_NAME: { type: String },
   CHANNEL_ID: { type: String },
