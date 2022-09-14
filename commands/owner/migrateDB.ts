@@ -1,14 +1,15 @@
 import chalk from "chalk";
 import { ICommand } from "wokcommands";
-import { classModel } from "../../models/classModel";
-import { isDupe } from "../../utils/channelUtils";
+import { classModel, IClass } from "../../models/classModel";
 import { create_default_embed } from "../../utils/util";
-import { Schema } from "mongoose";
+import { Schema, Types, Document } from "mongoose";
 
 function cleanCompSciString(s: string): string {
   return s.toLowerCase().replace("compsci ", "cs");
 }
-
+export function isDupe(name: string): number {
+  return name.search(/\(\d\)/);
+}
 export default {
   name: "migrateDb",
   category: "owner",
@@ -27,15 +28,28 @@ export default {
 
     await msgInt.deferReply({ ephemeral: true });
 
-    const courses = await classModel.find({});
-    // Add new fields here
-    const newSchema = new Schema({
-      NAME: { type: String, required: true },
-      DUPE: { type: Boolean, require: true },
+    interface IOldClass extends IClass {
+      CODE: string;
+      UUID: string;
+      ROLE_NAME: string;
+    }
+    const courses = (await classModel.find({})) as (Document<
+      unknown,
+      any,
+      IOldClass
+    > &
+      IOldClass & { _id: Types.ObjectId })[];
+
+    // Add old fields here
+    const oldSchema = new Schema({
+      CODE: { type: String, required: true },
+      UUID: { type: Boolean, require: true },
+      ROLE_NAME: { type: Boolean, require: true },
     });
-    classModel.schema.add(newSchema);
+    classModel.schema.add(oldSchema);
 
     for (let index = 0; index < courses.length; index++) {
+      hi(courses[index]);
       if (courses[index].get("CODE") != undefined) {
         let new_name = courses[index].CODE;
         const is_dupe = isDupe(new_name);
