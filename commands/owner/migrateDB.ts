@@ -3,6 +3,9 @@ import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
 import { create_default_embed } from "../../utils/util";
 import { Schema, Types, Document } from "mongoose";
+import { getCourseName, cleanChannelString } from "../../utils/channelUtils";
+import { cleanRoleString } from "../../utils/roleUtils";
+import { Role, TextChannel } from "discord.js";
 
 function cleanCompSciString(s: string): string {
   return s.toLowerCase().replace("compsci ", "cs");
@@ -44,10 +47,12 @@ export default {
     const oldSchema = new Schema({
       CODE: { type: String, required: true },
       UUID: { type: Boolean, require: true },
-      ROLE_NAME: { type: Boolean, require: true },
+      ROLE_NAME: { type: String, require: true },
     });
     classModel.schema.add(oldSchema);
 
+    const channel_promises: Promise<TextChannel>[] = [];
+    const role_promises: Promise<Role>[] = [];
     for (let index = 0; index < courses.length; index++) {
       if (courses[index].get("CODE") != undefined) {
         let new_name = courses[index].CODE;
@@ -78,7 +83,36 @@ export default {
       if (courses[index].get("UUID") != undefined) {
         courses[index].set("UUID", undefined);
       }
+
+      //UPDATE CHANNEL
+      if (courses[index].CHANNEL_ID) {
+        const channel = msgInt.guild.channels.cache.get(
+          courses[index].CHANNEL_ID
+        );
+        if (channel != undefined && channel.type == "GUILD_TEXT") {
+          channel_promises.push(
+            channel.setName(cleanChannelString(getCourseName(courses[index])))
+          );
+          channel_promises.push(channel.setTopic(courses[index].TITLE));
+        }
+      }
+
+      //UPDATE ROLE
+      if (courses[index].ROLE_ID) {
+        const role = msgInt.guild.roles.cache.get(courses[index].ROLE_ID);
+        if (role != undefined) {
+          role_promises.push(
+            role.setName(cleanRoleString(getCourseName(courses[index])))
+          );
+        }
+      }
     }
+
+    // Update all channels
+    await Promise.all(channel_promises);
+    // Update all roles
+    await Promise.all(role_promises);
+
     // Turn off validation to delete paths
     classModel.schema.set("validateBeforeSave", false);
     // Turn off strict to add field
