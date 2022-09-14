@@ -7,8 +7,9 @@ import {
 import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
-import { checkForRoles } from "../../utils/roleUtils";
+import { checkForRoles, cleanRoleString } from "../../utils/roleUtils";
 import { sleep } from "../../utils/util";
+import { getCourseName, cleanChannelString } from "../../utils/channelUtils";
 
 // Splits any size list into lists of at most `max_list_len`
 function split_list<T>(list: T[], max_list_len: number): T[][] {
@@ -21,9 +22,10 @@ function split_list<T>(list: T[], max_list_len: number): T[][] {
 
 // consumes a Class and returns Message Selec tOption data
 function create_option_from_class(_class: IClass): MessageSelectOptionData {
+  const clean_name = cleanRoleString(getCourseName(_class));
   return {
-    label: _class.CODE,
-    value: _class.CODE,
+    label: clean_name,
+    value: clean_name,
     description: _class.TITLE,
   };
 }
@@ -49,7 +51,7 @@ export default {
       return;
     }
 
-    const classes = await classModel.find({}).sort({ CODE: 1 });
+    const classes = await classModel.find({}).sort({ NAME: 1 });
     const class_chunks = split_list(classes, 25);
 
     const rows: MessageActionRow[] = [];

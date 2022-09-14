@@ -33,14 +33,12 @@ export default {
 
     await msgInt.deferReply({ ephemeral: true });
 
-    const courses = await classModel.find({}).sort({ CODE: 1 });
+    const courses = await classModel.find({});
 
     //create an array of the courses with cleaned names
     const cleaned_courses: string[] = [];
     for (let index = 0; index < courses.length; index++) {
-      cleaned_courses.push(
-        cleanChannelString(cleanCompSciString(courses[index].CODE))
-      );
+      cleaned_courses.push(cleanChannelString(courses[index].NAME));
     }
 
     // for (let index = 0; index < courses.length; index++) {
@@ -90,7 +88,7 @@ export default {
       // Iterate through courses in db
       const channel = checkForChannel(
         msgInt.guild,
-        cleanChannelString(cleanCompSciString(courses[index].CODE))
+        cleanChannelString(courses[index].NAME)
       );
 
       let category = await (
@@ -127,7 +125,7 @@ export default {
       if (channel === undefined || channel.type !== "GUILD_TEXT") {
         const new_channel = await createTextChannel(
           msgInt.guild,
-          cleanCompSciString(courses[index].CODE),
+          courses[index].NAME,
           courses[index].INFO,
           category
         );
@@ -142,7 +140,7 @@ export default {
         const role = msgInt.guild.roles.cache.find((role) => {
           return (
             cleanRoleString(role.name) ==
-            cleanChannelString(cleanCompSciString(courses[index].CODE))
+            cleanChannelString(courses[index].NAME)
           );
         });
         if (role !== undefined) {
@@ -173,7 +171,7 @@ export default {
         const role = msgInt.guild.roles.cache.find((role) => {
           return (
             cleanRoleString(role.name) ==
-            cleanChannelString(cleanCompSciString(courses[index].CODE))
+            cleanChannelString(courses[index].NAME)
           );
         });
         if (role !== undefined) {
