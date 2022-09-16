@@ -11,7 +11,7 @@ import {
 } from "../../utils/channelUtils";
 import { create_default_embed } from "../../utils/util";
 import { cleanRoleString } from "../../utils/roleUtils";
-import { getCourseName } from "../../utils/channelUtils";
+import { getCourseName, getTopic } from "../../utils/channelUtils";
 
 function cleanCompSciString(s: string): string {
   return s.toLowerCase().replace("compsci ", "cs");
@@ -127,7 +127,7 @@ export default {
         const new_channel = await createTextChannel(
           msgInt.guild,
           getCourseName(courses[index]),
-          `${courses[index].TITLE} | ${courses[index].INFO}`,
+          getTopic(courses[index]),
           category
         );
 

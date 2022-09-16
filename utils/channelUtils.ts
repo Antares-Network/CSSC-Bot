@@ -11,6 +11,9 @@ export function cleanChannelString(s: string): string {
     .slice(0, 100);
   return s_new;
 }
+export function getTopic(course: IClass) {
+  return `${course.TITLE} | ${course.INFO}`.slice(1024);
+}
 export function getCourseName(course: IClass) {
   return course.DUPE == true ? `${course.NAME}-${course.TITLE}` : course.NAME;
 }

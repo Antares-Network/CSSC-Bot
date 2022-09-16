@@ -3,7 +3,11 @@ import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
 import { create_default_embed, sleep } from "../../utils/util";
 import { Schema, Types, Document } from "mongoose";
-import { getCourseName, cleanChannelString } from "../../utils/channelUtils";
+import {
+  getCourseName,
+  cleanChannelString,
+  getTopic,
+} from "../../utils/channelUtils";
 import { cleanRoleString } from "../../utils/roleUtils";
 import { Role, TextChannel } from "discord.js";
 import Bottleneck from "bottleneck";
@@ -118,7 +122,7 @@ export default {
               .catch(console.error);
           }
           //Update Channel Topic
-          const new_topic = `${courses[index].TITLE} | ${courses[index].INFO}`;
+          const new_topic = getTopic(courses[index]);
           if (`${channel.topic}` != new_topic) {
             console.log(chalk.yellow(`Channel's old topic: ${channel.topic}`));
             await limiter
