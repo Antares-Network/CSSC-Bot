@@ -95,28 +95,35 @@ export async function createRoles<T extends IRole>(
   guild: Guild,
   model: Model<T>
 ): Promise<void> {
-  const list = await model.find({});
+  const role_docs = await model.find({});
 
-  list?.forEach(async (element) => {
-    if (!guild.roles.cache.find((r) => r.name === element.ROLE_NAME)) {
+  for (let index = 0; index < role_docs.length; index++) {
+    const role_doc = role_docs[index];
+    if (
+      guild.roles.cache.find((r) => r.name === role_doc.ROLE_NAME) == undefined
+    ) {
       // Create the role
-      const role = await guild.roles.create({ name: element.ROLE_NAME });
-      element.ROLE_ID = role.id;
-      element.save();
+      const role = await guild.roles.create({
+        name: cleanRoleString(role_doc.ROLE_NAME),
+      });
+      role_doc.ROLE_ID = role.id;
+      await role_doc.save();
+
       // Print the role id to the console
-      console.log(chalk.yellow(`${element}: ${role?.id}`));
+      console.log(chalk.yellow(`Created role: ${role.name}\tid: ${role?.id}`));
     } else {
       // If the role already exists, print the id to the console
-      const id = guild.roles.cache.find(
-        (r) => r.name === element.ROLE_NAME
-      )?.id;
-      if (id !== undefined) {
-        element.ROLE_ID = id;
+      const role = guild.roles.cache.find((r) => r.name === role_doc.ROLE_NAME);
+      if (role == undefined) {
+        continue;
       }
-      element.save();
-      console.log(chalk.yellow(`${element}: ${id}`));
+      const id = role.id;
+      role_doc.ROLE_ID = id;
+      await role_doc.save();
+
+      console.log(chalk.yellow(`Role exists: ${role.name}\tid: ${id}`));
     }
-  });
+  }
 }
 
 export async function checkForRoles(guild: Guild): Promise<boolean> {
