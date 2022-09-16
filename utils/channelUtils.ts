@@ -5,7 +5,7 @@ import { classModel, IClass } from "../models/classModel";
 export function cleanChannelString(s: string): string {
   const s_new = s
     .toLowerCase()
-    .replace(/[`~!@#$%^&*()|+=?;:'",.<>\{\}\[\]\\\/]+/gi, "")
+    .replace(/[`~!@#$%^&*()|+=?;:'",.<>\{\}\[\]\\\/\n]+/gi, "")
     .replace(/\s+/gi, "-")
     .replace(/-{2,}/gi, "-");
   console.log(`${s}\t:\t${s_new}`);
