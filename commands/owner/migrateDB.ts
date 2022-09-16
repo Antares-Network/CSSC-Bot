@@ -10,7 +10,7 @@ import { Role, TextChannel } from "discord.js";
 function cleanCompSciString(s: string): string {
   return s.toLowerCase().replace("compsci ", "cs");
 }
-export function isDupe(name: string): number {
+function isDupe(name: string): number {
   return name.search(/\(\d\)/);
 }
 export default {
