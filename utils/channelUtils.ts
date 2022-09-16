@@ -6,7 +6,7 @@ export function cleanChannelString(s: string): string {
   return s
     .toLowerCase()
     .replace(/[`~!@#$%^&*()|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
-    .replace(/[ ]/gi, "-");
+    .replace(/[\s+]/gi, "-"); // replace 1 or more whitespace characters with a dash. Channels can ony have one dash in a row
 }
 export function getCourseName(course: IClass) {
   return course.DUPE == true ? `${course.NAME}-${course.TITLE}` : course.NAME;
