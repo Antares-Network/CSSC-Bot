@@ -11,6 +11,7 @@ import {
 } from "../../utils/channelUtils";
 import { create_default_embed } from "../../utils/util";
 import { cleanRoleString } from "../../utils/roleUtils";
+import { getCourseName } from "../../utils/channelUtils";
 
 function cleanCompSciString(s: string): string {
   return s.toLowerCase().replace("compsci ", "cs");
@@ -38,7 +39,7 @@ export default {
     //create an array of the courses with cleaned names
     const cleaned_courses: string[] = [];
     for (let index = 0; index < courses.length; index++) {
-      cleaned_courses.push(cleanChannelString(courses[index].NAME));
+      cleaned_courses.push(cleanChannelString(getCourseName(courses[index])));
     }
 
     // for (let index = 0; index < courses.length; index++) {
@@ -88,7 +89,7 @@ export default {
       // Iterate through courses in db
       const channel = checkForChannel(
         msgInt.guild,
-        cleanChannelString(courses[index].NAME)
+        cleanChannelString(getCourseName(courses[index]))
       );
 
       let category = await (
@@ -125,7 +126,7 @@ export default {
       if (channel === undefined || channel.type !== "GUILD_TEXT") {
         const new_channel = await createTextChannel(
           msgInt.guild,
-          courses[index].NAME,
+          getCourseName(courses[index]),
           courses[index].INFO,
           category
         );
@@ -140,7 +141,7 @@ export default {
         const role = msgInt.guild.roles.cache.find((role) => {
           return (
             cleanRoleString(role.name) ==
-            cleanChannelString(courses[index].NAME)
+            cleanChannelString(getCourseName(courses[index]))
           );
         });
         if (role !== undefined) {
@@ -171,7 +172,7 @@ export default {
         const role = msgInt.guild.roles.cache.find((role) => {
           return (
             cleanRoleString(role.name) ==
-            cleanChannelString(courses[index].NAME)
+            cleanChannelString(getCourseName(courses[index]))
           );
         });
         if (role !== undefined) {
