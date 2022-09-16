@@ -127,7 +127,7 @@ export default {
         const new_channel = await createTextChannel(
           msgInt.guild,
           getCourseName(courses[index]),
-          courses[index].INFO,
+          `${courses[index].TITLE} | ${courses[index].INFO}`,
           category
         );
 
