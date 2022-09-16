@@ -9,12 +9,10 @@ import { Role, TextChannel } from "discord.js";
 import Bottleneck from "bottleneck";
 
 function cleanCompSciString(s: string): string {
-  return s.toLowerCase().replace("compsci ", "cs");
+  return s.toLowerCase().replace("compsci ", "cs").trim();
 }
 function cleanCompSciTitle(s: string): string {
-  return s
-    .toLowerCase()
-    .replace(/(advanced )?topics in computer science:/gim, "");
+  return s.replace(/(advanced )?topics in computer science:/gim, "").trim();
 }
 function isDupe(name: string): number {
   return name.search(/\(\d\)/);
@@ -60,7 +58,6 @@ export default {
     // Bottleneck to 50 calls per second to the discord api
     const limiter = new Bottleneck({ minTime: 1000 / 50 });
 
-    const promises: (Promise<TextChannel> | Promise<Role>)[] = [];
     for (let index = 0; index < courses.length; index++) {
       const course = courses[index];
       // Remove CODE and replace with NAME
@@ -94,6 +91,10 @@ export default {
       // if (course.get("ROLE_NAME") != undefined) {
       //   course.set("ROLE_NAME", undefined);
       // }
+
+      // Udate ROLE_NAME
+      course.ROLE_NAME = cleanRoleString(getCourseName(course));
+
       // REMOVE UUID
       if (course.get("UUID") != undefined) {
         course.set("UUID", undefined);
@@ -103,24 +104,31 @@ export default {
       if (course.CHANNEL_ID) {
         const channel = msgInt.guild.channels.cache.get(course.CHANNEL_ID);
         if (channel != undefined && channel.type == "GUILD_TEXT") {
-          console.log(chalk.blue(`Old channel name: ${channel.name}`));
-          const course_name = getCourseName(course);
           const new_name = cleanChannelString(getCourseName(course));
+          //Update Channel Name
           if (new_name != channel.name) {
-            console.log(chalk.yellow(`Course name: ${course_name}`));
-            console.log(chalk.yellow(`Channel name: ${new_name}`));
-            promises.push(limiter.schedule(() => channel.setName(new_name)));
-            // await channel.setName(new_name);
-            console.log(chalk.yellow(`Updated channel: ${channel.name}`));
+            console.log(chalk.yellow(`Old channel name: ${channel.name}`));
+            await limiter
+              .schedule(() => channel.setName(new_name))
+              .then((newChannel) =>
+                console.log(
+                  chalk.blue(`Channel's new name: ${newChannel.name}`)
+                )
+              )
+              .catch(console.error);
           }
-          if (channel.topic != course.TITLE) {
-            promises.push(
-              limiter.schedule(() => channel.setTopic(course.TITLE))
-            );
-            // await channel.setTopic(course.TITLE);
-            console.log(
-              chalk.yellow(`Updated channel topic: ${channel.topic}`)
-            );
+          //Update Channel Topic
+          const new_topic = `${courses[index].TITLE} | ${courses[index].INFO}`;
+          if (`${channel.topic}` != new_topic) {
+            console.log(chalk.yellow(`Channel's old topic: ${channel.topic}`));
+            await limiter
+              .schedule(() => channel.setTopic(new_topic))
+              .then((channel) => {
+                console.log(
+                  chalk.blue(`Channel's new topic: ${channel.topic}`)
+                );
+              })
+              .catch(console.error);
           }
         }
       }
@@ -131,27 +139,18 @@ export default {
         if (role != undefined) {
           const new_name = cleanRoleString(getCourseName(course));
           if (role.name != new_name) {
-            promises.push(limiter.schedule(() => role.setName(new_name)));
+            console.log(chalk.yellow(`Role's old name: ${role.name}`));
+            await limiter
+              .schedule(() => role.setName(new_name))
+              .then((role) => {
+                console.log(chalk.blue(`Role's new name: ${role.name}`));
+              })
+              .catch(console.error);
+            await role.setName(new_name);
           }
-          // await role.setName(new_name);
-          console.log(chalk.yellow(`Updated role: ${role.name}`));
         }
       }
     }
-
-    console.log("Running all promises");
-    // limiter.on("debug", function (message, data) {
-    //   console.log(message);
-    //   console.log(data);
-    // });
-
-    // Run all promises
-    await Promise.all(promises);
-
-    // // Update all channels
-    // await Promise.all(channel_promises);
-    // // Update all roles
-    // await Promise.all(role_promises);
 
     // Turn off validation to delete paths
     classModel.schema.set("validateBeforeSave", false);
