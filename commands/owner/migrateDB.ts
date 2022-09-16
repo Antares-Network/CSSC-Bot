@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
-import { create_default_embed, sleep } from "../../utils/util";
+import { create_default_embed } from "../../utils/util";
 import { Schema, Types, Document } from "mongoose";
 import {
   getCourseName,
@@ -9,7 +9,6 @@ import {
   getTopic,
 } from "../../utils/channelUtils";
 import { cleanRoleString } from "../../utils/roleUtils";
-import { Role, TextChannel } from "discord.js";
 import Bottleneck from "bottleneck";
 
 function cleanCompSciString(s: string): string {
@@ -44,11 +43,7 @@ export default {
       UUID: string;
       ROLE_NAME: string;
     }
-    const courses = (await classModel.find({})) as (Document<
-      unknown,
-      any,
-      IOldClass
-    > &
+    const courses = (await classModel.find({})) as (Document<IOldClass> &
       IOldClass & { _id: Types.ObjectId })[];
 
     // Add old fields here
@@ -90,11 +85,6 @@ export default {
       }
       //Clean TITLE
       course.TITLE = cleanCompSciTitle(course.TITLE);
-
-      //Remove ROLE_NAME
-      // if (course.get("ROLE_NAME") != undefined) {
-      //   course.set("ROLE_NAME", undefined);
-      // }
 
       // Udate ROLE_NAME
       course.ROLE_NAME = cleanRoleString(getCourseName(course));
@@ -165,7 +155,7 @@ export default {
     await classModel.bulkSave(courses);
 
     const title = "Migrate Database";
-    let description = "Migrated Database";
+    const description = "Migrated Database";
 
     const embed = create_default_embed(client, title, description);
     await msgInt.editReply({ embeds: [embed] });

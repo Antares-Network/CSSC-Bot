@@ -13,9 +13,6 @@ import { create_default_embed } from "../../utils/util";
 import { cleanRoleString } from "../../utils/roleUtils";
 import { getCourseName, getTopic } from "../../utils/channelUtils";
 
-function cleanCompSciString(s: string): string {
-  return s.toLowerCase().replace("compsci ", "cs");
-}
 export default {
   name: "csCreateChannels",
   category: "owner",

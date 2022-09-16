@@ -1,6 +1,6 @@
 import { CategoryChannel, Guild, GuildChannel } from "discord.js";
 import chalk from "chalk";
-import { classModel, IClass } from "../models/classModel";
+import { IClass } from "../models/classModel";
 
 export function cleanChannelString(s: string): string {
   const s_new = s
