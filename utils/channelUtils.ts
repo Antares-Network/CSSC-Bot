@@ -6,8 +6,8 @@ export function cleanChannelString(s: string): string {
   const s_new = s
     .toLowerCase()
     .replace(/[`~!@#$%^&*()|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
-    .replace(/[\s+]/gi, "-")
-    .replace(/[-{2,}]/gi, "-");
+    .replace(/\s+/gi, "-")
+    .replace(/-{2,}/gi, "-");
   console.log(`${s}\t:\t${s_new}`);
   return s_new;
 }
