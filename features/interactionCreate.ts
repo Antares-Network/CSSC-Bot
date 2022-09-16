@@ -68,6 +68,7 @@ export default (client: Client): void => {
       // Assign the new role to the user
       await addNewRole(member, staffModel, interaction.values[0]);
     } else if (interaction.customId.startsWith("csClassPoll+")) {
+      await addNewRole(member, classModel, interaction.values[0]);
       // Set the embed title
       const title = "CS Class Poll";
       // Create and send the embed object
@@ -82,8 +83,6 @@ export default (client: Client): void => {
         ephemeral: true,
       });
       // Assign the new role to the user
-
-      await addNewRole(member, classModel, interaction.values[0]);
     }
   });
 };
