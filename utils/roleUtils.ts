@@ -14,7 +14,8 @@ export function cleanRoleString(role_name: string): string {
   const clean_role_name: string = role_name
     .toLowerCase()
     .replace(/[`~!@#$%^&*()|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
-    .replace(/[\s+]/gi, "-"); // replace 1 or more whitespace characters with a dash. Roles can ony have one dash in a row
+    .replace(/[\s+]/gi, "-")
+    .replace(/[-{2,}]/gi, "-");
   return clean_role_name;
 }
 

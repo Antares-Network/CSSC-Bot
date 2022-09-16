@@ -3,10 +3,13 @@ import chalk from "chalk";
 import { classModel, IClass } from "../models/classModel";
 
 export function cleanChannelString(s: string): string {
-  return s
+  const s_new = s
     .toLowerCase()
     .replace(/[`~!@#$%^&*()|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
-    .replace(/[\s+]/gi, "-"); // replace 1 or more whitespace characters with a dash. Channels can ony have one dash in a row
+    .replace(/[\s+]/gi, "-")
+    .replace(/[-{2,}]/gi, "-");
+  console.log(`${s}\t:\t${s_new}`);
+  return s_new;
 }
 export function getCourseName(course: IClass) {
   return course.DUPE == true ? `${course.NAME}-${course.TITLE}` : course.NAME;
