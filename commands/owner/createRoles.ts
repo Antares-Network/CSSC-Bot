@@ -15,30 +15,31 @@ export default {
   requiredPermissions: ["MANAGE_GUILD", "MANAGE_ROLES"],
   ownerOnly: true,
 
-  callback: async ({ interaction }) => {
+  callback: async ({ client, interaction: msgInt }) => {
     console.log(chalk.green("Creating roles..."));
     console.log(
       chalk.red("------------------------------------------------------")
     );
-    if (interaction.guild === null) {
+    if (msgInt.guild === null) {
       return;
     }
+    await msgInt.deferReply({ ephemeral: true });
+
     // Create the roles
-    await createRoles(interaction.guild, classModel);
-    await createRoles(interaction.guild, staffModel);
-    await createRoles(interaction.guild, yearModel);
-    interaction.reply({
+    await createRoles(msgInt.guild, classModel);
+    await createRoles(msgInt.guild, staffModel);
+    await createRoles(msgInt.guild, yearModel);
+    msgInt.editReply({
       content: "Roles created!",
-      ephemeral: true,
     });
 
     // Log the command usage
     console.log(
       chalk.blue(
         `${chalk.green(`[COMMAND]`)} ${chalk.yellow(
-          interaction.user.tag
-        )} used the ${chalk.green(`/yearPoll`)} command in ${chalk.yellow(
-          interaction.guild?.name
+          msgInt.user.tag
+        )} used the ${chalk.green(`/createRoles`)} command in ${chalk.yellow(
+          msgInt.guild?.name
         )}`
       )
     );
