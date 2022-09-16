@@ -15,7 +15,8 @@ export function cleanRoleString(role_name: string): string {
     .toLowerCase()
     .replace(/[`~!@#$%^&*()|+=?;:'",.<>\{\}\[\]\\\/\n]+/gi, "")
     .replace(/\s+/gi, "-")
-    .replace(/-{2,}/gi, "-");
+    .replace(/-{2,}/gi, "-")
+    .slice(0, 100);
   return clean_role_name;
 }
 

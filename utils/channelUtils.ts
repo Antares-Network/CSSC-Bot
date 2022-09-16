@@ -7,7 +7,8 @@ export function cleanChannelString(s: string): string {
     .toLowerCase()
     .replace(/[`~!@#$%^&*()|+=?;:'",.<>\{\}\[\]\\\/\n]+/gi, "")
     .replace(/\s+/gi, "-")
-    .replace(/-{2,}/gi, "-");
+    .replace(/-{2,}/gi, "-")
+    .slice(0, 100);
   return s_new;
 }
 export function getCourseName(course: IClass) {
