@@ -91,9 +91,9 @@ export default {
       course.TITLE = cleanCompSciTitle(course.TITLE);
 
       //Remove ROLE_NAME
-      if (course.get("ROLE_NAME") != undefined) {
-        course.set("ROLE_NAME", undefined);
-      }
+      // if (course.get("ROLE_NAME") != undefined) {
+      //   course.set("ROLE_NAME", undefined);
+      // }
       // REMOVE UUID
       if (course.get("UUID") != undefined) {
         course.set("UUID", undefined);
