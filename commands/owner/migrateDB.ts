@@ -167,9 +167,9 @@ export default {
       chalk.blue(
         `${chalk.green(`[COMMAND]`)} ${chalk.yellow(
           msgInt.user.tag
-        )} used the ${chalk.green(
-          `/csCreateChannels`
-        )} command in ${chalk.yellow(msgInt.guild?.name)}`
+        )} used the ${chalk.green(`/migrateDB`)} command in ${chalk.yellow(
+          msgInt.guild?.name
+        )}`
       )
     );
   },
