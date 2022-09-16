@@ -41,7 +41,6 @@ export default {
     interface IOldClass extends IClass {
       CODE: string;
       UUID: string;
-      ROLE_NAME: string;
     }
     const courses = (await classModel.find({})) as (Document<IOldClass> &
       IOldClass & { _id: Types.ObjectId })[];
@@ -50,7 +49,6 @@ export default {
     const oldSchema = new Schema({
       CODE: { type: String, required: true },
       UUID: { type: Boolean, require: true },
-      ROLE_NAME: { type: String, require: true },
     });
     classModel.schema.add(oldSchema);
 
