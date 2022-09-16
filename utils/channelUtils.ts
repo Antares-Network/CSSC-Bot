@@ -8,7 +8,6 @@ export function cleanChannelString(s: string): string {
     .replace(/[`~!@#$%^&*()|+=?;:'",.<>\{\}\[\]\\\/\n]+/gi, "")
     .replace(/\s+/gi, "-")
     .replace(/-{2,}/gi, "-");
-  console.log(`${s}\t:\t${s_new}`);
   return s_new;
 }
 export function getCourseName(course: IClass) {
