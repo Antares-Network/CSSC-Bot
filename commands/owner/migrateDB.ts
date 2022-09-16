@@ -54,55 +54,56 @@ export default {
     const channel_promises: Promise<TextChannel>[] = [];
     const role_promises: Promise<Role>[] = [];
     for (let index = 0; index < courses.length; index++) {
-      if (courses[index].get("CODE") != undefined) {
-        let new_name = courses[index].CODE;
+      const course = courses[index];
+      if (course.get("CODE") != undefined) {
+        let new_name = course.CODE;
         const is_dupe = isDupe(new_name);
         // Add field determining if it is a duplicate
         if (is_dupe == -1) {
           // Not a dupe
-          courses[index].set("DUPE", "false");
+          course.set("DUPE", "false");
         } else {
           // A dupe
-          courses[index].set("DUPE", "true");
+          course.set("DUPE", "true");
           // Remove the number
           new_name = new_name.slice(0, is_dupe);
         }
         new_name = cleanCompSciString(new_name);
-        courses[index].set("NAME", new_name);
+        course.set("NAME", new_name);
         // Remove UUID
-        console.log(chalk.yellow(`${courses[index].CODE}\t${new_name}`));
+        console.log(chalk.yellow(`${course.CODE}\t${new_name}`));
         // Remove CODE
-        courses[index].set("CODE", undefined);
+        course.set("CODE", undefined);
         //TODO: revise else
       }
       //Remove ROLE_NAME
-      if (courses[index].get("ROLE_NAME") != undefined) {
-        courses[index].set("ROLE_NAME", undefined);
+      if (course.get("ROLE_NAME") != undefined) {
+        course.set("ROLE_NAME", undefined);
       }
       // REMOVE UUID
-      if (courses[index].get("UUID") != undefined) {
-        courses[index].set("UUID", undefined);
+      if (course.get("UUID") != undefined) {
+        course.set("UUID", undefined);
       }
 
       //UPDATE CHANNEL
-      if (courses[index].CHANNEL_ID) {
-        const channel = msgInt.guild.channels.cache.get(
-          courses[index].CHANNEL_ID
-        );
+      if (course.CHANNEL_ID) {
+        const channel = msgInt.guild.channels.cache.get(course.CHANNEL_ID);
         if (channel != undefined && channel.type == "GUILD_TEXT") {
+          console.log(chalk.yellow(`Updated channel: ${channel.name}`));
           channel_promises.push(
-            channel.setName(cleanChannelString(getCourseName(courses[index])))
+            channel.setName(cleanChannelString(getCourseName(course)))
           );
-          channel_promises.push(channel.setTopic(courses[index].TITLE));
+          channel_promises.push(channel.setTopic(course.TITLE));
         }
       }
 
       //UPDATE ROLE
-      if (courses[index].ROLE_ID) {
-        const role = msgInt.guild.roles.cache.get(courses[index].ROLE_ID);
+      if (course.ROLE_ID) {
+        const role = msgInt.guild.roles.cache.get(course.ROLE_ID);
         if (role != undefined) {
+          console.log(chalk.yellow(`Updated role: ${role.name}`));
           role_promises.push(
-            role.setName(cleanRoleString(getCourseName(courses[index])))
+            role.setName(cleanRoleString(getCourseName(course)))
           );
         }
       }
