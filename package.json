@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Antares-Network/CSSC-Bot#readme",
   "dependencies": {
-    "axios": "^0.27.2",
+    "axios": "^1.1.1",
     "chalk": "4.1.2",
     "discord.js": "^13.9.2",
     "mongoose": "^6.6.0",
