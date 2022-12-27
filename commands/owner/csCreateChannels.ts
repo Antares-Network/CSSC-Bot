@@ -9,7 +9,7 @@ import {
   moveChannel,
   concatCategoryName,
 } from "../../utils/channelUtils";
-import { create_default_embed } from "../../utils/util";
+import { create_default_embed } from "../../utils/embeds";
 import { cleanRoleString } from "../../utils/roleUtils";
 import { getCourseName, getTopic } from "../../utils/channelUtils";
 
