@@ -4,7 +4,7 @@ import WOKCommands from "wokcommands";
 import path from "path";
 import chalk from "chalk";
 import dotenv from "dotenv";
-import { isDocker } from "./utils/util";
+import { isDocker } from "./utils/docker";
 
 // import custom modules
 import { checkForRoles, checkIfCollectionsExist } from "./utils/roles";
