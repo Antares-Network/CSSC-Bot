@@ -1,6 +1,6 @@
 import { Client, MessageEmbed, GuildMember } from "discord.js";
 import { yearModel } from "../models/yearModel";
-import { removeRole, addNewRole } from "../utils/roleUtils";
+import { removeRole, addNewRole } from "../utils/roles";
 import { staffModel } from "../models/staffModel";
 import { classModel } from "../models/classModel";
 

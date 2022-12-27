@@ -10,7 +10,7 @@ import {
   findCategory,
   moveChannel,
   concatCategoryName,
-} from "../../utils/channelUtils";
+} from "../../utils/channels";
 
 function create_default_embed(
   client: Client,

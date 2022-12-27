@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { GuildMember } from "discord.js";
 import { ICommand } from "wokcommands";
-import { getUsersRoles } from "../../utils/roleUtils";
+import { getUsersRoles } from "../../utils/roles";
 
 export default {
   name: "view",

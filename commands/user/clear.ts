@@ -4,7 +4,7 @@ import { ICommand } from "wokcommands";
 import { classModel } from "../../models/classModel";
 import { staffModel } from "../../models/staffModel";
 import { yearModel } from "../../models/yearModel";
-import { removeRole } from "../../utils/roleUtils";
+import { removeRole } from "../../utils/roles";
 
 export default {
   name: "clear",

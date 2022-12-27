@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Client } from "discord.js";
-import { isDocker } from "../utils/util";
+import { isDocker } from "../utils/docker";
 
 export default (client: Client): void => {
   // Check if the bot is running in a docker container by checking if the env variable UPTIME_KUMA_CONTAINERIZED is true
