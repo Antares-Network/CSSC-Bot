@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { IRole } from "../utils/roleUtils";
+import { IRole } from "../utils/roles";
 
 export interface IYear extends IRole {
   id: string;

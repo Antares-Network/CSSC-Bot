@@ -1,5 +1,5 @@
 import { ICommand } from "wokcommands";
-import { createRoles } from "../../utils/roleUtils";
+import { createRoles } from "../../utils/roles";
 import chalk from "chalk";
 import { classModel } from "../../models/classModel";
 import { staffModel } from "../../models/staffModel";

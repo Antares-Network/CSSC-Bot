@@ -7,8 +7,8 @@ import {
 import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
-import { checkForRoles } from "../../utils/roleUtils";
-import { sleep } from "../../utils/util";
+import { checkForRoles } from "../../utils/roles";
+import { sleep } from "../../utils/sleep";
 
 // Splits any size list into lists of at most `max_list_len`
 function split_list<T>(list: T[], max_list_len: number): T[][] {
