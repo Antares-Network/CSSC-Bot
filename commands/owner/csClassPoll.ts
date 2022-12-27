@@ -9,7 +9,7 @@ import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
 import { checkForRoles, cleanRoleString } from "../../utils/roleUtils";
 import { sleep } from "../../utils/util";
-import { getCourseName } from "../../utils/channelUtils";
+import { getCourseName } from "../../utils/channels";
 
 // Splits any size list into lists of at most `max_list_len`
 function split_list<T>(list: T[], max_list_len: number): T[][] {

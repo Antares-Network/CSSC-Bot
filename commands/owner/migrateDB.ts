@@ -7,7 +7,7 @@ import {
   getCourseName,
   cleanChannelString,
   getTopic,
-} from "../../utils/channelUtils";
+} from "../../utils/channels";
 import { cleanRoleString } from "../../utils/roleUtils";
 import Bottleneck from "bottleneck";
 
