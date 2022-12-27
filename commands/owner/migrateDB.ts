@@ -8,7 +8,7 @@ import {
   cleanChannelString,
   getTopic,
 } from "../../utils/channels";
-import { cleanRoleString } from "../../utils/roleUtils";
+import { cleanRoleString } from "../../utils/roles";
 import Bottleneck from "bottleneck";
 
 function cleanCompSciString(s: string): string {

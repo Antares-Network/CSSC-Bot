@@ -7,7 +7,7 @@ import {
 import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
-import { checkForRoles, cleanRoleString } from "../../utils/roleUtils";
+import { checkForRoles, cleanRoleString } from "../../utils/roles";
 import { sleep } from "../../utils/util";
 import { getCourseName } from "../../utils/channels";
 

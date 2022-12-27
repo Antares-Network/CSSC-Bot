@@ -10,7 +10,7 @@ import {
   concatCategoryName,
 } from "../../utils/channels";
 import { create_default_embed } from "../../utils/embeds";
-import { cleanRoleString } from "../../utils/roleUtils";
+import { cleanRoleString } from "../../utils/roles";
 import { getCourseName, getTopic } from "../../utils/channels";
 
 export default {

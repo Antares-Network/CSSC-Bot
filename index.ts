@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 import { isDocker } from "./utils/util";
 
 // import custom modules
-import { checkForRoles, checkIfCollectionsExist } from "./utils/roleUtils";
+import { checkForRoles, checkIfCollectionsExist } from "./utils/roles";
 import { classModel } from "./models/classModel";
 import { staffModel } from "./models/staffModel";
 import { yearModel } from "./models/yearModel";
