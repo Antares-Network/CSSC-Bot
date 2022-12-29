@@ -7,8 +7,8 @@ import {
 import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
-import { checkForRoles, cleanRoleString } from "../../utils/roles";
-import { sleep } from "../../utils/docker";
+import { checkForRoles } from "../../utils/roles";
+import { sleep } from "../../utils/sleep";
 import { getCourseName } from "../../utils/channels";
 
 // Splits any size list into lists of at most `max_list_len`
