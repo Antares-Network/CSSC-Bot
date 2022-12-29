@@ -39,11 +39,11 @@ export async function createTextChannel(
   category_name?: string
 ) {
   //Determine which arg to use
-  let channel_parent: CategoryChannel | undefined;
+  let parent: CategoryChannel | undefined;
   if (category !== undefined) {
-    channel_parent = category;
+    parent = category;
   } else if (category_name !== undefined) {
-    channel_parent = await findCategory(guild, category_name);
+    parent = await findCategory(guild, category_name);
   } else {
     throw Error(
       "Must specify either channel_category or channel_category_name"
@@ -52,8 +52,8 @@ export async function createTextChannel(
 
   return guild.channels.create(cleanChannelString(name), {
     type: "GUILD_TEXT",
-    topic: topic,
-    parent: channel_parent,
+    topic,
+    parent,
   });
 }
 
