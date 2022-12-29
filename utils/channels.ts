@@ -16,17 +16,20 @@ export function checkForChannel(guild: Guild, channel_name: string) {
 }
 
 export async function findCategory(guild: Guild, category_name: string) {
-  let category = guild.channels.cache.find((category) => {
+  let found_category = guild.channels.cache.find((category) => {
     return category.name === category_name;
   });
 
-  if (category === undefined || category.type !== "GUILD_CATEGORY") {
-    category = await guild.channels.create(category_name, {
+  if (
+    found_category === undefined ||
+    found_category.type !== "GUILD_CATEGORY"
+  ) {
+    found_category = await guild.channels.create(category_name, {
       type: "GUILD_CATEGORY",
     });
   }
 
-  return category;
+  return found_category;
 }
 export async function createTextChannel(
   guild: Guild,
