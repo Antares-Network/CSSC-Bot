@@ -95,4 +95,3 @@ process.on("exit", (code) => {
   console.log("Now exiting...");
   console.log(`Exited with status code: ${code}`);
 });
-

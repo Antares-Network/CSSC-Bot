@@ -145,4 +145,3 @@ export async function checkForRoles(guild: Guild): Promise<boolean> {
     return true;
   }
 }
-

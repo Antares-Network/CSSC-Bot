@@ -45,4 +45,3 @@ export default {
     );
   },
 } as ICommand;
-
