@@ -36,7 +36,7 @@ function create_default_embed(
 function cleanRoleString(role_name: string): string {
   const clean_role_name: string = role_name
     .toLowerCase()
-    .replace(/[`~!@#$%^&*))|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
+    .replace(/[`~!@#$%^&*))|+=?;:'",.<>{}[\]\\/]/gi, "")
     .replace(/[ (]/gi, "-");
   return clean_role_name;
 }
