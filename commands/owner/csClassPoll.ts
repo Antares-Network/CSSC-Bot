@@ -7,7 +7,7 @@ import {
 import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
-import { checkForRoles } from "../../utils/roles";
+import { checkForRoles, cleanRoleString } from "../../utils/roles";
 import { sleep } from "../../utils/sleep";
 import { getCourseName } from "../../utils/channels";
 
@@ -105,3 +105,4 @@ export default {
     );
   },
 } as ICommand;
+
