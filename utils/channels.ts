@@ -17,7 +17,7 @@ export function checkForChannel(guild: Guild, channel_name: string) {
 
 export async function findCategory(guild: Guild, category_name: string) {
   let category = guild.channels.cache.find((category) => {
-    return category.name == category_name;
+    return category.name === category_name;
   });
 
   if (category === undefined || category.type !== "GUILD_CATEGORY") {
@@ -62,7 +62,7 @@ export async function moveChannel(
   if (
     channel.parent === null ||
     channel.parent === undefined ||
-    channel.parent?.name != category_name
+    channel.parent?.name !== category_name
   ) {
     const category = await findCategory(guild, category_name);
     channel.setParent(category);
@@ -81,7 +81,8 @@ export function concatCategoryName(
   category_name: string,
   category_number: number
 ) {
-  return category_number == 0
+  return category_number === 0
     ? category_name
     : `${category_name} ${category_number}`;
 }
+

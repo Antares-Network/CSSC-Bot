@@ -128,7 +128,7 @@ export async function checkForRoles(guild: Guild): Promise<boolean> {
       const name = guild.roles.cache.find((r) => r.name === element.ROLE_NAME);
       const id = guild.roles.cache.find((r) => r.id === element.ROLE_ID);
 
-      if (name == undefined && id == undefined) {
+      if (name === undefined && id === undefined) {
         console.log(
           chalk.red.bold(
             `Role ${element.ROLE_NAME} does not exist in ${guild.name}, Please run the /createRoles command in that server.`
@@ -145,3 +145,4 @@ export async function checkForRoles(guild: Guild): Promise<boolean> {
     return true;
   }
 }
+
