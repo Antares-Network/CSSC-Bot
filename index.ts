@@ -37,8 +37,9 @@ client.on("ready", async () => {
     console.log("Checking if all roles exist in servers.");
 
     await Promise.all(
+      // skipcq JS-0042
       client.guilds.cache.map((guild) => {
-        checkForRoles(guild); // skipcq JS-0042
+        checkForRoles(guild);
       })
     );
   }
