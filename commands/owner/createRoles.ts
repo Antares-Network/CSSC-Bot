@@ -15,7 +15,7 @@ export default {
   requiredPermissions: ["MANAGE_GUILD", "MANAGE_ROLES"],
   ownerOnly: true,
 
-  callback: async ({ client, interaction: msgInt }) => {
+  callback: async ({ interaction: msgInt }) => {
     console.log(chalk.green("Creating roles..."));
     console.log(
       chalk.red("------------------------------------------------------")

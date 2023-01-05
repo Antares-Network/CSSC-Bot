@@ -135,15 +135,17 @@ export default {
         courses[index].save();
 
         // Ping members who have this role
-        const role = msgInt.guild.roles.cache.find((role) => {
+        const found_role = msgInt.guild.roles.cache.find((role) => {
           return (
             cleanRoleString(role.name) ==
             cleanChannelString(getCourseName(courses[index]))
           );
         });
-        if (role !== undefined) {
+        if (found_role !== undefined) {
           //Ping member
-          new_channel.send(`Hey! <@&${role.id}> here is a channel for you!`);
+          new_channel.send(
+            `Hey! <@&${found_role.id}> here is a channel for you!`
+          );
         }
       } else if (
         channel.parent !== null &&
@@ -166,15 +168,17 @@ export default {
         courses[index].CHANNEL_ID = channel.id;
         courses[index].save();
         // Ping members who have this role
-        const role = msgInt.guild.roles.cache.find((role) => {
+        const found_role = msgInt.guild.roles.cache.find((role) => {
           return (
             cleanRoleString(role.name) ==
             cleanChannelString(getCourseName(courses[index]))
           );
         });
-        if (role !== undefined) {
+        if (found_role !== undefined) {
           //Ping member
-          channel.send(`Hey! <@&${role.id}> here is the channel for you!`);
+          channel.send(
+            `Hey! <@&${found_role.id}> here is the channel for you!`
+          );
         }
       } else if (
         channel.parent !== null &&
