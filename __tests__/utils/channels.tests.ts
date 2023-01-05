@@ -32,4 +32,3 @@ describe("cleanChannelString", () => {
     expect(cleanChannelString("a".repeat(200))).toHaveLength(100);
   });
 });
-
