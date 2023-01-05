@@ -4,7 +4,7 @@ import chalk from "chalk";
 export function cleanChannelString(s: string): string {
   return s
     .toLowerCase()
-    .replace(/[`~!@#$%^&*))|+=?;:'",.<>\{\}\[\]\\\/]/gi, "")
+    .replace(/[`~!@#$%^&*))|+=?;:'",.<>{}[\]\\/]/gi, "")
     .replace("compsci ", "cs")
     .replace(/[ (]/gi, "-");
 }
@@ -16,17 +16,20 @@ export function checkForChannel(guild: Guild, channel_name: string) {
 }
 
 export async function findCategory(guild: Guild, category_name: string) {
-  let category = guild.channels.cache.find((category) => {
-    return category.name == category_name;
+  let found_category = guild.channels.cache.find((category) => {
+    return category.name === category_name;
   });
 
-  if (category === undefined || category.type !== "GUILD_CATEGORY") {
-    category = await guild.channels.create(category_name, {
+  if (
+    found_category === undefined ||
+    found_category.type !== "GUILD_CATEGORY"
+  ) {
+    found_category = await guild.channels.create(category_name, {
       type: "GUILD_CATEGORY",
     });
   }
 
-  return category;
+  return found_category;
 }
 export async function createTextChannel(
   guild: Guild,
@@ -36,11 +39,11 @@ export async function createTextChannel(
   category_name?: string
 ) {
   //Determine which arg to use
-  let channel_parent: CategoryChannel | undefined;
+  let parent: CategoryChannel | undefined;
   if (category !== undefined) {
-    channel_parent = category;
+    parent = category;
   } else if (category_name !== undefined) {
-    channel_parent = await findCategory(guild, category_name);
+    parent = await findCategory(guild, category_name);
   } else {
     throw Error(
       "Must specify either channel_category or channel_category_name"
@@ -49,8 +52,8 @@ export async function createTextChannel(
 
   return guild.channels.create(cleanChannelString(name), {
     type: "GUILD_TEXT",
-    topic: topic,
-    parent: channel_parent,
+    topic,
+    parent,
   });
 }
 
@@ -62,7 +65,7 @@ export async function moveChannel(
   if (
     channel.parent === null ||
     channel.parent === undefined ||
-    channel.parent?.name != category_name
+    channel.parent?.name !== category_name
   ) {
     const category = await findCategory(guild, category_name);
     channel.setParent(category);
@@ -81,7 +84,7 @@ export function concatCategoryName(
   category_name: string,
   category_number: number
 ) {
-  return category_number == 0
+  return category_number === 0
     ? category_name
     : `${category_name} ${category_number}`;
 }

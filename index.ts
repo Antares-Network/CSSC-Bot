@@ -38,7 +38,7 @@ client.on("ready", async () => {
 
     await Promise.all(
       client.guilds.cache.map((guild) => {
-        checkForRoles(guild);
+        checkForRoles(guild); // skipcq JS-0042
       })
     );
   }

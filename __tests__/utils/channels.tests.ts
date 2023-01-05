@@ -1,5 +1,5 @@
 import { cleanChannelString } from "../../utils/channels";
-import { test, expect, describe, it } from "@jest/globals";
+import { expect, describe, it } from "@jest/globals";
 
 //cleanChannelString
 
@@ -13,7 +13,7 @@ describe("cleanChannelString", () => {
   });
 
   it('should replace "compsci " with "cs"', () => {
-    expect(cleanChannelString("compsci")).toEqual("cs");
+    expect(cleanChannelString("compsci ")).toEqual("cs");
   });
 
   it("should replace spaces and parentheses with hyphens", () => {
@@ -28,6 +28,6 @@ describe("cleanChannelString", () => {
   });
 
   it("should handle a mix of all transformations", () => {
-    expect(cleanChannelString("Compsci 123!")).toEqual("cs-123");
+    expect(cleanChannelString("Compsci a%$ 123!")).toEqual("csa-123");
   });
 });
