@@ -31,4 +31,3 @@ describe("cleanChannelString", () => {
     expect(cleanChannelString("Compsci a%$ 123!")).toEqual("csa-123");
   });
 });
-
