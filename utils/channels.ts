@@ -11,7 +11,7 @@ export function cleanChannelString(s: string): string {
 
 export function checkForChannel(guild: Guild, channel_name: string) {
   return guild.channels.cache.find((channel) => {
-    return channel.name == channel_name;
+    return channel.name === channel_name;
   });
 }
 
