@@ -12,13 +12,14 @@ describe("cleanChannelString", () => {
     expect(cleanChannelString("a!b@c#d$")).toEqual("abcd");
   });
 
-  it('should replace "compsci " with "cs"', () => {
-    expect(cleanChannelString("compsci ")).toEqual("cs");
+  it("should replace whitespace with a hyphen", () => {
+    expect(cleanChannelString("a b c")).toEqual("a-b-c");
   });
 
-  it("should replace spaces and parentheses with hyphens", () => {
-    expect(cleanChannelString("a b (c)")).toEqual("a-b-c");
+  it("should remove consecutive hyphens", () => {
+    expect(cleanChannelString("a--b--c")).toBe("a-b-c");
   });
+
   it("should return an empty string for an empty input", () => {
     expect(cleanChannelString("")).toBe("");
   });
@@ -27,7 +28,8 @@ describe("cleanChannelString", () => {
     expect(cleanChannelString("!@#$%^&*")).toBe("");
   });
 
-  it("should handle a mix of all transformations", () => {
-    expect(cleanChannelString("Compsci a%$ 123!")).toEqual("csa-123");
+  it("should truncate the string to 100 characters", () => {
+    expect(cleanChannelString("a".repeat(200))).toHaveLength(100);
   });
 });
+
