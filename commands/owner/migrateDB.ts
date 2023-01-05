@@ -15,7 +15,7 @@ function cleanCompSciString(s: string): string {
   return s.toLowerCase().replace("compsci ", "cs").trim();
 }
 function cleanCompSciTitle(s: string): string {
-  return s.replace(/(advanced )?topics in computer science:/gim, "").trim();
+  return s.replace(/(?<>advanced )?topics in computer science:/gim, "").trim();
 }
 function isDupe(name: string): number {
   return name.search(/\(\d\)/);
@@ -59,12 +59,12 @@ export default {
       const course = courses[index];
       // Remove CODE and replace with NAME
       const code = course.get("CODE");
-      if (code != undefined) {
+      if (code !== undefined) {
         let new_name = code;
         console.log(`Name: ${code}`);
         const is_dupe = isDupe(new_name);
         // Add field determining if it is a duplicate
-        if (is_dupe == -1) {
+        if (is_dupe === -1) {
           // Not a dupe
           course.set("DUPE", "false");
         } else {
@@ -88,17 +88,17 @@ export default {
       course.ROLE_NAME = cleanRoleString(getCourseName(course));
 
       // REMOVE UUID
-      if (course.get("UUID") != undefined) {
+      if (course.get("UUID") !== undefined) {
         course.set("UUID", undefined);
       }
 
       //UPDATE CHANNEL
       if (course.CHANNEL_ID) {
         const channel = msgInt.guild.channels.cache.get(course.CHANNEL_ID);
-        if (channel != undefined && channel.type == "GUILD_TEXT") {
+        if (channel !== undefined && channel.type === "GUILD_TEXT") {
           const new_name = cleanChannelString(getCourseName(course));
           //Update Channel Name
-          if (new_name != channel.name) {
+          if (new_name !== channel.name) {
             console.log(chalk.yellow(`Old channel name: ${channel.name}`));
             await limiter
               .schedule(() => channel.setName(new_name))
@@ -111,7 +111,7 @@ export default {
           }
           //Update Channel Topic
           const new_topic = getTopic(courses[index]);
-          if (`${channel.topic}` != new_topic) {
+          if (`${channel.topic}` !== new_topic) {
             console.log(chalk.yellow(`Channel's old topic: ${channel.topic}`));
             await limiter
               .schedule(() => channel.setTopic(new_topic))
@@ -128,9 +128,9 @@ export default {
       //UPDATE ROLE
       if (course.ROLE_ID) {
         const role = msgInt.guild.roles.cache.get(course.ROLE_ID);
-        if (role != undefined) {
+        if (role !== undefined) {
           const new_name = cleanRoleString(getCourseName(course));
-          if (role.name != new_name) {
+          if (role.name !== new_name) {
             console.log(chalk.yellow(`Role's old name: ${role.name}`));
             await limiter
               .schedule(() => role.setName(new_name))

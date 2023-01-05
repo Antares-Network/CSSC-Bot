@@ -15,7 +15,7 @@ export function getTopic(course: IClass) {
   return `${course.TITLE} | ${course.INFO}`.slice(1024);
 }
 export function getCourseName(course: IClass) {
-  return course.DUPE == true ? `${course.NAME}-${course.TITLE}` : course.NAME;
+  return course.DUPE === true ? `${course.NAME}-${course.TITLE}` : course.NAME;
 }
 
 export function checkForChannel(guild: Guild, channel_name: string) {

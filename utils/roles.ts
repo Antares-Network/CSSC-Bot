@@ -13,7 +13,7 @@ export interface IRole {
 export function cleanRoleString(role_name: string): string {
   const clean_role_name: string = role_name
     .toLowerCase()
-    .replace(/[`~!@#$%^&*()|+=?;:'",.<>\{\}\[\]\\\/\n]+/gi, "")
+    .replace(/[`~!@#$%^&*()|+=?;:'",.<>{}[\]\\/\n]+/gi, "")
     .replace(/\s+/gi, "-")
     .replace(/-{2,}/gi, "-")
     .slice(0, 100);
@@ -100,7 +100,7 @@ export async function createRoles<T extends IRole>(
   for (let index = 0; index < role_docs.length; index++) {
     const role_doc = role_docs[index];
     if (
-      guild.roles.cache.find((r) => r.name === role_doc.ROLE_NAME) == undefined
+      guild.roles.cache.find((r) => r.name === role_doc.ROLE_NAME) === undefined
     ) {
       // Create the role
       const role = await guild.roles.create({
@@ -114,7 +114,7 @@ export async function createRoles<T extends IRole>(
     } else {
       // If the role already exists, print the id to the console
       const role = guild.roles.cache.find((r) => r.name === role_doc.ROLE_NAME);
-      if (role == undefined) {
+      if (role === undefined) {
         continue;
       }
       const id = role.id;
