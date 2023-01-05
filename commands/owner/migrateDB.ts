@@ -115,9 +115,9 @@ export default {
             console.log(chalk.yellow(`Channel's old topic: ${channel.topic}`));
             await limiter
               .schedule(() => channel.setTopic(new_topic))
-              .then((channel) => {
+              .then((print_channel) => {
                 console.log(
-                  chalk.blue(`Channel's new topic: ${channel.topic}`)
+                  chalk.blue(`Channel's new topic: ${print_channel.topic}`)
                 );
               })
               .catch(console.error);
@@ -134,8 +134,8 @@ export default {
             console.log(chalk.yellow(`Role's old name: ${role.name}`));
             await limiter
               .schedule(() => role.setName(new_name))
-              .then((role) => {
-                console.log(chalk.blue(`Role's new name: ${role.name}`));
+              .then((print_role) => {
+                console.log(chalk.blue(`Role's new name: ${print_role.name}`));
               })
               .catch(console.error);
             await role.setName(new_name);
