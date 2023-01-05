@@ -97,4 +97,3 @@ export function concatCategoryName(
     ? category_name
     : `${category_name} ${category_number}`;
 }
-
