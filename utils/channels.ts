@@ -20,7 +20,7 @@ export function getCourseName(course: IClass) {
 
 export function checkForChannel(guild: Guild, channel_name: string) {
   return guild.channels.cache.find((channel) => {
-    return channel.name == channel_name;
+    return channel.name === channel_name;
   });
 }
 

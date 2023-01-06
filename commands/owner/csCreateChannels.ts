@@ -65,9 +65,9 @@ export default {
       const children = Array.from(cs_category.children.values());
       for (let index = 0; index < children.length; index++) {
         const match = cleaned_courses.find((course) => {
-          return course == children[index].name;
+          return course === children[index].name;
         });
-        if (match != undefined) {
+        if (match !== undefined) {
           continue;
         }
         console.log(`Moving: ${children[index]} to: ${cs_past_category_name}`);
@@ -137,7 +137,7 @@ export default {
         // Ping members who have this role
         const found_role = msgInt.guild.roles.cache.find((role) => {
           return (
-            cleanRoleString(role.name) ==
+            cleanRoleString(role.name) ===
             cleanChannelString(getCourseName(courses[index]))
           );
         });
@@ -170,7 +170,7 @@ export default {
         // Ping members who have this role
         const found_role = msgInt.guild.roles.cache.find((role) => {
           return (
-            cleanRoleString(role.name) ==
+            cleanRoleString(role.name) ===
             cleanChannelString(getCourseName(courses[index]))
           );
         });
