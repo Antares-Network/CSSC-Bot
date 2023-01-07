@@ -12,6 +12,7 @@ import { sleep } from "../../utils/sleep";
 import { getCourseName } from "../../utils/channels";
 
 // Splits any size list into lists of at most `max_list_len`
+/** */
 function split_list<T>(list: T[], max_list_len: number): T[][] {
   const class_chunks: T[][] = [];
   for (let i = 0; i < list.length; i += max_list_len) {

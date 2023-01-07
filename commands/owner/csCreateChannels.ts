@@ -5,7 +5,7 @@ import {
   checkForChannel,
   cleanChannelString,
   createTextChannel,
-  findCategory,
+  getCategory,
   moveChannel,
   concatCategoryName,
 } from "../../utils/channels";
@@ -90,7 +90,7 @@ export default {
       );
 
       let category = await (
-        await findCategory(
+        await getCategory(
           msgInt.guild,
           concatCategoryName(category_name, category_number)
         )
@@ -100,7 +100,7 @@ export default {
       if (category.children.size >= max_category_size - 1) {
         ++category_number;
         category = await (
-          await findCategory(
+          await getCategory(
             msgInt.guild,
             concatCategoryName(category_name, category_number)
           )
