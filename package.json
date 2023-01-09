@@ -7,7 +7,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "run": "ts-node index.ts",
+    "run": "ts-node src/index.ts",
     "format": "prettier --write .",
     "test": "jest"
   },

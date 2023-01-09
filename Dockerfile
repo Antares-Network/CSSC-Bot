@@ -12,6 +12,6 @@ COPY . .
 
 RUN npm install -g typescript ts-node
 
-CMD [ "ts-node", "index.ts" ]
+CMD [ "ts-node", "src/index.ts" ]
 
 LABEL org.opencontainers.image.source="https://github.com/Antares-Network/CSSC-Bot"
