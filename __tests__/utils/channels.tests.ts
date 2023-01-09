@@ -1,4 +1,4 @@
-import { cleanChannelString } from "../../utils/channels";
+import { cleanChannelString } from "../../src/utils/channels";
 import { expect, describe, it } from "@jest/globals";
 
 //cleanChannelString
