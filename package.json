@@ -7,9 +7,10 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "run": "ts-node index.ts",
+    "run": "ts-node ./src/index.ts",
     "format": "prettier --write .",
-    "test": "jest"
+    "test": "jest",
+    "docs": "typedoc"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
   "devDependencies": {
     "@jest/globals": "^29.3.1",
     "jest": "^29.3.1",
-    "ts-jest": "^29.0.3"
+    "ts-jest": "^29.0.3",
+    "typedoc": "^0.23.24"
   }
 }

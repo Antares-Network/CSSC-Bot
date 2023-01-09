@@ -96,5 +96,17 @@
       /* Completeness */
       // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
       "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    },
+    "typedocOptions":{
+      // Only setting the entry point to src does not find the other files
+      // "entryPoints":["src"],
+
+      // Setting the entry poits and the strategy to expand does finds all files, but does not format the page nicely
+      "entryPoints": ["src/**"],
+      "entryPointStrategy": "expand",
+
+      "out": "docs",
+      "media": "demo",
+      "exclude":["__tests__", ".github", "docs", "node_modules"]
     }
   }
