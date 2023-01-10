@@ -48,7 +48,7 @@ export function checkForChannel(guild: Guild, channel_name: string) {
 
 /**
  * @description Gets a category from the guild, if it doesn't exist, it creates it
- * @auther John Schiltz`
+ * @author John Schiltz
  * @export
  * @param guild
  * @param category_name
@@ -73,7 +73,7 @@ export async function getCategory(guild: Guild, category_name: string) {
 
 /**
  * @description Creates and returns a new text channel
- * @auther John Schiltz
+ * @author John Schiltz
  * @param guild
  * @param name
  * @param topic
