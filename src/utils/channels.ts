@@ -18,8 +18,8 @@ export function cleanChannelString(s: string): string {
  * @param course
  * @return {*}
  */
-export function getTopic(course: IClass) {
-  return `${course.TITLE} | ${course.INFO}`.slice(1024);
+export function getTopic(course: IClass): string {
+  return `${course.TITLE} | ${course.INFO}`.slice(0, 1024);
 }
 /**
  * @description - Gets the course name, if it is a duplicate, it adds the title to the end of the name
