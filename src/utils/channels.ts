@@ -2,14 +2,21 @@ import { CategoryChannel, Guild, GuildChannel } from "discord.js";
 import chalk from "chalk";
 import { IClass } from "../models/classModel";
 
-export function cleanChannelString(s: string): string {
-  const s_new = s
+/**
+ * @description Returns a new string with whitespace and special characters removed from the string
+ * and truncated to 100 characters
+ * @author John Schiltz
+ * @export
+ * @param name - Dirty channel name
+ * @return - Cleaned channel name
+ */
+export function cleanChannelString(name: string): string {
+  const cleaned_name = name
     .toLowerCase()
     .replace(/[`~!@#$%^&*()|+=?;:'",.<>{}[\]\\/]/gi, "")
-    .replace(/\s+/gi, "-")
-    .replace(/-{2,}/gi, "-")
+    .replace(/(?:\s[\s-]*|-[\s-]+|-+)/gm, "-")
     .slice(0, 100);
-  return s_new;
+  return cleaned_name;
 }
 /**
  * @description
