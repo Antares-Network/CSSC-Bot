@@ -124,17 +124,6 @@ describe("getCourseName", () => {
   });
 });
 
-//concatCategoryName
-describe("concatCategoryName", () => {
-  it("should return the category name if the category number is 0", () => {
-    expect(concatCategoryName("abcd", 0)).toBe("abcd");
-  });
-
-  it("should return the category name and number if the category number is not 0", () => {
-    expect(concatCategoryName("abcd", 1)).toBe("abcd 1");
-  });
-});
-
 //moveChannel
 // Can only test pure functionality
 describe("moveChannel", () => {
@@ -145,5 +134,16 @@ describe("moveChannel", () => {
     const channel = { parent: { name: category_name } } as GuildChannel;
     // Ensure that the channel was not moved
     expect(await moveChannel(guild, channel, category_name)).toBe(0);
+  });
+});
+
+//concatCategoryName
+describe("concatCategoryName", () => {
+  it("should return the category name if the category number is 0", () => {
+    expect(concatCategoryName("abcd", 0)).toBe("abcd");
+  });
+
+  it("should return the category name and number if the category number is not 0", () => {
+    expect(concatCategoryName("abcd", 1)).toBe("abcd 1");
   });
 });
