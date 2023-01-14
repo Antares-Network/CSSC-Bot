@@ -13,7 +13,7 @@ import { IClass } from "../models/classModel";
 export function cleanChannelString(name: string): string {
   const cleaned_name = name
     .toLowerCase()
-    .replace(/[`~!@#$%^&*()|+=?;:'",.<>{}[\]\\/]/gi, "")
+    .replace(/[`~!@#$%^&*()|+=?;:'",.<>{}[\]\\/]+/gi, "")
     .replace(/(?:\s[\s-]*|-[\s-]+|-+)/gm, "-")
     .slice(0, 100);
   return cleaned_name;
