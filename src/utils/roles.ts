@@ -10,13 +10,13 @@ export interface IRole {
   ROLE_ID: string;
 }
 
-export function cleanRoleString(role_name: string): string {
-  const clean_role_name: string = role_name
+export function cleanRoleString(name: string): string {
+  const clean_name: string = name
     .toLowerCase()
     .replace(/[`~!@#$%^&*()|+=?;:'",.<>{}[\]\\/\n]+/gi, "")
     .replace(/(?:\s[\s-]*|-[\s-]+|-+)/gm, "-")
     .slice(0, 100);
-  return clean_role_name;
+  return clean_name;
 }
 
 export async function checkIfCollectionsExist<T>(model: Model<T>) {
