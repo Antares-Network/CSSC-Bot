@@ -1,4 +1,4 @@
-import { expect, describe, it, beforeEach } from "@jest/globals";
+import { expect, describe, it, beforeEach, jest } from "@jest/globals";
 import { cleanRoleString } from "../../src/utils/roles";
 
 //cleanRoleString
@@ -36,5 +36,79 @@ describe("cleanRoleString", () => {
   });
   it("should be able to handle a comboination of everything", () => {
     expect(cleanRoleString("a!  -- b@c\n#d$e%")).toEqual("a-bcde");
+  });
+});
+
+jest.mock("discord.js", () => {
+  return {
+    GuildMember: jest.fn().mockImplementation(() => {
+      return {
+        roles: {
+          cache: {
+            has: jest.fn().mockReturnValue(true),
+            get: jest.fn().mockReturnValue("mockedRole"),
+            remove: jest.fn().mockImplementation(() => Promise.resolve()),
+          },
+        },
+        user: {
+          tag: jest.fn().mockReturnValue("mockedUser"),
+        },
+      };
+    }),
+    Role: jest.fn().mockImplementation(() => {
+      return {
+        ROLE_ID: jest.fn().mockReturnValue("mockedRoleId"),
+        ROLE_NAME: jest.fn().mockReturnValue("mockedRoleName"),
+      };
+    }),
+  };
+});
+
+jest.mock("mongoose", () => {
+  return {
+    Model: jest.fn().mockImplementation(() => {
+      return {
+        find: jest
+          .fn()
+          .mockImplementation(() =>
+            Promise.resolve([{ ROLE_ID: "mockedRoleId" }])
+          ),
+      };
+    }),
+  };
+});
+
+jest.mock("chalk", () => {
+  return {
+    green: jest.fn().mockReturnValue("mockedGreen"),
+    yellow: jest.fn().mockReturnValue("mockedYellow"),
+  };
+});
+
+console.log = jest.fn();
+
+describe("removeRole", () => {
+  let removeRole: any;
+  let member: any;
+  let model: any;
+
+  beforeEach(() => {
+    jest.resetModules();
+    removeRole = require("./removeRole").removeRole;
+    member = new (require("discord.js").GuildMember)();
+    model = new (require("mongoose").Model)();
+  });
+
+  it("should remove role from member", async () => {
+    await removeRole(member, model);
+    expect(member.roles.cache.remove).toHaveBeenCalledWith("mockedRoleId");
+    expect(console.log).toHaveBeenCalledWith(
+      "mockedGreenRemoved role mockedGreenmockedRoleId from mockedYellowmockedUser"
+    );
+  });
+
+  it("should return a promise that resolves to undefined", async () => {
+    const result = await removeRole(member, model);
+    expect(result).toBeUndefined();
   });
 });
