@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
-import { create_default_embed } from "../../utils/embeds/embeds";
+import { create_default_embed } from "../../utils/embeds";
 import { Schema, Types, Document } from "mongoose";
 import {
   getCourseName,
