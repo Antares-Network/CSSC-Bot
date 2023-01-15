@@ -15,7 +15,7 @@ function cleanCompSciString(s: string): string {
   return s.toLowerCase().replace("compsci ", "cs").trim();
 }
 function cleanCompSciTitle(s: string): string {
-  return s.replace(/(?<>advanced )?topics in computer science:/gim, "").trim();
+  return s.replace(/(?:advanced )?topics in computer science:/gim, "").trim();
 }
 function isDupe(name: string): number {
   return name.search(/\(\d\)/);
