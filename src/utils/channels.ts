@@ -40,17 +40,36 @@ export function getCourseName(course: IClass) {
 }
 
 /**
- * @description - Checks if a channel exists in the guild
+ * @description - Checks if a channel exists in the guild first by id, then by name
  * @author John Schiltz
  * @export
  * @param guild
  * @param channel_name
+ * @param channel_id
  * @return - The channel if it exists, undefined if it doesn't
  */
-export function checkForChannel(guild: Guild, channel_name: string) {
-  return guild.channels.cache.find((channel) => {
-    return channel.name === channel_name;
-  });
+export function checkForChannel(
+  guild: Guild,
+  channel_name?: string,
+  channel_id?: string
+) {
+  if (channel_id !== undefined) {
+    const found_channel = guild.channels.cache.find((channel) => {
+      return channel.id === channel_id;
+    });
+    if (found_channel !== undefined) {
+      return found_channel;
+    }
+  }
+  if (channel_name !== undefined) {
+    const found_channel = guild.channels.cache.find((channel) => {
+      return channel.name === channel_name;
+    });
+    if (found_channel !== undefined) {
+      return found_channel;
+    }
+  }
+  return undefined;
 }
 
 /**
