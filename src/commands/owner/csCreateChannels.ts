@@ -66,7 +66,7 @@ export default {
       const children = Array.from(cs_category.children.values());
       for (let index = 0; index < children.length; index++) {
         const match = courses.find((course) => {
-          return course.CHANNEL_ID == children[index].id;
+          return course.CHANNEL_ID === children[index].id;
         });
         if (match !== undefined) {
           console.log(
