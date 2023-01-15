@@ -1,4 +1,13 @@
 import { Client, MessageEmbed } from "discord.js";
+/**
+ * @description Creates a default embed for bot messages
+ * @author John Schiltz
+ * @export
+ * @param client - Discord Client
+ * @param title - Title of embed
+ * @param description - Description of embed
+ * @return {*} - MessageEmbed
+ */
 export function create_default_embed(
   client: Client,
   title: string,
