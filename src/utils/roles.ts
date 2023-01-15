@@ -75,7 +75,7 @@ export async function addNewRole<T extends IRole>(
   const role = await model.findOne({ ROLE_NAME: id });
 
   if (role === null) {
-    throw new Error(`No roll found with id: ${id}`);
+    throw new Error(`No role found with id: ${id}`);
   }
 
   if (!member.roles.cache.has(role.ROLE_ID)) {
