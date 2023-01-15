@@ -83,7 +83,7 @@ export default {
           )
           .setFooter({
             text: `Delivered in: ${client.ws.ping}ms | CSSC-Bot | ${process.env.VERSION}`,
-            iconURL: "https://playantares.com/resources/CSSC-bot/icon.jpg",
+            iconURL: "https://antaresnetwork.com/resources/CSSC-bot/icon.jpg",
           });
 
         msgInt.reply({ embeds: [infoEmbed], components: row_chunks[index] });

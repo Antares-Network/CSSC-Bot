@@ -17,7 +17,7 @@ export default {
     const title = "Bot/API Ping";
     const description = `Ping: 🏓 | Latency is: **${client.ws.ping}**ms.`;
     const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
-    const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
+    const footerIcon = "https://antaresnetwork.com/resources/CSSC-bot/icon.jpg";
 
     const Embed = new MessageEmbed()
       .setColor(color)
