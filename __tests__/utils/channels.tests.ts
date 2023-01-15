@@ -53,7 +53,7 @@ describe("getTopic", () => {
     ROLE_ID: default_string,
     CHANNEL_ID: default_string,
   };
-  const extra_characters: number = 3;
+  const extra_characters = 3;
   beforeEach(() => {
     course = {
       TITLE: default_string,
