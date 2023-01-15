@@ -32,7 +32,7 @@ export default {
 
   callback: async ({ client, interaction: msgInt }) => {
     if (msgInt.guild === null) {
-      console.log(chalk.red("No guild"));
+      console.log(chalk.red("No guild related to message"));
       return;
     }
 
@@ -57,6 +57,9 @@ export default {
 
     for (let index = 0; index < courses.length; index++) {
       const course = courses[index];
+      // Label as active
+      course.set("ACTIVE", true);
+
       // Remove CODE and replace with NAME
       const code = course.get("CODE");
       if (code !== undefined) {
@@ -84,7 +87,7 @@ export default {
       //Clean TITLE
       course.TITLE = cleanCompSciTitle(course.TITLE);
 
-      // Udate ROLE_NAME
+      // Update ROLE_NAME
       course.ROLE_NAME = cleanRoleString(getCourseName(course));
 
       // REMOVE UUID
