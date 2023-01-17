@@ -80,7 +80,7 @@ export async function getUsersRoles(member: GuildMember): Promise<string> {
  * @description Remove all roles from a user given a model and member
  * @author Nathan Goldsborough
  * @export
- * @template T
+ * @template T - Extends IRole
  * @param member - The user to remove the roles from
  * @param model - The model to get the roles from
  * @return {*}
@@ -109,7 +109,7 @@ export async function removeRole<T extends IRole>(
  * @description Add a role to a user given a role id and model
  * @author Nathan Goldsborough
  * @export
- * @template T
+ * @template T - Extends IRole
  * @param member - The user to add the role to
  * @param model - The model to get the role from
  * @param id - The id of the role to add
@@ -141,7 +141,7 @@ export async function addNewRole<T extends IRole>(
  * @description
  * @author Nathan Goldsborough
  * @export
- * @template T
+ * @template T - Extends IRole
  * @param guild - The server to create the roles in
  * @param model - The mongo db model to get the roles from
  * @return {*}
