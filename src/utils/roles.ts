@@ -112,17 +112,17 @@ export async function removeRole<T extends IRole>(
  * @template T - Extends IRole
  * @param member - The user to add the role to
  * @param model - The model to get the role from
- * @param id - The id of the role to add
+ * @param name - The name of the role to add as specified in the database
  */
 export async function addNewRole<T extends IRole>(
   member: GuildMember,
   model: Model<T>,
-  id: string
+  name: string
 ) {
-  const role = await model.findOne({ ROLE_NAME: id });
+  const role = await model.findOne({ NAME: name });
 
   if (role === null) {
-    throw new Error(`No role found with id: ${id}`);
+    throw new Error(`No role found with id: ${name}`);
   }
 
   if (!member.roles.cache.has(role.ROLE_ID)) {
