@@ -12,7 +12,14 @@ import { sleep } from "../../utils/sleep";
 import { getCourseName } from "../../utils/channels";
 
 // Splits any size list into lists of at most `max_list_len`
-/** */
+/**
+ * @description - Splits a list into lists of at most `max_list_len` elements
+ * @author John Schiltz
+ * @template T
+ * @param list - The list to split
+ * @param max_list_len - The maximum length of each list
+ * @return {*}
+ */
 function split_list<T>(list: T[], max_list_len: number): T[][] {
   const class_chunks: T[][] = [];
   for (let i = 0; i < list.length; i += max_list_len) {
@@ -21,7 +28,12 @@ function split_list<T>(list: T[], max_list_len: number): T[][] {
   return class_chunks;
 }
 
-// consumes a Class and returns Message Selec tOption data
+/**
+ * @description - Creates a MessageSelectOptionData object from a class object
+ * @author John Schiltz
+ * @param _class - The class to create the option from
+ * @return {*}
+ */
 function create_option_from_class(_class: IClass): MessageSelectOptionData {
   const clean_name = cleanRoleString(getCourseName(_class));
   return {
