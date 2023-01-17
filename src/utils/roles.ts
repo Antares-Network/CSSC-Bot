@@ -46,7 +46,7 @@ export async function checkIfCollectionsExist<T>(model: Model<T>) {
 }
 /**
  * @description Get all groups of roles from the database and return them as an array
- * @author Nathan Goldsborough
+ * @author Nathen Goldsborough
  * @return {*}
  */
 async function getAllRolesFromDB() {
@@ -59,7 +59,7 @@ async function getAllRolesFromDB() {
 
 /**
  * @description Get all roles from a user and return them as a string
- * @author Nathan Goldsborough
+ * @author Nathen Goldsborough
  * @export
  * @param member - The user to get the roles from
  * @return {*} - The roles as a string
@@ -78,7 +78,7 @@ export async function getUsersRoles(member: GuildMember): Promise<string> {
 
 /**
  * @description Remove all roles from a user given a model and member
- * @author Nathan Goldsborough
+ * @author Nathen Goldsborough
  * @export
  * @template T - Extends IRole
  * @param member - The user to remove the roles from
@@ -107,7 +107,7 @@ export async function removeRole<T extends IRole>(
 
 /**
  * @description Add a role to a user given a role id and model
- * @author Nathan Goldsborough
+ * @author Nathen Goldsborough
  * @export
  * @template T - Extends IRole
  * @param member - The user to add the role to
@@ -139,7 +139,7 @@ export async function addNewRole<T extends IRole>(
 
 /**
  * @description
- * @author Nathan Goldsborough
+ * @author Nathen Goldsborough
  * @export
  * @template T - Extends IRole
  * @param guild - The server to create the roles in
@@ -215,7 +215,7 @@ export function checkForRole(
 
 /**
  * @description Check if all roles in database exist for a server and print if they do not
- * @author Nathan Goldsborough
+ * @author Nathen Goldsborough
  * @export
  * @param guild Server to check roles for
  * @return {*} true if all roles exist, false if they do not
