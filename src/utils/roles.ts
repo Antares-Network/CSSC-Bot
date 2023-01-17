@@ -5,11 +5,24 @@ import { staffModel } from "../models/staffModel";
 import { yearModel } from "../models/yearModel";
 import { Model } from "mongoose";
 
+/**
+ * @description
+ * @author John Schiltz
+ * @export
+ * @interface IRole
+ */
 export interface IRole {
   ROLE_NAME: string;
   ROLE_ID: string;
 }
 
+/**
+ * @description Clean the role name by removing special characters, replacing whitespace with dashes, and truncating to 100 characters
+ * @author John Schiltz
+ * @export
+ * @param name - The role name to clean
+ * @return {*}
+ */
 export function cleanRoleString(name: string): string {
   const clean_name: string = name
     .toLowerCase()
@@ -19,12 +32,24 @@ export function cleanRoleString(name: string): string {
   return clean_name;
 }
 
+/**
+ * @description Check if the collections exist in the database
+ * @author John Schiltz
+ * @export
+ * @template T
+ * @param model - The model to check
+ */
 export async function checkIfCollectionsExist<T>(model: Model<T>) {
   if (!(await model.exists({}))) {
     throw new Error(`${model.name} collection does not exist`);
   }
 }
-async function dbQuery() {
+/**
+ * @description Get all groups of roles from the database and return them as an array
+ * @author Nathan Goldsborough
+ * @return {*}
+ */
+async function getAllRolesFromDB() {
   return await Promise.all([
     classModel.find({}),
     staffModel.find({}),
@@ -32,27 +57,41 @@ async function dbQuery() {
   ]);
 }
 
+/**
+ * @description Get all roles from a user and return them as a string
+ * @author Nathan Goldsborough
+ * @export
+ * @param member - The user to get the roles from
+ * @return {*} - The roles as a string
+ */
 export async function getUsersRoles(member: GuildMember): Promise<string> {
-  let list = "";
-  for (const group of await dbQuery()) {
-    for (const element of group) {
-      if (member.roles.cache.has(element.ROLE_ID)) {
-        list += `${member.guild.roles.cache.get(element.ROLE_ID)?.name}\n`;
+  let roles_list = "";
+  for (const role_group of await getAllRolesFromDB()) {
+    for (const role of role_group) {
+      if (member.roles.cache.has(role.ROLE_ID)) {
+        roles_list += `${member.guild.roles.cache.get(role.ROLE_ID)?.name}\n`;
       }
     }
   }
-  return list;
+  return roles_list;
 }
 
+/**
+ * @description Remove all roles from a user given a model and member
+ * @author Nathan Goldsborough
+ * @export
+ * @template T
+ * @param member - The user to remove the roles from
+ * @param model - The model to get the roles from
+ * @return {*}
+ */
 export async function removeRole<T extends IRole>(
   member: GuildMember,
   model: Model<T>
 ): Promise<void> {
-  // This function is triggered when a user changes their role,
-  // it removes the previous role from the user
-  const list = await model.find({});
+  const roles = await model.find({});
 
-  for (const role of list) {
+  for (const role of roles) {
     if (member.roles.cache.has(role.ROLE_ID)) {
       await member.roles.remove(role.ROLE_ID);
       console.log(
@@ -66,12 +105,20 @@ export async function removeRole<T extends IRole>(
   }
 }
 
+/**
+ * @description Add a role to a user given a role id and model
+ * @author Nathan Goldsborough
+ * @export
+ * @template T
+ * @param member - The user to add the role to
+ * @param model - The model to get the role from
+ * @param id - The id of the role to add
+ */
 export async function addNewRole<T extends IRole>(
   member: GuildMember,
   model: Model<T>,
   id: string
 ) {
-  // This function is triggered when a user changes their role, it adds the new role to the user
   const role = await model.findOne({ ROLE_NAME: id });
 
   if (role === null) {
@@ -90,6 +137,15 @@ export async function addNewRole<T extends IRole>(
   }
 }
 
+/**
+ * @description
+ * @author Nathan Goldsborough
+ * @export
+ * @template T
+ * @param guild - The server to create the roles in
+ * @param model - The mongo db model to get the roles from
+ * @return {*}
+ */
 export async function createRoles<T extends IRole>(
   guild: Guild,
   model: Model<T>
@@ -98,58 +154,91 @@ export async function createRoles<T extends IRole>(
 
   for (let index = 0; index < role_docs.length; index++) {
     const role_doc = role_docs[index];
-    if (
-      guild.roles.cache.find((r) => r.name === role_doc.ROLE_NAME) === undefined
-    ) {
-      // Create the role
+    const clean_role_name = cleanRoleString(role_doc.ROLE_NAME);
+    const found_role = checkForRole(guild, clean_role_name, role_doc.ROLE_ID);
+
+    if (found_role === undefined) {
       const role = await guild.roles.create({
-        name: cleanRoleString(role_doc.ROLE_NAME),
+        name: clean_role_name,
       });
+
+      // save role id to database
       role_doc.ROLE_ID = role.id;
       await role_doc.save();
 
       // Print the role id to the console
       console.log(chalk.yellow(`Created role: ${role.name}\tid: ${role?.id}`));
     } else {
-      // If the role already exists, print the id to the console
-      const role = guild.roles.cache.find((r) => r.name === role_doc.ROLE_NAME);
-      if (role === undefined) {
-        continue;
-      }
-      const id = role.id;
-      role_doc.ROLE_ID = id;
+      // If the role already exists, update it to match the db then print the id to the console
+      role_doc.ROLE_ID = found_role.id;
+      role_doc.ROLE_NAME = found_role.name;
       await role_doc.save();
 
-      console.log(chalk.yellow(`Role exists: ${role.name}\tid: ${id}`));
+      console.log(
+        chalk.yellow(`Role exists: ${found_role.name}\tid: ${found_role.id}`)
+      );
     }
   }
 }
+/**
+ * @description - Checks if a role exists in the guild first by id, then by name
+ * @author John Schiltz
+ * @export
+ * @param guild
+ * @param role_name
+ * @param role_id
+ * @return - The role if it exists, undefined if it doesn't
+ */
+export function checkForRole(
+  guild: Guild,
+  role_name?: string,
+  role_id?: string
+) {
+  if (role_id !== undefined) {
+    const found_role = guild.channels.cache.find((role) => {
+      return role.id === role_id;
+    });
+    if (found_role !== undefined) {
+      return found_role;
+    }
+  }
+  if (role_name !== undefined) {
+    const found_role = guild.channels.cache.find((role) => {
+      return role.name === role_name;
+    });
+    if (found_role !== undefined) {
+      return found_role;
+    }
+  }
+  return undefined;
+}
 
+/**
+ * @description Check if all roles in database exist for a server and print if they do not
+ * @author Nathan Goldsborough
+ * @export
+ * @param guild Server to check roles for
+ * @return {*} true if all roles exist, false if they do not
+ */
 export async function checkForRoles(guild: Guild): Promise<boolean> {
-  // Check if all roles exist in a guild
-  // Return true if they do, false if they don't
-
-  const collection: boolean[] = [];
-
-  for (const group of await dbQuery()) {
-    for (const element of group) {
-      const name = guild.roles.cache.find((r) => r.name === element.ROLE_NAME);
-      const id = guild.roles.cache.find((r) => r.id === element.ROLE_ID);
+  let foundAllRoles = true;
+  for (const roleGroups of await getAllRolesFromDB()) {
+    for (const role of roleGroups) {
+      const name = guild.roles.cache.find((r) => r.name === role.ROLE_NAME);
+      const id = guild.roles.cache.find((r) => r.id === role.ROLE_ID);
 
       if (name === undefined && id === undefined) {
+        foundAllRoles = false;
         console.log(
           chalk.red.bold(
-            `Role ${element.ROLE_NAME} does not exist in ${guild.name}, Please run the /createRoles command in that server.`
+            `Role ${role.ROLE_NAME} does not exist in ${guild.name}, Please run the /createRoles command in that server.`
           )
         );
-        collection.push(false);
       }
     }
   }
-  if (collection.includes(false)) {
-    return false;
-  } else {
+  if (foundAllRoles) {
     console.log(chalk.yellow.bold(`All roles in list exist in ${guild.name}`));
-    return true;
   }
+  return foundAllRoles;
 }
