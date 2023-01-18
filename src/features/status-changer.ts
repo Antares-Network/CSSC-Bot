@@ -4,9 +4,9 @@ export default (client: Client) => {
   const statusOptions = [
     `/help | Ping: ${client.ws.ping}ms`,
     `V.${process.env.VERSION}`,
-    `status.playantares.com`,
-    `playantares.com/github`,
-    `status.playantares.com`,
+    `status.antaresnetwork.com`,
+    `antaresnetwork.com/github`,
+    `status.antaresnetwork.com`,
     `Antares Network Server Hosting`,
     "Go to #roles!",
     "Hello! I'm CSSC-Bot",

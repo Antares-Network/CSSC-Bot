@@ -21,7 +21,7 @@ export default {
       .setDescription("Select the option with your current occupation at UWM.")
       .setFooter({
         text: `Delivered in: ${client.ws.ping}ms | CSSC-Bot | ${process.env.VERSION}`,
-        iconURL: "https://playantares.com/resources/CSSC-bot/icon.jpg",
+        iconURL: "https://antaresnetwork.com/resources/CSSC-bot/icon.jpg",
       });
 
     // Create row one of the buttons for the poll
