@@ -62,7 +62,7 @@ export default {
     );
     console.log(`Channel: ${cs_category}`);
 
-    while (cs_category != undefined && cs_category.type == "GUILD_CATEGORY") {
+    while (cs_category !== undefined && cs_category.type === "GUILD_CATEGORY") {
       const children = Array.from(cs_category.children.values());
       for (let index = 0; index < children.length; index++) {
         const match = courses.find((course) => {
