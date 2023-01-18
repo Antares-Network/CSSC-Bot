@@ -1,5 +1,3 @@
-import { Client, MessageEmbed } from "discord.js";
-
 import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import { classModel } from "../../models/classModel";
@@ -7,39 +5,13 @@ import {
   checkForChannel,
   cleanChannelString,
   createTextChannel,
-  findCategory,
+  getCategory,
   moveChannel,
   concatCategoryName,
 } from "../../utils/channels";
-
-function create_default_embed(
-  client: Client,
-  title: string,
-  description: string
-) {
-  const color = "#0099ff";
-  const thumbnail =
-    "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";
-  const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
-  const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
-
-  // Embed construction
-  const embed = new MessageEmbed()
-    .setColor(color)
-    .setTitle(title)
-    .setThumbnail(thumbnail)
-    .setDescription(description)
-    .setFooter({ text: footer, iconURL: footerIcon });
-  return embed;
-}
-
-function cleanRoleString(role_name: string): string {
-  const clean_role_name: string = role_name
-    .toLowerCase()
-    .replace(/[`~!@#$%^&*))|+=?;:'",.<>{}[\]\\/]/gi, "")
-    .replace(/[ (]/gi, "-");
-  return clean_role_name;
-}
+import { create_default_embed } from "../../utils/embeds";
+import { cleanRoleString } from "../../utils/roles";
+import { getCourseName, getTopic } from "../../utils/channels";
 
 export default {
   name: "csCreateChannels",
@@ -59,12 +31,12 @@ export default {
 
     await msgInt.deferReply({ ephemeral: true });
 
-    const courses = await classModel.find({}).sort({ CODE: 1 });
+    const courses = await classModel.find({});
 
     //create an array of the courses with cleaned names
     const cleaned_courses: string[] = [];
     for (let index = 0; index < courses.length; index++) {
-      cleaned_courses.push(cleanChannelString(courses[index].CODE));
+      cleaned_courses.push(cleanChannelString(getCourseName(courses[index])));
     }
 
     // for (let index = 0; index < courses.length; index++) {
@@ -83,6 +55,7 @@ export default {
       `category name: ${concatCategoryName(category_name, category_number)}`
     );
     //Move classes no longer in the db to cs_past_category_name
+
     let cs_category = checkForChannel(
       msgInt.guild,
       concatCategoryName(category_name, category_number)
@@ -92,10 +65,13 @@ export default {
     while (cs_category != undefined && cs_category.type == "GUILD_CATEGORY") {
       const children = Array.from(cs_category.children.values());
       for (let index = 0; index < children.length; index++) {
-        const match = cleaned_courses.find((course) => {
-          return course === children[index].name;
+        const match = courses.find((course) => {
+          return course.CHANNEL_ID === children[index].id;
         });
         if (match !== undefined) {
+          console.log(
+            `Channel ${children[index]}'s COURSE_ID matches ${match.NAME}`
+          );
           continue;
         }
         console.log(`Moving: ${children[index]} to: ${cs_past_category_name}`);
@@ -114,11 +90,12 @@ export default {
       // Iterate through courses in db
       const channel = checkForChannel(
         msgInt.guild,
-        cleanChannelString(courses[index].CODE)
+        cleanChannelString(getCourseName(courses[index])),
+        courses[index].CHANNEL_ID
       );
 
       let category = await (
-        await findCategory(
+        await getCategory(
           msgInt.guild,
           concatCategoryName(category_name, category_number)
         )
@@ -128,7 +105,7 @@ export default {
       if (category.children.size >= max_category_size - 1) {
         ++category_number;
         category = await (
-          await findCategory(
+          await getCategory(
             msgInt.guild,
             concatCategoryName(category_name, category_number)
           )
@@ -151,8 +128,8 @@ export default {
       if (channel === undefined || channel.type !== "GUILD_TEXT") {
         const new_channel = await createTextChannel(
           msgInt.guild,
-          cleanChannelString(courses[index].CODE),
-          courses[index].INFO,
+          getCourseName(courses[index]),
+          getTopic(courses[index]),
           category
         );
 
@@ -166,7 +143,7 @@ export default {
         const found_role = msgInt.guild.roles.cache.find((role) => {
           return (
             cleanRoleString(role.name) ===
-            cleanChannelString(courses[index].CODE)
+            cleanChannelString(getCourseName(courses[index]))
           );
         });
         if (found_role !== undefined) {
@@ -199,7 +176,7 @@ export default {
         const found_role = msgInt.guild.roles.cache.find((role) => {
           return (
             cleanRoleString(role.name) ===
-            cleanChannelString(courses[index].CODE)
+            cleanChannelString(getCourseName(courses[index]))
           );
         });
         if (found_role !== undefined) {

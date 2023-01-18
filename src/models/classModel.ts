@@ -3,24 +3,26 @@ import { IRole } from "../utils/roles";
 
 export interface IClass extends IRole {
   id: string;
-  CODE: string;
+  NAME: string;
   TITLE: string;
   INFO: string;
-  CHANNEL_NAME: string;
+  DUPE: boolean;
+  ACTIVE: boolean;
+  ROLE_NAME: string;
+  ROLE_ID: string;
   CHANNEL_ID: string;
-  UUID: string;
 }
 
 const ClassSchema = new Schema({
   id: { type: String },
-  CODE: { type: String, required: true },
+  NAME: { type: String, required: true },
   TITLE: { type: String, required: true },
   INFO: { type: String, required: true },
+  DUPE: { type: Boolean, required: true },
+  ACTIVE: { type: Boolean, required: true },
   ROLE_NAME: { type: String, required: true },
   ROLE_ID: { type: String, required: true },
-  CHANNEL_NAME: { type: String },
   CHANNEL_ID: { type: String },
-  UUID: { type: String, default: "remove" },
 });
 
 const name = "class";

@@ -8,5 +8,4 @@ d.py/
 # Ignore specific dev commands not allowed in production
 commands/owner/deleteChannels.ts
 commands/owner/deleteRoles.ts
-
 docs/

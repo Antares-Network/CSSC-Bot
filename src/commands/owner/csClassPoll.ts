@@ -7,10 +7,19 @@ import {
 import chalk from "chalk";
 import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
-import { checkForRoles } from "../../utils/roles";
+import { checkForRoles, cleanRoleString } from "../../utils/roles";
 import { sleep } from "../../utils/sleep";
+import { getCourseName } from "../../utils/channels";
 
 // Splits any size list into lists of at most `max_list_len`
+/**
+ * @description - Splits a list into lists of at most `max_list_len` elements
+ * @author John Schiltz
+ * @template T
+ * @param list - The list to split
+ * @param max_list_len - The maximum length of each list
+ * @return {*}
+ */
 function split_list<T>(list: T[], max_list_len: number): T[][] {
   const class_chunks: T[][] = [];
   for (let i = 0; i < list.length; i += max_list_len) {
@@ -19,11 +28,17 @@ function split_list<T>(list: T[], max_list_len: number): T[][] {
   return class_chunks;
 }
 
-// consumes a Class and returns Message Selec tOption data
+/**
+ * @description - Creates a MessageSelectOptionData object from a class object
+ * @author John Schiltz
+ * @param _class - The class to create the option from
+ * @return {*}
+ */
 function create_option_from_class(_class: IClass): MessageSelectOptionData {
+  const clean_name = cleanRoleString(getCourseName(_class));
   return {
-    label: _class.CODE,
-    value: _class.CODE,
+    label: clean_name,
+    value: clean_name,
     description: _class.TITLE,
   };
 }
@@ -49,7 +64,7 @@ export default {
       return;
     }
 
-    const classes = await classModel.find({}).sort({ CODE: 1 });
+    const classes = await classModel.find({}).sort({ NAME: 1 });
     const class_chunks = split_list(classes, 25);
 
     const rows: MessageActionRow[] = [];
@@ -80,7 +95,7 @@ export default {
           )
           .setFooter({
             text: `Delivered in: ${client.ws.ping}ms | CSSC-Bot | ${process.env.VERSION}`,
-            iconURL: "https://playantares.com/resources/CSSC-bot/icon.jpg",
+            iconURL: "https://antaresnetwork.com/resources/CSSC-bot/icon.jpg",
           });
 
         msgInt.reply({ embeds: [infoEmbed], components: row_chunks[index] });

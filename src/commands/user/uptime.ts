@@ -24,7 +24,7 @@ export default {
     const title = "Bot Uptime";
     const description = `I have been online for ${days}d ${hours}h ${minutes}m ${seconds}s`;
     const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
-    const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
+    const footerIcon = "https://antaresnetwork.com/resources/CSSC-bot/icon.jpg";
 
     // Embed construction
     const Embed = new MessageEmbed()
