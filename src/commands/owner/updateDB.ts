@@ -4,12 +4,23 @@ import chalk from "chalk";
 import axios from "axios";
 import { classModel } from "../../models/classModel";
 
+/**
+ * @description
+ * @author Nathen Goldsborough
+ * @interface course
+ */
 interface course {
 	code: string;
 	title: string;
 	description: string;
 }
 
+/**
+ * @description - Gets all courses from the course catalog api
+ * @author Nathen Goldsborough
+ * @param srcdb
+ * @return - the response data (results field)
+ */
 async function getCourses(srcdb: string) {
 	const body = encodeURIComponent(`{"other":{"srcdb":"${srcdb}"},"criteria":[{"field":"subject","value":"COMPSCI"}]}`);
 	const config = {
@@ -24,6 +35,13 @@ async function getCourses(srcdb: string) {
 	return response.data.results;
 }
 
+/**
+ * @description - Gets the course description from the course catalog api
+ * @author Nathen Goldsborough
+ * @param course - the course to get the description for
+ * @param srcdb - the semester id to get the description for
+ * @return - the course description returned from the api call
+ */
 async function getDescription(course: any, srcdb: string) {
 	const code = course.code;
 	const crn = course.crn;
@@ -40,6 +58,12 @@ async function getDescription(course: any, srcdb: string) {
 	return result.data.description;
 }
 
+/**
+ * @description - Gets all course data from the course catalog api
+ * @author Nathen Goldsborough
+ * @param srcdb - the semester id to get the courses for
+ * @return - Array of course objects
+ */
 async function getCourseInfo(srcdb: string) {
 	const courses = await getCourses(srcdb);
 	let info: course[] = [];
