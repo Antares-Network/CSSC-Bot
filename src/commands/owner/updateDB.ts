@@ -85,7 +85,7 @@ async function getCourseInfo(srcdb: string) {
   return await info;
 }
 export default {
-  name: "getCsClasses",
+  name: "updatedb",
   category: "owner",
   description: "Update the database with new classes",
   slash: true,
