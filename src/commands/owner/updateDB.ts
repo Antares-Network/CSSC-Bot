@@ -46,7 +46,7 @@ async function getCourses(srcdb: string) {
  * @param srcdb - the semester id to get the description for
  * @return - the course description returned from the api call
  */
-async function getDescription(course: any, srcdb: string) {
+async function getDescription(course: any, srcdb: string) { // skipcq: JS-0323
   const code = course.code;
   const crn = course.crn;
   const body = encodeURIComponent(
@@ -70,12 +70,12 @@ async function getDescription(course: any, srcdb: string) {
  * @param srcdb - the semester id to get the courses for
  * @return - Array of course objects
  */
-async function getCoursesWithDescription(srcdb: string) {
+async function getCoursesWithDescription(srcdb: string) { 
   const courses = await getCourses(srcdb);
-  let info: course[] = [];
+  const info: course[] = [];
   for (const course of courses) {
     const description = await getDescription(course, srcdb);
-    let entry: course = {
+    const entry: course = {
       code: cleanCourseCode(course.code),
       title: course.title,
       description: removeHTML(description),
@@ -91,7 +91,7 @@ export default {
   slash: true,
   expectedArgs: "<Semester>",
   minArgs: 1,
-  permissions: ["MANAGE_MESSAGES", "MANAGE_GUILD"],
+  permissions: ["MANAGE_GUILD", "MANAGE_CHANNELS","MANAGE_ROLES"],
   guildOnly: true,
   ownerOnly: true,
   options: [
@@ -117,20 +117,20 @@ export default {
   callback: async ({ interaction }) => {
     interaction.deferReply(); // Defer the reply until all entries have been created or updated
     const srcdb = interaction.options.getString("semester");
-    let current_courses = await classModel.find({});
-    let new_courses = await getCoursesWithDescription(srcdb!);
+    const current_courses = await classModel.find({});
+    const new_courses = await getCoursesWithDescription(srcdb!); // skipcq: JS-0339
 
     // Set all current entries to inactive so when we update the db we can know the ones that are no longer active. they will get moved to the PAST CLASSES category
     current_courses.forEach((course) => {
       course.ACTIVE = false;
     });
 
-    let courses_to_save: (Document<unknown, any, IClass> &
-      IClass & { _id: Types.ObjectId })[] = [];
+    const courses_to_save: (Document<unknown, any, IClass> & // skipcq: JS-0323
+      IClass & { _id: Types.ObjectId })[] = []; 
 
     // Loop through all the new classes info and update current entries or create new ones
     for (const new_course of new_courses) {
-      let found_courses = await classModel.find({ NAME: new_course.code });
+      const found_courses = await classModel.find({ NAME: new_course.code });
       if (found_courses === undefined || found_courses.length === 0) {
         const newClass = new classModel({
           NAME: new_course.code,
@@ -165,8 +165,13 @@ export default {
       }
     }
 
-    await classModel.bulkSave(courses_to_save);
-    await classModel.bulkSave(current_courses);
+    await classModel.bulkSave(courses_to_save).then(async () => {
+      await classModel.bulkSave(current_courses).then(() => {
+        interaction.editReply({ content: "Database updated!" }); // Can't be ephemeral because the interaction is deferred and deferred edits can't be ephemeral
+      });
+    });
+      
+    
     //TODO: Reply to interaction when all classes are updated
 
     // Log the command usage
