@@ -121,10 +121,11 @@ export default {
     let new_courses = await getCoursesWithDescription(srcdb!);
 
     // Set all current entries to inactive so when we update the db we can know the ones that are no longer active. they will get moved to the PAST CLASSES category
-    for (const current_course of current_courses) {
-      current_course.ACTIVE = false;
-      await current_course.save();
-    }
+    current_courses.forEach((course) => {
+      course.ACTIVE = false;
+    });
+    await classModel.bulkSave(current_courses);
+
     let courses_to_save: (Document<unknown, any, IClass> &
       IClass & { _id: Types.ObjectId })[] = [];
 
