@@ -142,7 +142,7 @@ export default {
         courses_to_save.push(newClass);
       } else {
         let found_dupe = false;
-        const multiple_results = found_courses.length > 1 ? true : false;
+        const multiple_results = found_courses.length > 1 ? true : false; // If there are multiple results for a class then it is a duplicate
         for (const found_course of found_courses) {
           found_course.DUPE = multiple_results;
           if (found_course.TITLE === new_course.title) {
