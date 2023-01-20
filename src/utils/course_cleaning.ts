@@ -7,7 +7,7 @@ const shorteningMap = new Map([["compsci", "cs"]]);
  * @param course_code - the course code to clean
  * @return {*} - the cleaned course code
  */
-export function cleanCourseCode(course_code: string) {
+export function cleanCourseCode(course_code: string): string {
   let clean_course_code = course_code.toLowerCase();
   shorteningMap.forEach((value, key) => {
     clean_course_code = clean_course_code.replace(key, value);
