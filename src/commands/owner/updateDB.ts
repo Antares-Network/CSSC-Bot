@@ -124,7 +124,6 @@ export default {
     current_courses.forEach((course) => {
       course.ACTIVE = false;
     });
-    await classModel.bulkSave(current_courses);
 
     let courses_to_save: (Document<unknown, any, IClass> &
       IClass & { _id: Types.ObjectId })[] = [];
@@ -152,7 +151,6 @@ export default {
             found_course.INFO = new_course.description;
             found_dupe = true;
           }
-          courses_to_save.push(found_course);
         }
         if (found_dupe === false) {
           const newClass = new classModel({
@@ -168,6 +166,7 @@ export default {
     }
 
     await classModel.bulkSave(courses_to_save);
+    await classModel.bulkSave(current_courses);
     //TODO: Reply to interaction when all classes are updated
 
     // Log the command usage
