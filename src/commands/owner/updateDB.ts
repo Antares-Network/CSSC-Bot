@@ -4,7 +4,11 @@ import chalk from "chalk";
 import axios from "axios";
 import { classModel, IClass } from "../../models/classModel";
 import { Types, Document } from "mongoose";
-import { cleanCourseCode, getCourseName, removeHTML } from "../../utils/course_cleaning";
+import {
+  cleanCourseCode,
+  getCourseName,
+  removeHTML,
+} from "../../utils/course_cleaning";
 import { cleanRoleString } from "../../utils/roles";
 
 /**
@@ -141,7 +145,7 @@ export default {
           ACTIVE: true,
           DUPE: false,
         });
-        newClass.ROLE_NAME = cleanRoleString(getCourseName(newClass))
+        newClass.ROLE_NAME = cleanRoleString(getCourseName(newClass));
         courses_to_save.push(newClass);
       } else {
         let found_dupe = false;

@@ -48,4 +48,3 @@ export function getCourseName(course: IClass) {
 export function cleanCompSciTitle(s: string): string {
   return s.replace(/(?:advanced )?topics in computer science:/gim, "").trim();
 }
-

@@ -8,7 +8,7 @@ import {
   getCategory,
   moveChannel,
   concatCategoryName,
-  getTopic
+  getTopic,
 } from "../../utils/channels";
 import { create_default_embed } from "../../utils/embeds";
 import { cleanRoleString } from "../../utils/roles";

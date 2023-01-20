@@ -29,7 +29,6 @@ export function getTopic(course: IClass): string {
   return `${course.TITLE} | ${course.INFO}`.slice(0, 1024);
 }
 
-
 /**
  * @description - Checks if a channel exists in the guild first by id, then by name
  * @author John Schiltz

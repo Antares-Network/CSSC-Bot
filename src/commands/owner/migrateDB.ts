@@ -3,12 +3,13 @@ import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
 import { create_default_embed } from "../../utils/embeds";
 import { Schema, Types, Document } from "mongoose";
-import {
-  cleanChannelString,
-  getTopic,
-} from "../../utils/channels";
+import { cleanChannelString, getTopic } from "../../utils/channels";
 import { cleanRoleString } from "../../utils/roles";
-import { getCourseName, cleanCompSciTitle, cleanCourseCode } from "../../utils/course_cleaning";
+import {
+  getCourseName,
+  cleanCompSciTitle,
+  cleanCourseCode,
+} from "../../utils/course_cleaning";
 import Bottleneck from "bottleneck";
 
 function isDupe(name: string): number {
