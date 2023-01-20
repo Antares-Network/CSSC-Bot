@@ -1,12 +1,27 @@
-const shorteningMap = new Map([["computer science", "cs"]]);
-export function cleanCourseCode(s: string) {
-  let ret_str = s.toLowerCase();
+const shorteningMap = new Map([["compsci", "cs"]]);
+
+/**
+ * @description - Cleans a course code by removing spaces and replacing matches in the shorteningMap
+ * @author John Schiltz
+ * @export
+ * @param course_code - the course code to clean
+ * @return {*} - the cleaned course code
+ */
+export function cleanCourseCode(course_code: string) {
+  let clean_course_code = course_code.toLowerCase();
   shorteningMap.forEach((value, key) => {
-    ret_str = ret_str.replace(key, value);
+    clean_course_code = clean_course_code.replace(key, value);
   });
-  return ret_str.trim();
+  return clean_course_code.trim();
 }
 
+/**
+ * @description - Removes all html tags from a string and adds spaces after periods
+ * @author Nathen Goldsborough
+ * @export
+ * @param s
+ * @return {*}
+ */
 export function removeHTML(s: string): string {
-  return s.replace(/<\/?[^>]+(>|$)/g, "").replace(".", ". "); // cleans all html tags and adds spaces after periods
+  return s.replace(/<\/?[^>]+(>|$)/g, "").replace(".", ". ");
 }
