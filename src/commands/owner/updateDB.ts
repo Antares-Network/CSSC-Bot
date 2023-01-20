@@ -139,7 +139,15 @@ export default {
           .replace(".", ". "); // cleans all html tags and adds spaces after periods
         await currentCourse.save();
       } else {
-        //TODO: Create new class db entry. Need to create channel and role and get name/id's to save to db
+        const newClass = new classModel({
+          NAME: name,
+          TITLE: entry.title,
+          INFO: entry.description
+            .replace(/<\/?[^>]+(>|$)/g, "")
+            .replace(".", ". "), // cleans all html tags and adds spaces after periods
+          ACTIVE: true,
+        });
+        await newClass.save(); // ROLE_NAME, ROLE_ID, CHANNEL_ID, DUPE will be added later by using createRoles, csCreateChannels, and migrateDB
       }
     }
 
