@@ -2,7 +2,9 @@ import { ICommand } from "wokcommands";
 import DiscordJS from "discord.js";
 import chalk from "chalk";
 import axios from "axios";
-import { classModel } from "../../models/classModel";
+import { classModel, IClass } from "../../models/classModel";
+import { Types, Document } from "mongoose";
+import { cleanCourseCode, removeHTML } from "../../utils/course_cleaning";
 
 /**
  * @description
@@ -68,21 +70,19 @@ async function getDescription(course: any, srcdb: string) {
  * @param srcdb - the semester id to get the courses for
  * @return - Array of course objects
  */
-async function getCourseInfo(srcdb: string) {
+async function getCoursesWithDescription(srcdb: string) {
   const courses = await getCourses(srcdb);
   let info: course[] = [];
   for (const course of courses) {
     const description = await getDescription(course, srcdb);
     let entry: course = {
-      code: course.code,
+      code: cleanCourseCode(course.code),
       title: course.title,
-      description: description
-        .replace(/<\/?[^>]+(>|$)/g, "")
-        .replace(".", ". "), // cleans all html tags and adds spaces after periods
+      description: removeHTML(description),
     };
     info.push(entry);
   }
-  return await info;
+  return info;
 }
 export default {
   name: "updatedb",
@@ -117,40 +117,56 @@ export default {
   callback: async ({ interaction }) => {
     interaction.deferReply(); // Defer the reply until all entries have been created or updated
     const srcdb = interaction.options.getString("semester");
-    let currentCourses = await classModel.find({});
-    let info = await getCourseInfo(srcdb!);
+    let current_courses = await classModel.find({});
+    let new_courses = await getCoursesWithDescription(srcdb!);
 
     // Set all current entries to inactive so when we update the db we can know the ones that are no longer active. they will get moved to the PAST CLASSES category
-    for (const course of currentCourses) {
-      course.ACTIVE = false;
-      await course.save();
+    for (const current_course of current_courses) {
+      current_course.ACTIVE = false;
+      await current_course.save();
     }
+    let courses_to_save: (Document<unknown, any, IClass> &
+      IClass & { _id: Types.ObjectId })[] = [];
 
     // Loop through all the new classes info and update current entries or create new ones
-    for (const entry of info) {
-      const name = entry.code.toLowerCase().replace("compsci ", "cs").trim();
-      let currentCourse = await classModel.findOne({ NAME: name });
-      if (currentCourse) {
-        currentCourse.ACTIVE = true;
-        currentCourse.NAME = name;
-        currentCourse.TITLE = entry.title;
-        currentCourse.INFO = entry.description
-          .replace(/<\/?[^>]+(>|$)/g, "")
-          .replace(".", ". "); // cleans all html tags and adds spaces after periods
-        await currentCourse.save();
-      } else {
+    for (const new_course of new_courses) {
+      let found_courses = await classModel.find({ NAME: new_course.code });
+      if (found_courses === undefined || found_courses.length === 0) {
         const newClass = new classModel({
-          NAME: name,
-          TITLE: entry.title,
-          INFO: entry.description
-            .replace(/<\/?[^>]+(>|$)/g, "")
-            .replace(".", ". "), // cleans all html tags and adds spaces after periods
+          NAME: new_course.code,
+          TITLE: new_course.title,
+          INFO: new_course.description,
           ACTIVE: true,
+          DUPE: false,
         });
-        await newClass.save(); // ROLE_NAME, ROLE_ID, CHANNEL_ID, DUPE will be added later by using createRoles, csCreateChannels, and migrateDB
+        courses_to_save.push(newClass);
+      } else {
+        let found_dupe = false;
+        const multiple_results = found_courses.length > 1 ? true : false;
+        for (const found_course of found_courses) {
+          found_course.DUPE = multiple_results;
+          if (found_course.TITLE === new_course.title) {
+            found_course.ACTIVE = true;
+            found_course.NAME = new_course.code;
+            found_course.INFO = new_course.description;
+            found_dupe = true;
+          }
+          courses_to_save.push(found_course);
+        }
+        if (found_dupe === false) {
+          const newClass = new classModel({
+            NAME: new_course.code,
+            TITLE: new_course.title,
+            INFO: new_course.description,
+            ACTIVE: true,
+            DUPE: multiple_results,
+          });
+          courses_to_save.push(newClass);
+        }
       }
     }
 
+    await classModel.bulkSave(courses_to_save);
     //TODO: Reply to interaction when all classes are updated
 
     // Log the command usage
