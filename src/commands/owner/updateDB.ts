@@ -46,7 +46,8 @@ async function getCourses(srcdb: string) {
  * @param srcdb - the semester id to get the description for
  * @return - the course description returned from the api call
  */
-async function getDescription(course: any, srcdb: string) { // skipcq: JS-0323
+async function getDescription(course: any, srcdb: string) {
+  // skipcq: JS-0323
   const code = course.code;
   const crn = course.crn;
   const body = encodeURIComponent(
@@ -70,7 +71,7 @@ async function getDescription(course: any, srcdb: string) { // skipcq: JS-0323
  * @param srcdb - the semester id to get the courses for
  * @return - Array of course objects
  */
-async function getCoursesWithDescription(srcdb: string) { 
+async function getCoursesWithDescription(srcdb: string) {
   const courses = await getCourses(srcdb);
   const info: course[] = [];
   for (const course of courses) {
@@ -91,7 +92,7 @@ export default {
   slash: true,
   expectedArgs: "<Semester>",
   minArgs: 1,
-  permissions: ["MANAGE_GUILD", "MANAGE_CHANNELS","MANAGE_ROLES"],
+  permissions: ["MANAGE_GUILD", "MANAGE_CHANNELS", "MANAGE_ROLES"],
   guildOnly: true,
   ownerOnly: true,
   options: [
@@ -126,7 +127,7 @@ export default {
     });
 
     const courses_to_save: (Document<unknown, any, IClass> & // skipcq: JS-0323
-      IClass & { _id: Types.ObjectId })[] = []; 
+      IClass & { _id: Types.ObjectId })[] = [];
 
     // Loop through all the new classes info and update current entries or create new ones
     for (const new_course of new_courses) {
@@ -170,8 +171,7 @@ export default {
         interaction.editReply({ content: "Database updated!" }); // Can't be ephemeral because the interaction is deferred and deferred edits can't be ephemeral
       });
     });
-      
-    
+
     //TODO: Reply to interaction when all classes are updated
 
     // Log the command usage
