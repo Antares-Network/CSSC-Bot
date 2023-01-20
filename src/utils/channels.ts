@@ -28,16 +28,7 @@ export function cleanChannelString(name: string): string {
 export function getTopic(course: IClass): string {
   return `${course.TITLE} | ${course.INFO}`.slice(0, 1024);
 }
-/**
- * @description - Gets the course name, if it is a duplicate, it adds the title to the end of the name
- * @author John Schiltz
- * @export
- * @param course
- * @return - The course name
- */
-export function getCourseName(course: IClass) {
-  return course.DUPE === true ? `${course.NAME}-${course.TITLE}` : course.NAME;
-}
+
 
 /**
  * @description - Checks if a channel exists in the guild first by id, then by name

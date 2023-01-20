@@ -1,3 +1,4 @@
+import { IClass } from "../models/classModel";
 const shorteningMap = new Map([["compsci", "cs"]]);
 
 /**
@@ -25,3 +26,26 @@ export function cleanCourseCode(course_code: string): string {
 export function removeHTML(s: string): string {
   return s.replace(/<\/?[^>]+(>|$)/g, "").replace(".", ". ");
 }
+
+/**
+ * @description - Gets the course name, if it is a duplicate, it adds the title to the end of the name
+ * @author John Schiltz
+ * @export
+ * @param course
+ * @return - The course name
+ */
+export function getCourseName(course: IClass) {
+  return course.DUPE === true ? `${course.NAME}-${course.TITLE}` : course.NAME;
+}
+
+/**
+ * @description - Cleans the course title string for computer science courses by removing the "advanced topics in computer science:" part of the title
+ * @author John Schiltz
+ * @export
+ * @param course
+ * @return - The cleaned string
+ */
+export function cleanCompSciTitle(s: string): string {
+  return s.replace(/(?:advanced )?topics in computer science:/gim, "").trim();
+}
+

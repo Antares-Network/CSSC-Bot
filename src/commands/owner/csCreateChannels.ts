@@ -8,10 +8,11 @@ import {
   getCategory,
   moveChannel,
   concatCategoryName,
+  getTopic
 } from "../../utils/channels";
 import { create_default_embed } from "../../utils/embeds";
 import { cleanRoleString } from "../../utils/roles";
-import { getCourseName, getTopic } from "../../utils/channels";
+import { getCourseName } from "../../utils/course_cleaning";
 
 export default {
   name: "csCreateChannels",

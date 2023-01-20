@@ -2,12 +2,12 @@ import {
   cleanChannelString,
   concatCategoryName,
   moveChannel,
-  getCourseName,
   getTopic,
 } from "../../src/utils/channels";
 import { expect, describe, it, beforeEach } from "@jest/globals";
 import { Guild, GuildChannel } from "discord.js";
 import { IClass } from "../../src/models/classModel";
+import { getCourseName } from "../../src/utils/course_cleaning";
 
 //cleanChannelString
 describe("cleanChannelString", () => {
