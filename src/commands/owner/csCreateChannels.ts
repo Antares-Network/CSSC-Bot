@@ -74,7 +74,9 @@ export default {
           );
           continue;
         }
-        console.log(`Moving: ${children[index]} to: ${cs_past_category_name}`);
+        console.log(
+          `Moving: ${children[index].name} to: ${cs_past_category_name}`
+        );
         await moveChannel(msgInt.guild, children[index], cs_past_category_name);
       }
 
