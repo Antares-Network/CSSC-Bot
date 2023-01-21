@@ -85,7 +85,7 @@ export default {
 
     const row_chunks = split_list(rows, 5);
     for (let index = 0; index < row_chunks.length; index++) {
-      if (index == 0) {
+      if (index === 0) {
         // Define embeds used in this command
         const infoEmbed = new MessageEmbed()
           .setTitle("Choose a role")
