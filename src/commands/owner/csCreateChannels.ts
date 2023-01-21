@@ -31,7 +31,7 @@ export default {
 
     await msgInt.deferReply({ ephemeral: true });
 
-    const courses = await classModel.find({});
+    const courses = await classModel.find({}).sort({ NAME: 1 });
 
     //create an array of the courses with cleaned names
     const cleaned_courses: string[] = [];
