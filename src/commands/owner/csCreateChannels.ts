@@ -70,7 +70,7 @@ export default {
         });
         if (match !== undefined) {
           console.log(
-            `Channel ${children[index]}'s COURSE_ID matches ${match.NAME}`
+            `Channel ${children[index].name}'s COURSE_ID matches ${match.NAME}`
           );
           continue;
         }
