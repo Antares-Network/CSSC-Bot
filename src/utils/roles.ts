@@ -158,26 +158,29 @@ export async function createRoles<T extends IRole>(
     const found_role = checkForRole(guild, clean_role_name, role_doc.ROLE_ID);
 
     if (found_role === undefined) {
+      console.log(
+        chalk.red(
+          `Couldn't find role: ${clean_role_name} with id: ${role_doc.ROLE_ID}`
+        )
+      );
       const role = await guild.roles.create({
         name: clean_role_name,
       });
 
       // save role id to database
       role_doc.ROLE_ID = role.id;
-      await role_doc.save();
-
       // Print the role id to the console
       console.log(chalk.yellow(`Created role: ${role.name}\tid: ${role?.id}`));
     } else {
       // If the role already exists, update it to match the db then print the id to the console
       role_doc.ROLE_ID = found_role.id;
       role_doc.ROLE_NAME = found_role.name;
-      await role_doc.save();
 
       console.log(
-        chalk.yellow(`Role exists: ${found_role.name}\tid: ${found_role.id}`)
+        chalk.green(`Role exists: ${found_role.name}\tid: ${found_role.id}`)
       );
     }
+    await role_doc.save();
   }
 }
 /**
@@ -195,7 +198,7 @@ export function checkForRole(
   role_id?: string
 ) {
   if (role_id !== undefined) {
-    const found_role = guild.channels.cache.find((role) => {
+    const found_role = guild.roles.cache.find((role) => {
       return role.id === role_id;
     });
     if (found_role !== undefined) {
@@ -203,7 +206,7 @@ export function checkForRole(
     }
   }
   if (role_name !== undefined) {
-    const found_role = guild.channels.cache.find((role) => {
+    const found_role = guild.roles.cache.find((role) => {
       return role.name === role_name;
     });
     if (found_role !== undefined) {
