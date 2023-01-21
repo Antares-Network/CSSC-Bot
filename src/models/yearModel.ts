@@ -1,18 +1,17 @@
 import mongoose, { Schema } from "mongoose";
-import { IRole } from "../rolesOps";
+import { IRole } from "../utils/roles";
 
-export interface IStaff extends IRole {
+export interface IYear extends IRole {
   id: string;
   NAME: string;
 }
 
-const StaffSchema = new Schema({
+const YearSchema = new Schema({
   id: { type: String },
   NAME: { type: String, required: true },
   ROLE_NAME: { type: String, required: true },
   ROLE_ID: { type: String, required: true },
 });
 
-const name = "staff";
-
-export const staffModel = mongoose.model<IStaff>(name, StaffSchema, name);
+const name = "year";
+export const yearModel = mongoose.model<IYear>(name, YearSchema, name);

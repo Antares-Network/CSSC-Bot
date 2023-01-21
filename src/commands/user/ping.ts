@@ -1,11 +1,11 @@
-import chalk from "chalk";
 import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
+import chalk from "chalk";
 
 export default {
-  name: "github",
+  name: "ping",
   category: "user",
-  description: "Sends an embed with a link to the github repo for the bot.",
+  description: "Sends the ping time of the bot.",
   slash: true,
   testOnly: false,
   guildOnly: true,
@@ -14,22 +14,18 @@ export default {
   callback: async ({ client, interaction }) => {
     // Embed values
     const color = "#0099ff";
-    const thumbnail =
-      "https://playantares.com/resources/CSSC-bot/cssc-server-icon.png";
-    const title = "Github";
-    const description =
-      "Click here to go to the CSSC-bot repo: \n https://github.com/Antares-Network/CSSC-Bot";
+    const title = "Bot/API Ping";
+    const description = `Ping: 🏓 | Latency is: **${client.ws.ping}**ms.`;
     const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
-    const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
+    const footerIcon = "https://antaresnetwork.com/resources/CSSC-bot/icon.jpg";
 
-    // Embed construction
     const Embed = new MessageEmbed()
       .setColor(color)
       .setTitle(title)
-      .setThumbnail(thumbnail)
       .setDescription(description)
       .setFooter({ text: footer, iconURL: footerIcon });
 
+    // Return the embed
     await interaction.reply({ embeds: [Embed] });
 
     // Log the command usage
@@ -37,7 +33,7 @@ export default {
       chalk.blue(
         `${chalk.green(`[COMMAND]`)} ${chalk.yellow(
           interaction.user.tag
-        )} used the ${chalk.green(`/github`)} command in ${chalk.yellow(
+        )} used the ${chalk.green(`/ping`)} command in ${chalk.yellow(
           interaction.guild?.name
         )}`
       )

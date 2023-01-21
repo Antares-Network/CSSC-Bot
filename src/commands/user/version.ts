@@ -16,7 +16,7 @@ export default {
     const title = "Bot Version";
     const description = `I am running version: ${process.env.VERSION}`;
     const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
-    const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
+    const footerIcon = "https://antaresnetwork.com/resources/CSSC-bot/icon.jpg";
 
     // Embed construction
     const Embed = new MessageEmbed()

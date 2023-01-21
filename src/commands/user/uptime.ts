@@ -1,24 +1,32 @@
+import chalk from "chalk";
 import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
-import chalk from "chalk";
 
 export default {
-  name: "ping",
+  name: "uptime",
   category: "user",
-  description: "Sends the ping time of the bot.",
+  description: "Checks how long the bot has been online.",
   slash: true,
   testOnly: false,
   guildOnly: true,
   requiredPermissions: ["SEND_MESSAGES"],
 
   callback: async ({ client, interaction }) => {
+    // Computed values
+    const time = client.uptime !== null ? client.uptime : 0;
+    const days = Math.floor(time / 86400000);
+    const hours = Math.floor(time / 3600000) % 24;
+    const minutes = Math.floor(time / 60000) % 60;
+    const seconds = Math.floor(time / 1000) % 60;
+
     // Embed values
     const color = "#0099ff";
-    const title = "Bot/API Ping";
-    const description = `Ping: 🏓 | Latency is: **${client.ws.ping}**ms.`;
+    const title = "Bot Uptime";
+    const description = `I have been online for ${days}d ${hours}h ${minutes}m ${seconds}s`;
     const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
-    const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
+    const footerIcon = "https://antaresnetwork.com/resources/CSSC-bot/icon.jpg";
 
+    // Embed construction
     const Embed = new MessageEmbed()
       .setColor(color)
       .setTitle(title)
@@ -33,7 +41,7 @@ export default {
       chalk.blue(
         `${chalk.green(`[COMMAND]`)} ${chalk.yellow(
           interaction.user.tag
-        )} used the ${chalk.green(`/ping`)} command in ${chalk.yellow(
+        )} used the ${chalk.green(`/uptime`)} command in ${chalk.yellow(
           interaction.guild?.name
         )}`
       )

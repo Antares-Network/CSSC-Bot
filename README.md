@@ -118,8 +118,8 @@ The bot should become responsive. You can check for errors in the console.
 - [Discord.js Docs](https://discord.js.org/#/docs)
 - [Discord.js Guide](https://discordjs.guide/)
 - [WOKcommands Docs](https://docs.wornoffkeys.com/)
-- [AntaresBot Codebase](https://playantares.com/antaresbot)
-- [Antares Status Tracking](https://status.playantares.com/)
+- [AntaresBot Codebase](https://antaresnetwork.com/antaresbot)
+- [Antares Status Tracking](https://status.antaresnetwork.com/)
 
 ## Credits
 

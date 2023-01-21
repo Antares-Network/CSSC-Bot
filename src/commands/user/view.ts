@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { GuildMember } from "discord.js";
 import { ICommand } from "wokcommands";
-import { getUsersRoles } from "../../rolesOps";
+import { getUsersRoles } from "../../utils/roles";
 
 export default {
   name: "view",
@@ -25,7 +25,7 @@ export default {
       });
     } else {
       interaction.reply({
-        content: "**Your roles:**\n" + list,
+        content: `**Your roles:**\n${list}`,
         ephemeral: true,
       });
     }

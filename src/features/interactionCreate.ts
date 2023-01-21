@@ -1,6 +1,6 @@
 import { Client, MessageEmbed, GuildMember } from "discord.js";
 import { yearModel } from "../models/yearModel";
-import { removeRole, addNewRole } from "../rolesOps";
+import { removeRole, addNewRole } from "../utils/roles";
 import { staffModel } from "../models/staffModel";
 import { classModel } from "../models/classModel";
 
@@ -12,7 +12,7 @@ export default (client: Client): void => {
     const color = "#0099ff";
     const description = `You selected the ${interaction.values[0]} role.`;
     const footer = `Delivered in: ${client.ws.ping}ms | CSSC-bot | ${process.env.VERSION}`;
-    const footerIcon = "https://playantares.com/resources/CSSC-bot/icon.jpg";
+    const footerIcon = "https://antaresnetwork.com/resources/CSSC-bot/icon.jpg";
     // Constants for all interactions
     const member = interaction.member as GuildMember;
 
@@ -68,6 +68,8 @@ export default (client: Client): void => {
       // Assign the new role to the user
       await addNewRole(member, staffModel, interaction.values[0]);
     } else if (interaction.customId.startsWith("csClassPoll+")) {
+      // Assign the new role to the user
+      await addNewRole(member, classModel, interaction.values[0]);
       // Set the embed title
       const title = "CS Class Poll";
       // Create and send the embed object
@@ -81,9 +83,6 @@ export default (client: Client): void => {
         ],
         ephemeral: true,
       });
-      // Assign the new role to the user
-
-      await addNewRole(member, classModel, interaction.values[0]);
     }
   });
 };

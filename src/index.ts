@@ -4,9 +4,10 @@ import WOKCommands from "wokcommands";
 import path from "path";
 import chalk from "chalk";
 import dotenv from "dotenv";
+import { isDocker } from "./utils/docker";
 
 // import custom modules
-import { checkForRoles, checkIfCollectionsExist } from "./rolesOps";
+import { checkForRoles, checkIfCollectionsExist } from "./utils/roles";
 import { classModel } from "./models/classModel";
 import { staffModel } from "./models/staffModel";
 import { yearModel } from "./models/yearModel";
@@ -27,6 +28,8 @@ const client = new DiscordJs.Client({
 client.on("ready", async () => {
   if (client.user) {
     console.log(chalk.green(`Logged in as ${client.user.tag}!`));
+    if (isDocker())
+      console.log(chalk.blueBright(`Running in a Docker container!`));
     console.log(
       chalk.yellow.bold(`I am running version: ${process.env.VERSION}`)
     );
@@ -34,6 +37,7 @@ client.on("ready", async () => {
     console.log("Checking if all roles exist in servers.");
 
     await Promise.all(
+      // skipcq JS-0042
       client.guilds.cache.map((guild) => {
         checkForRoles(guild);
       })
