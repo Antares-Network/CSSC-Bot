@@ -52,7 +52,9 @@ export default {
     let move_channel_count = 0;
 
     console.log(
-      `category name: ${concatCategoryName(category_name, category_number)}`
+      chalk.blue(
+        `category name: ${concatCategoryName(category_name, category_number)}`
+      )
     );
     //Move classes no longer in the db to cs_past_category_name
 
@@ -60,7 +62,7 @@ export default {
       msgInt.guild,
       concatCategoryName(category_name, category_number)
     );
-    console.log(`Channel: ${cs_category}`);
+    console.log(chalk.blue(`Channel: ${cs_category?.name}`));
 
     while (cs_category !== undefined && cs_category.type === "GUILD_CATEGORY") {
       const children = Array.from(cs_category.children.values());
@@ -70,12 +72,16 @@ export default {
         });
         if (match !== undefined) {
           console.log(
-            `Channel ${children[index].name}'s COURSE_ID matches ${match.NAME}`
+            chalk.green(
+              `Channel ${children[index].name}'s COURSE_ID matches ${match.NAME}`
+            )
           );
           continue;
         }
         console.log(
-          `Moving: ${children[index].name} to: ${cs_past_category_name}`
+          chalk.yellow(
+            `Moving: ${children[index].name} to: ${cs_past_category_name}`
+          )
         );
         await moveChannel(msgInt.guild, children[index], cs_past_category_name);
       }
@@ -113,17 +119,21 @@ export default {
           )
         ).fetch(true);
         console.log(
-          `old category full, new category: ${concatCategoryName(
-            category_name,
-            category_number
-          )} created`
+          chalk.yellow(
+            `old category full, new category: ${concatCategoryName(
+              category_name,
+              category_number
+            )} created`
+          )
         );
       }
       console.log(
-        `Working in category: ${concatCategoryName(
-          category_name,
-          category_number
-        )} size: ${category.children.size}`
+        chalk.yellow(
+          `Working in category: ${concatCategoryName(
+            category_name,
+            category_number
+          )} size: ${category.children.size}`
+        )
       );
 
       // Create new channels
@@ -160,10 +170,12 @@ export default {
       ) {
         // Moves and updates old channels
         console.log(
-          `Moving: ${channel.name} to: ${concatCategoryName(
-            category_name,
-            category_number
-          )}`
+          chalk.yellow(
+            `Moving: ${channel.name} to: ${concatCategoryName(
+              category_name,
+              category_number
+            )}`
+          )
         );
         channel.edit({ topic: courses[index].INFO });
         move_channel_count += await moveChannel(
@@ -208,7 +220,7 @@ export default {
     const embed = create_default_embed(client, title, description);
     await msgInt.editReply({ embeds: [embed] });
 
-    console.log(chalk.yellow(description));
+    console.log(chalk.green(description));
 
     // Log the command usage
     console.log(
