@@ -18,11 +18,11 @@ const ClassSchema = new Schema({
   NAME: { type: String, required: true },
   TITLE: { type: String, required: true },
   INFO: { type: String, required: true },
-  DUPE: { type: Boolean, required: true },
+  DUPE: { type: Boolean, required: false },
   ACTIVE: { type: Boolean, required: true },
-  ROLE_NAME: { type: String, required: true },
-  ROLE_ID: { type: String, required: true },
-  CHANNEL_ID: { type: String },
+  ROLE_NAME: { type: String, required: false },
+  ROLE_ID: { type: String, required: false },
+  CHANNEL_ID: { type: String, required: false },
 });
 
 const name = "class";

@@ -3,20 +3,15 @@ import { ICommand } from "wokcommands";
 import { classModel, IClass } from "../../models/classModel";
 import { create_default_embed } from "../../utils/embeds";
 import { Schema, Types, Document } from "mongoose";
+import { cleanChannelString, getTopic } from "../../utils/channels";
+import { cleanRoleString } from "../../utils/roles";
 import {
   getCourseName,
-  cleanChannelString,
-  getTopic,
-} from "../../utils/channels";
-import { cleanRoleString } from "../../utils/roles";
+  cleanCompSciTitle,
+  cleanCourseCode,
+} from "../../utils/course_cleaning";
 import Bottleneck from "bottleneck";
 
-function cleanCompSciString(s: string): string {
-  return s.toLowerCase().replace("compsci ", "cs").trim();
-}
-function cleanCompSciTitle(s: string): string {
-  return s.replace(/(?:advanced )?topics in computer science:/gim, "").trim();
-}
 function isDupe(name: string): number {
   return name.search(/\(\d\)/);
 }
@@ -76,7 +71,7 @@ export default {
           // Remove the number
           new_name = new_name.slice(0, is_dupe);
         }
-        new_name = cleanCompSciString(new_name);
+        new_name = cleanCourseCode(new_name);
         course.set("NAME", new_name);
         // Remove UUID
         console.log(chalk.yellow(`${code}\t${new_name}`));
