@@ -147,6 +147,7 @@ export default {
         });
         newClass.ROLE_NAME = cleanRoleString(getCourseName(newClass));
         courses_to_save.push(newClass);
+        console.log(chalk.yellow(`Created new class: ${newClass.NAME}`));
       } else {
         let found_dupe = false;
         const multiple_results = found_courses.length > 1 ? true : false; // If there are multiple results for a class then it is a duplicate
@@ -157,6 +158,7 @@ export default {
             found_course.NAME = new_course.code;
             found_course.INFO = new_course.description;
             found_dupe = true;
+            console.log(chalk.green(`Updated class: ${found_course.NAME}`));
           }
         }
         if (found_dupe === false) {
@@ -168,6 +170,7 @@ export default {
             DUPE: multiple_results,
           });
           courses_to_save.push(newClass);
+          console.log(chalk.yellow(`Created new class: ${newClass.NAME}`));
         }
       }
     }
