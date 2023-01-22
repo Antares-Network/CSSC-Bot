@@ -1,5 +1,5 @@
 import { IClass } from "../models/classModel";
-const shorteningMap = new Map([["compsci", "cs"]]);
+const shorteningMap = new Map([["compsci ", "cs"]]);
 
 /**
  * @description - Cleans a course code by removing spaces and replacing matches in the shorteningMap
