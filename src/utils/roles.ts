@@ -227,6 +227,7 @@ export function checkForRole(
   }
   if (role_name !== undefined) {
     const found_role = guild.roles.cache.find((role) => {
+      // console.log(`${role.name} === ${role_name}`); //Uncomment to see what roles are being checked
       return role.name === role_name;
     });
     if (found_role !== undefined) {
