@@ -152,7 +152,7 @@ export async function createRoles<T extends IRole>(
   guild: Guild,
   model: Model<T>
 ): Promise<void> {
-  const role_docs = await model.find({});
+  const role_docs = await model.find({}).sort({ NAME: 1 });
 
   // Bottleneck to 50 calls per second to the discord api
   const limiter = new Bottleneck({ minTime: 25, maxConcurrent: 1 });
