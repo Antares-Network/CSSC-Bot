@@ -27,7 +27,6 @@ export interface IRole {
  */
 export function cleanRoleString(name: string): string {
   const clean_name: string = name
-    .toLowerCase()
     .replace(/[`~!@#$%^&*()|+=?;:'",.<>{}[\]\\/\n]+/gi, "")
     .slice(0, 100);
   return clean_name;
