@@ -4,6 +4,7 @@ import { classModel } from "../models/classModel";
 import { staffModel } from "../models/staffModel";
 import { yearModel } from "../models/yearModel";
 import { Model } from "mongoose";
+import Bottleneck from "bottleneck";
 
 /**
  * @description
@@ -152,6 +153,8 @@ export async function createRoles<T extends IRole>(
 ): Promise<void> {
   const role_docs = await model.find({});
 
+  // Bottleneck to 50 calls per second to the discord api
+  const limiter = new Bottleneck({ minTime: 20, maxConcurrent: 1 });
   for (let index = 0; index < role_docs.length; index++) {
     const role_doc = role_docs[index];
     const clean_role_name = cleanRoleString(role_doc.ROLE_NAME);
@@ -163,14 +166,30 @@ export async function createRoles<T extends IRole>(
           `Couldn't find role: ${clean_role_name} with id: ${role_doc.ROLE_ID}`
         )
       );
-      const role = await guild.roles.create({
-        name: clean_role_name,
-      });
+      const counts = limiter.counts();
+      console.log(counts);
 
-      // save role id to database
-      role_doc.ROLE_ID = role.id;
-      // Print the role id to the console
-      console.log(chalk.yellow(`Created role: ${role.name}\tid: ${role?.id}`));
+      await limiter
+        .schedule({ expiration: 5000, id: "Creating Roles" }, () => {
+          return guild.roles.create({ name: clean_role_name });
+        })
+        .then((role) => {
+          // save role id to database
+          // role_doc.ROLE_ID = role.id; //TODO: enable
+          // Print the role id to the console
+          console.log(
+            chalk.yellow(`Created role: ${role.name}\tid: ${role?.id}`)
+          );
+        })
+        .catch((error) => {
+          if (error instanceof Bottleneck.BottleneckError) {
+            console.log(
+              chalk.red(
+                `Bottleneck error: ${error.message} when creating role ${clean_role_name}`
+              )
+            );
+          }
+        });
     } else {
       // If the role already exists, update it to match the db then print the id to the console
       role_doc.ROLE_ID = found_role.id;
@@ -180,8 +199,9 @@ export async function createRoles<T extends IRole>(
         chalk.green(`Role exists: ${found_role.name}\tid: ${found_role.id}`)
       );
     }
-    await role_doc.save();
   }
+  // model.bulkSave(role_docs); //TODO: enable
+  console.log(chalk.green("Saved roles to database"));
 }
 /**
  * @description - Checks if a role exists in the guild first by id, then by name
