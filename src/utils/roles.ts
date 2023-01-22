@@ -167,7 +167,6 @@ export async function createRoles<T extends IRole>(
           `Couldn't find role: ${clean_role_name} with id: ${role_doc.ROLE_ID}`
         )
       );
-      const counts = limiter.counts();
 
       await limiter
         .schedule({ expiration: 5000, id: "Creating Roles" }, () => {
@@ -176,7 +175,7 @@ export async function createRoles<T extends IRole>(
         })
         .then((role) => {
           // save role id to database
-          // role_doc.ROLE_ID = role.id; //TODO: enable
+          role_doc.ROLE_ID = role.id; //TODO: enable
           // Print the role id to the console
           console.log(
             chalk.yellow(`Created role: ${role.name}\tid: ${role?.id}`)
@@ -191,8 +190,6 @@ export async function createRoles<T extends IRole>(
             );
           }
         });
-
-      console.log(counts);
     } else {
       // If the role already exists, update it to match the db then print the id to the console
       role_doc.ROLE_ID = found_role.id;
@@ -203,7 +200,7 @@ export async function createRoles<T extends IRole>(
       );
     }
   }
-  // model.bulkSave(role_docs); //TODO: enable
+  model.bulkSave(role_docs); //TODO: enable
   console.log(chalk.green("Saved roles to database"));
 }
 /**
