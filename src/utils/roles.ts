@@ -5,6 +5,7 @@ import { staffModel } from "../models/staffModel";
 import { yearModel } from "../models/yearModel";
 import { Model } from "mongoose";
 import Bottleneck from "bottleneck";
+import { sleep } from "./sleep";
 
 /**
  * @description
@@ -154,7 +155,7 @@ export async function createRoles<T extends IRole>(
   const role_docs = await model.find({});
 
   // Bottleneck to 50 calls per second to the discord api
-  const limiter = new Bottleneck({ minTime: 20, maxConcurrent: 1 });
+  const limiter = new Bottleneck({ minTime: 25, maxConcurrent: 1 });
   for (let index = 0; index < role_docs.length; index++) {
     const role_doc = role_docs[index];
     const clean_role_name = cleanRoleString(role_doc.ROLE_NAME);
@@ -167,10 +168,10 @@ export async function createRoles<T extends IRole>(
         )
       );
       const counts = limiter.counts();
-      console.log(counts);
 
       await limiter
         .schedule({ expiration: 5000, id: "Creating Roles" }, () => {
+          console.log(`Creating role: ${clean_role_name}`);
           return guild.roles.create({ name: clean_role_name });
         })
         .then((role) => {
@@ -190,6 +191,8 @@ export async function createRoles<T extends IRole>(
             );
           }
         });
+
+      console.log(counts);
     } else {
       // If the role already exists, update it to match the db then print the id to the console
       role_doc.ROLE_ID = found_role.id;
