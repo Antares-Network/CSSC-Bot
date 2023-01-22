@@ -19,7 +19,7 @@ export interface IRole {
 }
 
 /**
- * @description Clean the role name by removing special characters, replacing whitespace with dashes, and truncating to 100 characters
+ * @description Clean the role name by removing special characters, and truncate to 100 characters
  * @author John Schiltz
  * @export
  * @param name - The role name to clean
@@ -29,7 +29,6 @@ export function cleanRoleString(name: string): string {
   const clean_name: string = name
     .toLowerCase()
     .replace(/[`~!@#$%^&*()|+=?;:'",.<>{}[\]\\/\n]+/gi, "")
-    .replace(/(?:\s[\s-]*|-[\s-]+|-+)/gm, "-")
     .slice(0, 100);
   return clean_name;
 }
