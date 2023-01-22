@@ -35,7 +35,7 @@ export function removeHTML(s: string): string {
  * @return - The course name
  */
 export function getCourseName(course: IClass) {
-  return course.DUPE === true ? `${course.NAME}-${course.TITLE}` : course.NAME;
+  return course.DUPE === true ? `${course.NAME} ${course.TITLE}` : course.NAME;
 }
 
 /**
