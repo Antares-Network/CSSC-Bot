@@ -175,13 +175,9 @@ export default {
       }
     }
 
-    await classModel.bulkSave(courses_to_save).then(async () => {
-      await classModel.bulkSave(current_courses).then(() => {
-        interaction.editReply({ content: "Database updated!" }); // Can't be ephemeral because the interaction is deferred and deferred edits can't be ephemeral
-      });
-    });
-
-    //TODO: Reply to interaction when all classes are updated
+    await classModel.bulkSave(courses_to_save);
+    await classModel.bulkSave(current_courses);
+    interaction.editReply({ content: "Database updated!" }); // Can't be ephemeral because the interaction is deferred and deferred edits can't be ephemeral
 
     // Log the command usage
     console.log(
