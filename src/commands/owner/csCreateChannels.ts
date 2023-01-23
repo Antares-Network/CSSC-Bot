@@ -153,16 +153,18 @@ export default {
         courses[index].save();
 
         // Ping members who have this role
-        const found_role = msgInt.guild.roles.cache.find((role) => {
-          return (
-            cleanRoleString(role.name) ===
-            cleanChannelString(getCourseName(courses[index]))
-          );
-        });
+        const found_role = msgInt.guild.roles.cache.find(
+          (role) => courses[index].ROLE_ID === role.id
+        );
+        // const found_role = courses[index].ROLE_ID
         if (found_role !== undefined) {
           //Ping member
           new_channel.send(
             `Hey! <@&${found_role.id}> here is a channel for you!`
+          );
+        } else {
+          new_channel.send(
+            `Strange, there seems to be no role for this course. Please contact a mod to fix this.`
           );
         }
       } else if (

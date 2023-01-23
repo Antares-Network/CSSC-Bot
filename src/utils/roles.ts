@@ -113,6 +113,7 @@ export async function removeRole<T extends IRole>(
  * @param member - The user to add the role to
  * @param model - The model to get the role from
  * @param name - The name of the role to add as specified in the database
+ *
  */
 export async function addNewRole<T extends IRole>(
   member: GuildMember,
@@ -153,7 +154,7 @@ export async function createRoles<T extends IRole>(
   const role_docs = await model.find({}).sort({ NAME: 1 });
 
   // Bottleneck to 50 calls per second to the discord api
-  const limiter = new Bottleneck({ minTime: 25, maxConcurrent: 1 });
+  const limiter = new Bottleneck({ minTime: 1000 / 50, maxConcurrent: 1 });
   for (let index = 0; index < role_docs.length; index++) {
     const role_doc = role_docs[index];
     const clean_role_name = cleanRoleString(role_doc.ROLE_NAME);
@@ -173,7 +174,7 @@ export async function createRoles<T extends IRole>(
         })
         .then((role) => {
           // save role id to database
-          role_doc.ROLE_ID = role.id; //TODO: enable
+          role_doc.ROLE_ID = role.id;
           // Print the role id to the console
           console.log(
             chalk.yellow(`Created role: ${role.name}\tid: ${role?.id}`)
@@ -189,9 +190,8 @@ export async function createRoles<T extends IRole>(
           }
         });
     } else {
-      // If the role already exists, update it to match the db then print the id to the console
+      // If the role already exists, update the db id
       role_doc.ROLE_ID = found_role.id;
-      role_doc.ROLE_NAME = found_role.name;
 
       console.log(
         chalk.green(`Role exists: ${found_role.name}\tid: ${found_role.id}`)
