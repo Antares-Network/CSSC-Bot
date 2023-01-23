@@ -48,7 +48,7 @@ export default {
     classModel.schema.add(oldSchema);
 
     // Bottleneck to 50 calls per second to the discord api
-    const limiter = new Bottleneck({ minTime: 1000 / 50 });
+    const limiter = new Bottleneck({ minTime: 1000 / 55, maxConcurrent: 1 });
 
     for (let index = 0; index < courses.length; index++) {
       const course = courses[index];

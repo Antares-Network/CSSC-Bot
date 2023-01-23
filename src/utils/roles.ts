@@ -154,7 +154,7 @@ export async function createRoles<T extends IRole>(
   const role_docs = await model.find({}).sort({ NAME: 1 });
 
   // Bottleneck to 50 calls per second to the discord api
-  const limiter = new Bottleneck({ minTime: 1000 / 50, maxConcurrent: 1 });
+  const limiter = new Bottleneck({ minTime: 1000 / 55, maxConcurrent: 1 });
   for (let index = 0; index < role_docs.length; index++) {
     const role_doc = role_docs[index];
     const clean_role_name = cleanRoleString(role_doc.ROLE_NAME);
