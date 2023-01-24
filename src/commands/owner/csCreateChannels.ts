@@ -13,6 +13,7 @@ import {
 import { create_default_embed } from "../../utils/embeds";
 import { cleanRoleString } from "../../utils/roles";
 import { getCourseName } from "../../utils/course_cleaning";
+import { CategoryChannel, GuildBasedChannel } from "discord.js";
 
 export default {
   name: "csCreateChannels",
@@ -57,6 +58,19 @@ export default {
         `category name: ${concatCategoryName(category_name, category_number)}`
       )
     );
+
+    let past_category = msgInt.guild.channels.cache.find((category) => {
+      return (
+        category.name === category_name && category.type === "GUILD_CATEGORY"
+      );
+    });
+    if (
+      past_category !== undefined &&
+      !(past_category instanceof CategoryChannel)
+    ) {
+      past_category = undefined;
+    }
+
     //Move classes no longer in the db to cs_past_category_name
 
     let cs_category = checkForChannel(
@@ -79,14 +93,19 @@ export default {
           );
           continue;
         }
+        if (past_category === undefined) {
+          past_category = await getCategory(
+            msgInt.guild,
+            cs_past_category_name
+          );
+        }
         console.log(
           chalk.yellow(
             `Moving: ${children[index].name} to: ${cs_past_category_name}`
           )
         );
-        await moveChannel(msgInt.guild, children[index], cs_past_category_name);
+        await moveChannel(children[index], past_category);
       }
-
       ++category_number;
       cs_category = checkForChannel(
         msgInt.guild,
