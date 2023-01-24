@@ -9,6 +9,7 @@ import {
   moveChannel,
   concatCategoryName,
   getTopic,
+  findCategory,
 } from "../../utils/channels";
 import { create_default_embed } from "../../utils/embeds";
 import { cleanRoleString } from "../../utils/roles";
@@ -201,9 +202,11 @@ export default {
         );
         channel.edit({ topic: courses[index].INFO });
         move_channel_count += await moveChannel(
-          msgInt.guild,
           channel,
-          concatCategoryName(category_name, category_number)
+          await getCategory(
+            msgInt.guild,
+            concatCategoryName(category_name, category_number)
+          )
         );
 
         courses[index].CHANNEL_ID = channel.id;

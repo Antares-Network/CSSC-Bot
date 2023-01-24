@@ -63,31 +63,6 @@ export function checkForChannel(
 }
 
 /**
- * @description Gets a category from the guild, if it doesn't exist, it creates it
- * @author John Schiltz
- * @export
- * @param guild
- * @param category_name
- * @return - The category channel
- */
-export async function getCategory(guild: Guild, category_name: string) {
-  let found_category = guild.channels.cache.find((category) => {
-    return category.name === category_name;
-  });
-
-  if (
-    found_category === undefined ||
-    found_category.type !== "GUILD_CATEGORY"
-  ) {
-    found_category = await guild.channels.create(category_name, {
-      type: "GUILD_CATEGORY",
-    });
-  }
-
-  return found_category;
-}
-
-/**
  * @description Creates and returns a new text channel
  * @author John Schiltz
  * @param guild
@@ -126,27 +101,24 @@ export async function createTextChannel(
 /**
  * @description - Moves a channel to a category, if it is already in the category, it does nothing
  * @author John Schiltz
- * @param guild
- * @param channel
- * @param category_name
+ * @param channel - The channel to move
+ * @param category - The category to move the channel to
  * @returns 1 if channel was moved, 0 if it was already in the correct category
  */
 export async function moveChannel(
-  guild: Guild,
   channel: GuildChannel,
-  category_name: string
+  category: CategoryChannel
 ): Promise<number> {
   if (
     channel.parent === null ||
     channel.parent === undefined ||
-    channel.parent?.name !== category_name
+    channel.parent !== category
   ) {
-    const category = await getCategory(guild, category_name);
     channel.setParent(category);
 
     console.log(
       chalk.yellow(
-        `Moved channel ${channel.name} from: ${channel.parent?.name} to: ${category_name}`
+        `Moved channel ${channel.name} from: ${channel.parent?.name} to: ${category}`
       )
     );
     return 1;
@@ -169,4 +141,44 @@ export function concatCategoryName(
   return category_number === 0
     ? category_name
     : `${category_name} ${category_number}`;
+}
+
+/**
+ * @description Gets a category from the guild, if it doesn't exist, it creates it
+ * @author John Schiltz
+ * @export
+ * @param guild
+ * @param category_name
+ * @return - The category channel
+ */
+export async function getCategory(guild: Guild, category_name: string) {
+  let found_category = findCategory(guild, category_name);
+
+  if (found_category === undefined) {
+    found_category = await guild.channels.create(category_name, {
+      type: "GUILD_CATEGORY",
+    });
+  }
+
+  return found_category;
+}
+
+/**
+ * @description
+ * @author John Schiltz
+ * @export
+ * @param guild - The guild to search
+ * @param category_name - The name of the category to find
+ * @return {*}
+ */
+export function findCategory(guild: Guild, category_name: string) {
+  let found_category = guild.channels.cache.find((category) => {
+    return (
+      category.name === category_name && category.type === "GUILD_CATEGORY"
+    );
+  });
+  if (!(found_category instanceof CategoryChannel)) {
+    return undefined;
+  }
+  return found_category;
 }
